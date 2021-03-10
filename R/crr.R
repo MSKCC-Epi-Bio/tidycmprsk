@@ -23,11 +23,11 @@ crr.default <- function(x, ...) {
   stop("`crr()` is not defined for a '", class(x)[1], "'.", call. = FALSE)
 }
 
-# XY method - matrix
+# Formula method
 #' @rdname crr
 #' @export
-crr.matrix <- function(x, y, ...) {
-  processed <- hardhat::mold(x, y)
+crr.formula<- function(formula, data, ...) {
+  processed <- hardhat::mold(formula, data)
   crr_bridge(processed)
 }
 
@@ -95,5 +95,7 @@ crr_bridge <- function(processed) {
     blueprint = processed$blueprint
   )
 }
+
+
 
 

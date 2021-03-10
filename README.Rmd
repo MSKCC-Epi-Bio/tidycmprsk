@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ddsjoberg/tidycmprsk/workflows/R-CMD-check/badge.svg)](https://github.com/ddsjoberg/tidycmprsk/actions)
+[![Codecov test coverage](https://codecov.io/gh/ddsjoberg/tidycmprsk/branch/main/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/tidycmprsk?branch=main)
 <!-- badges: end -->
 
 The goal of tidycmprsk is to ...

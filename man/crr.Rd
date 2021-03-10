@@ -4,6 +4,7 @@
 \alias{crr}
 \alias{crr.default}
 \alias{crr.matrix}
+\alias{crr.formula}
 \title{Competing Risks Regression}
 \usage{
 crr(x, ...)
@@ -11,6 +12,8 @@ crr(x, ...)
 \method{crr}{default}(x, ...)
 
 \method{crr}{matrix}(x, y, ...)
+
+\method{crr}{formula}(formula, data, ...)
 }
 \arguments{
 \item{x}{placeholder}
