@@ -2,7 +2,8 @@
 
 S3method(crr,default)
 S3method(crr,formula)
-S3method(crr,matrix)
+S3method(model.matrix,tidycmprsk)
+S3method(print,tidycmprsk)
 export("%>%")
 export(crSurv)
 export(crr)
