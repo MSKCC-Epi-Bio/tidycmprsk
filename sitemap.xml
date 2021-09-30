@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/index.html</loc>
+  </url>
+  <url>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/crSurv.html</loc>
+  </url>
+  <url>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/crr.html</loc>
+  </url>
+  <url>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/tidycmprsk-package.html</loc>
+  </url>
+  <url>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/trial.html</loc>
+  </url>
+</urlset>
