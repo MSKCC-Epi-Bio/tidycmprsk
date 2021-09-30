@@ -26,13 +26,14 @@ crr.default <- function(x, ...) {
 # Formula method
 #' @rdname crr
 #' @export
-crr.formula<- function(formula, data, ...) {
+crr.formula<- function(formula, data, failcode=1, ...) {
   processed <- hardhat::mold(formula, data)
-  crr_bridge(processed)
+  crr_bridge(processed, formula, failcode)
 }
 
+new_crr <- function(coefs, coef_names, formula, tidy, original_fit, data, failcode, blueprint) {
 
-new_crr <- function(coefs, coef_names, tidy, original_fit, blueprint) {
+  # function to create an object
 
   if (!is.numeric(coefs)) {
     stop("`coefs` should be a numeric vector.", call. = FALSE)
@@ -49,16 +50,22 @@ new_crr <- function(coefs, coef_names, tidy, original_fit, blueprint) {
   hardhat::new_model(
     coefs = coefs,
     coef_names = coef_names,
+    formula = formula,
+    failcode = failcode,
     tidy = tidy,
     original_fit = original_fit,
-    blueprint = blueprint,
-    class = "tidycrr"
+    model = data,
+    blueprint = blueprint
+    #class = "tidycrr"
   )
 }
 
-crr_impl <- function(predictors, outcomes) {
+crr_impl <- function(predictors, outcomes, failcode) {
+
+  # function to run crr and summarize with tidy (implementation)
+
   crr_fit <-
-    cmprsk::crr(ftime = outcomes[, 1], fstatus = outcomes[, 2], cov1 = predictors)
+    cmprsk::crr(ftime = outcomes[, 1], fstatus = outcomes[, 2], cov1 = predictors, failcode = failcode)
 
   tidy <-
     summary(crr_fit)$coef %>%
@@ -78,24 +85,56 @@ crr_impl <- function(predictors, outcomes) {
   )
 }
 
-crr_bridge <- function(processed) {
+crr_bridge <- function(processed, formula, failcode) {
+
+  # function to connect object and implementation
 
   # validate_outcomes_are_univariate(processed$outcomes)
 
   predictors <- as.matrix(processed$predictors)
   outcomes <- as.matrix(processed$outcomes)
 
-  fit <- crr_impl(predictors, outcomes)
+  fit <- crr_impl(predictors, outcomes, failcode)
 
-  new_crr(
+  output <- new_crr(
     coefs = fit$coefs,
     coef_names = fit$coef_names,
+    formula = formula,
     tidy = fit$tidy,
     original_fit = fit$original_fit,
+    data = cbind(processed$outcomes,processed$predictors),
+    failcode = failcode,
     blueprint = processed$blueprint
   )
+  class(output) = "tidycmprsk"
+  output
+}
+
+# Print method
+#' @rdname crr
+#' @export
+print.tidycmprsk <- function(object){
+  cat("Call: \n")
+  print(object$formula)
+  cat(paste("Failure type of interest:",object$failcode,"\n"))
+  cat("Fine and Gray's model fit: \n")
+  print(object$tidy)
+  invisible(object)
 }
 
 
+# model.matrix
+#' @rdname crr
+#' @export
+model.matrix.tidycmprsk <- function(object,...){
+  model.matrix(object$formula,object$model)[,-1]
+  # by default there is no intercept term in F&G's model
+}
 
-
+# model.frame
+#' @rdname crr
+#' @export
+model.frame.tidycmprsk <- function(object,...){
+  processed <- hardhat::mold(object::formula, object::data)
+  cbind(processed$outcomes,processed$predictors)
+}

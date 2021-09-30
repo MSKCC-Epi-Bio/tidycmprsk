@@ -3,17 +3,20 @@
 \name{crr}
 \alias{crr}
 \alias{crr.default}
-\alias{crr.matrix}
 \alias{crr.formula}
+\alias{print.tidycmprsk}
+\alias{model.matrix.tidycmprsk}
 \title{Competing Risks Regression}
 \usage{
 crr(x, ...)
 
 \method{crr}{default}(x, ...)
 
-\method{crr}{matrix}(x, y, ...)
+\method{crr}{formula}(formula, data, failcode = 1, ...)
 
-\method{crr}{formula}(formula, data, ...)
+\method{print}{tidycmprsk}(object)
+
+\method{model.matrix}{tidycmprsk}(object, ...)
 }
 \arguments{
 \item{x}{placeholder}
