@@ -6,7 +6,7 @@
 #' @param event vector with a unique code for each failure type and a separate
 #' code for censored observations
 #'
-#' @return
+#' @return Surv object
 #' @export
 #'
 #' @examples

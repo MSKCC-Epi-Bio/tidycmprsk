@@ -4,9 +4,11 @@
 #' @param formula placeholder
 #' @param data placeholder
 #' @param failcode placeholder
+#' @param new_data placeholder
+#' @param object placeholder
 #' @param ... placeholder
 #'
-#' @return
+#' @return tidycrr object
 #' @name crr
 #' @examples
 #' # ADD EXAMPLE!
@@ -118,13 +120,13 @@ crr_bridge <- function(processed, formula, failcode) {
 # Print method
 #' @rdname crr
 #' @export
-print.tidycmprsk <- function(object, ...){
+print.tidycmprsk <- function(x, ...){
   cat("Call: \n")
-  print(object$formula)
-  cat(paste("Failure type of interest:",object$failcode,"\n"))
+  print(x$formula)
+  cat(paste("Failure type of interest:",x$failcode,"\n"))
   cat("Fine and Gray's model fit: \n")
-  print(object$tidy)
-  invisible(object)
+  print(x$tidy)
+  invisible(x)
 }
 
 
@@ -139,8 +141,8 @@ model.matrix.tidycmprsk <- function(object, ...){
 # model.frame
 #' @rdname crr
 #' @export
-model.frame.tidycmprsk <- function(object, ...){
-  processed <- hardhat::mold(object$formula, object$model)
+model.frame.tidycmprsk <- function(formula, ...){
+  processed <- hardhat::mold(formula$formula, formula$model)
   cbind(processed$outcomes,processed$predictors)
 }
 

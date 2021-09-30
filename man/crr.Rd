@@ -17,11 +17,11 @@ crr(x, ...)
 
 \method{crr}{formula}(formula, data, failcode = 1, ...)
 
-\method{print}{tidycmprsk}(object, ...)
+\method{print}{tidycmprsk}(x, ...)
 
 \method{model.matrix}{tidycmprsk}(object, ...)
 
-\method{model.frame}{tidycmprsk}(object, ...)
+\method{model.frame}{tidycmprsk}(formula, ...)
 
 \method{tidy}{tidycmprsk}(object, ...)
 
@@ -37,9 +37,13 @@ crr(x, ...)
 \item{data}{placeholder}
 
 \item{failcode}{placeholder}
+
+\item{object}{placeholder}
+
+\item{new_data}{placeholder}
 }
 \value{
-
+tidycrr object
 }
 \description{
 Competing Risks Regression

@@ -13,7 +13,7 @@ crSurv(time, event)
 code for censored observations}
 }
 \value{
-
+Surv object
 }
 \description{
 I think this fn should also somehow define the event of interest and the
