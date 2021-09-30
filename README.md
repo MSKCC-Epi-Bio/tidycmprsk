@@ -5,25 +5,20 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/ddsjoberg/tidycmprsk/workflows/R-CMD-check/badge.svg)](https://github.com/ddsjoberg/tidycmprsk/actions)
+[![R-CMD-check](https://github.com/MSKCC-Epi-Bio/tidycmprsk/workflows/R-CMD-check/badge.svg)](https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/ddsjoberg/tidycmprsk/branch/main/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/tidycmprsk?branch=main)
 <!-- badges: end -->
 
 The goal of tidycmprsk is to …
 
 ## Installation
 
-You can install the released version of tidycmprsk from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-# install.packages("tidycmprsk")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install the released version of tidycmprsk from GitHub
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ddsjoberg/tidycmprsk")
+devtools::install_github("/MSKCC-Epi-Bio/tidycmprsk")
 ```
 
 ## Example
@@ -32,7 +27,6 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(tidycmprsk)
-## basic example code
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`?
