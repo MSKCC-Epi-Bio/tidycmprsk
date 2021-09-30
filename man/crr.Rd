@@ -25,6 +25,12 @@ crr(x, ...)
 \item{x}{placeholder}
 
 \item{...}{placeholder}
+
+\item{formula}{placeholder}
+
+\item{data}{placeholder}
+
+\item{failcode}{placeholder}
 }
 \value{
 

@@ -1,6 +1,9 @@
 #' Competing Risks Regression
 #'
 #' @param x placeholder
+#' @param formula placeholder
+#' @param data placeholder
+#' @param failcode placeholder
 #' @param ... placeholder
 #'
 #' @return
@@ -113,7 +116,7 @@ crr_bridge <- function(processed, formula, failcode) {
 # Print method
 #' @rdname crr
 #' @export
-print.tidycmprsk <- function(object){
+print.tidycmprsk <- function(object, ...){
   cat("Call: \n")
   print(object$formula)
   cat(paste("Failure type of interest:",object$failcode,"\n"))
@@ -126,16 +129,16 @@ print.tidycmprsk <- function(object){
 # model.matrix
 #' @rdname crr
 #' @export
-model.matrix.tidycmprsk <- function(object,...){
-  model.matrix(object$formula,object$model)[,-1]
+model.matrix.tidycmprsk <- function(object, ...){
+  stats::model.matrix(object$formula,object$model)[,-1]
   # by default there is no intercept term in F&G's model
 }
 
 # model.frame
 #' @rdname crr
 #' @export
-model.frame.tidycmprsk <- function(object,...){
-  processed <- hardhat::mold(object::formula, object::data)
+model.frame.tidycmprsk <- function(object, ...){
+  processed <- hardhat::mold(object$formula, object$data)
   cbind(processed$outcomes,processed$predictors)
 }
 
