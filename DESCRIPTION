@@ -10,6 +10,7 @@ Imports:
     cmprsk,
     dplyr (>= 1.0.3),
     hardhat,
+    rlang,
     survival,
     tibble
 Suggests: 
@@ -21,3 +22,6 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Depends: 
+    R (>= 2.10)
+URL: https://mskcc-epi-bio.github.io/tidycmprsk
