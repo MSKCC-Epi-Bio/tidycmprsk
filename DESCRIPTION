@@ -6,6 +6,9 @@ Authors@R:
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
 License: AGPL (>= 3)
+URL: https://mskcc-epi-bio.github.io/tidycmprsk
+Depends: 
+    R (>= 3.4)
 Imports: 
     cmprsk,
     dplyr (>= 1.0.3),
@@ -22,6 +25,3 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Depends: 
-    R (>= 2.10)
-URL: https://mskcc-epi-bio.github.io/tidycmprsk
