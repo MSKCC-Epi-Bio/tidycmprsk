@@ -5,3 +5,7 @@
 ^README\.Rmd$
 ^codecov\.yml$
 sample*
+^data-raw$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

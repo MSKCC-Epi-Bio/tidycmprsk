@@ -6,6 +6,7 @@
 \alias{crr.formula}
 \alias{print.tidycmprsk}
 \alias{model.matrix.tidycmprsk}
+\alias{model.frame.tidycmprsk}
 \title{Competing Risks Regression}
 \usage{
 crr(x, ...)
@@ -17,11 +18,19 @@ crr(x, ...)
 \method{print}{tidycmprsk}(object)
 
 \method{model.matrix}{tidycmprsk}(object, ...)
+
+\method{model.frame}{tidycmprsk}(object, ...)
 }
 \arguments{
 \item{x}{placeholder}
 
 \item{...}{placeholder}
+
+\item{formula}{placeholder}
+
+\item{data}{placeholder}
+
+\item{failcode}{placeholder}
 }
 \value{
 
