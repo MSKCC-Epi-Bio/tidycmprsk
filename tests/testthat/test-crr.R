@@ -1,3 +1,6 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+test_that("crr() works", {
+  expect_error(
+    crr(crSurv(ttdeath, death_cr_num) ~ age, trial),
+    NA
+  )
 })
