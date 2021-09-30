@@ -11,6 +11,8 @@
 #' @examples
 #' # ADD EXAMPLE!
 NULL
+#' @import broom
+NULL
 
 # Generic
 #' @rdname crr
@@ -138,7 +140,39 @@ model.matrix.tidycmprsk <- function(object, ...){
 #' @rdname crr
 #' @export
 model.frame.tidycmprsk <- function(object, ...){
-  processed <- hardhat::mold(object$formula, object$data)
+  processed <- hardhat::mold(object$formula, object$model)
   cbind(processed$outcomes,processed$predictors)
 }
+
+# tidy
+#' @rdname crr
+#' @export
+#' @family tidycmprsk tidiers
+tidy.tidycmprsk <- function(object, ...){
+  tibble::as_tibble(object$tidy)
+}
+
+############################ Prediction
+
+# predict
+#' @rdname crr
+#' @export
+predict.tidycmprsk <- function(object, new_data = NULL, ...) {
+
+  if(is.null(new_data)){
+    new_data <- object$model
+  }
+
+  # Enforces column order, type, column names, etc
+  processed <- hardhat::forge(new_data, object$blueprint)
+
+  out <- cmprsk::predict.crr(object$original_fit, as.matrix(processed$predictors))
+  colnames(out) <- c("time",rownames(processed$predictors))
+  # validate_prediction_size(out, new_data)
+
+  out
+}
+
+
+
 

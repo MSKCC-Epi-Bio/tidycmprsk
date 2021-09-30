@@ -7,6 +7,8 @@
 \alias{print.tidycmprsk}
 \alias{model.matrix.tidycmprsk}
 \alias{model.frame.tidycmprsk}
+\alias{tidy.tidycmprsk}
+\alias{predict.tidycmprsk}
 \title{Competing Risks Regression}
 \usage{
 crr(x, ...)
@@ -15,11 +17,15 @@ crr(x, ...)
 
 \method{crr}{formula}(formula, data, failcode = 1, ...)
 
-\method{print}{tidycmprsk}(object)
+\method{print}{tidycmprsk}(object, ...)
 
 \method{model.matrix}{tidycmprsk}(object, ...)
 
 \method{model.frame}{tidycmprsk}(object, ...)
+
+\method{tidy}{tidycmprsk}(object, ...)
+
+\method{predict}{tidycmprsk}(object, new_data = NULL, ...)
 }
 \arguments{
 \item{x}{placeholder}
@@ -41,3 +47,4 @@ Competing Risks Regression
 \examples{
 # ADD EXAMPLE!
 }
+\concept{tidycmprsk tidiers}

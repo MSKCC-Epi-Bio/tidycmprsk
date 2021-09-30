@@ -15,7 +15,8 @@ Imports:
     hardhat,
     rlang,
     survival,
-    tibble
+    tibble,
+    broom
 Suggests: 
     covr,
     gtsummary,
