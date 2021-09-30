@@ -138,3 +138,4 @@ model.frame.tidycmprsk <- function(object,...){
   processed <- hardhat::mold(object::formula, object::data)
   cbind(processed$outcomes,processed$predictors)
 }
+
