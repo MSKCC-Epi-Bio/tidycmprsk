@@ -6,7 +6,7 @@
 #' @param failcode placeholder
 #' @param new_data placeholder
 #' @param object placeholder
-#' @param quantile placeholder
+#' @param quantiles placeholder
 #' @param ... placeholder
 #'
 #' @return tidycrr object

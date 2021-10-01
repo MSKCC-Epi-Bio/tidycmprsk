@@ -48,7 +48,7 @@ crr(x, ...)
 
 \item{new_data}{placeholder}
 
-\item{quantile}{placeholder}
+\item{quantiles}{placeholder}
 }
 \value{
 tidycrr object
