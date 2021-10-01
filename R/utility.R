@@ -6,6 +6,8 @@
 #   mouse = gerbil
 # )
 #
+#' @import ellipsis purrr stringr
+
 rename2 <- function(.data, ...) {
   dots <- quos(...)
   present <- purrr::keep(dots, ~ quo_name(.x) %in% colnames(.data))

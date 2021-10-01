@@ -16,7 +16,10 @@ Imports:
     rlang,
     survival,
     tibble,
-    broom
+    broom,
+    ellipsis,
+    purrr,
+    stringr
 Suggests: 
     covr,
     gtsummary,
