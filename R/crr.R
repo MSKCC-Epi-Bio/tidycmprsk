@@ -14,7 +14,7 @@
 #' @examples
 #' # ADD EXAMPLE!
 NULL
-#' @import broom hardhat
+#' @import generics hardhat
 NULL
 
 # Generic
@@ -114,14 +114,14 @@ crr_bridge <- function(processed, formula, failcode) {
     failcode = failcode,
     blueprint = processed$blueprint
   )
-  class(output) = "tidycmprsk"
+  class(output) = "tidycrr"
   output
 }
 
 # Print method
 #' @rdname crr
 #' @export
-print.tidycmprsk <- function(x, ...){
+print.tidycrr <- function(x, ...){
   cat("Call: \n")
   print(x$formula)
   cat(paste("Failure type of interest:",x$failcode,"\n"))
@@ -134,7 +134,7 @@ print.tidycmprsk <- function(x, ...){
 # model.matrix
 #' @rdname crr
 #' @export
-model.matrix.tidycmprsk <- function(object, ...){
+model.matrix.tidycrr <- function(object, ...){
   stats::model.matrix(object$formula,object$model)[,-1]
   # by default there is no intercept term in F&G's model
 }
@@ -142,13 +142,13 @@ model.matrix.tidycmprsk <- function(object, ...){
 # model.frame
 #' @rdname crr
 #' @export
-model.frame.tidycmprsk <- function(formula, ...){
+model.frame.tidycrr <- function(formula, ...){
   processed <- hardhat::mold(formula$formula, formula$model)
   cbind(processed$outcomes,processed$predictors)
 }
 
 
-# model_frame.tidycmprsk <- function(object, ...){
+# model_frame.tidycrr <- function(object, ...){
 #   processed <- hardhat::mold(object$formula, object$model)
 #   frame_tib <- tibble::as_tibble(cbind(processed$outcomes,processed$predictors))
 #   frame_tib
@@ -158,16 +158,16 @@ model.frame.tidycmprsk <- function(formula, ...){
 # tidy
 #' @rdname crr
 #' @export
-#' @family tidycmprsk tidiers
-tidy.tidycmprsk <- function(object, ...){
+#' @family tidycrr tidiers
+tidy.tidycrr <- function(object, ...){
   tibble::as_tibble(object$tidy)
 }
 
 # glance
 #' @rdname crr
 #' @export
-#' @family tidycmprsk tidiers
-glance.tidycmprsk <- function(object, ...){
+#' @family tidycrr tidiers
+glance.tidycrr <- function(object, ...){
   s <- summary(object$original_fit)
   as_glance_tibble(
     n = s$n,
@@ -184,7 +184,7 @@ glance.tidycmprsk <- function(object, ...){
 # predict
 #' @rdname crr
 #' @export
-predict.tidycmprsk <- function(object, new_data = NULL, quantiles = seq(0,1,0.25), ...) {
+predict.tidycrr <- function(object, new_data = NULL, quantiles = seq(0,1,0.25), ...) {
 
   if(is.null(new_data)){
     new_data <- object$model
@@ -224,10 +224,10 @@ predict.tidycmprsk <- function(object, new_data = NULL, quantiles = seq(0,1,0.25
 # augment
 #' @rdname crr
 #' @export
-#' @family tidycmprsk tidiers
-augment.tidycmprsk <- function(object, quantiles = seq(0,1,0.25), ...){
+#' @family tidycrr tidiers
+augment.tidycrr <- function(object, quantiles = seq(0,1,0.25), ...){
 
-  pred <- predict.tidycmprsk(object, new_data = object$model, quantiles = quantiles)
+  pred <- predict.tidycrr(object, new_data = object$model, quantiles = quantiles)
   out <- cbind(pred$newdata,
                pred$qout,
                pred$lpout)

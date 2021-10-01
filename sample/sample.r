@@ -31,3 +31,5 @@ tidy(crr.fit)
 glance(crr.fit)
 pred <- predict(crr.fit)
 augment(crr.fit)
+
+crr.fit <- crr(Surv(ftime,as.factor(fstatus))~x1+x2+x3,dat)

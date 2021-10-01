@@ -4,13 +4,13 @@
 \alias{crr}
 \alias{crr.default}
 \alias{crr.formula}
-\alias{print.tidycmprsk}
-\alias{model.matrix.tidycmprsk}
-\alias{model.frame.tidycmprsk}
-\alias{tidy.tidycmprsk}
-\alias{glance.tidycmprsk}
-\alias{predict.tidycmprsk}
-\alias{augment.tidycmprsk}
+\alias{print.tidycrr}
+\alias{model.matrix.tidycrr}
+\alias{model.frame.tidycrr}
+\alias{tidy.tidycrr}
+\alias{glance.tidycrr}
+\alias{predict.tidycrr}
+\alias{augment.tidycrr}
 \title{Competing Risks Regression}
 \usage{
 crr(x, ...)
@@ -19,19 +19,19 @@ crr(x, ...)
 
 \method{crr}{formula}(formula, data, failcode = 1, ...)
 
-\method{print}{tidycmprsk}(x, ...)
+\method{print}{tidycrr}(x, ...)
 
-\method{model.matrix}{tidycmprsk}(object, ...)
+\method{model.matrix}{tidycrr}(object, ...)
 
-\method{model.frame}{tidycmprsk}(formula, ...)
+\method{model.frame}{tidycrr}(formula, ...)
 
-\method{tidy}{tidycmprsk}(object, ...)
+\method{tidy}{tidycrr}(object, ...)
 
-\method{glance}{tidycmprsk}(object, ...)
+\method{glance}{tidycrr}(object, ...)
 
-\method{predict}{tidycmprsk}(object, new_data = NULL, quantiles = seq(0, 1, 0.25), ...)
+\method{predict}{tidycrr}(object, new_data = NULL, quantiles = seq(0, 1, 0.25), ...)
 
-\method{augment}{tidycmprsk}(object, quantiles = seq(0, 1, 0.25), ...)
+\method{augment}{tidycrr}(object, quantiles = seq(0, 1, 0.25), ...)
 }
 \arguments{
 \item{x}{placeholder}
@@ -59,4 +59,4 @@ Competing Risks Regression
 \examples{
 # ADD EXAMPLE!
 }
-\concept{tidycmprsk tidiers}
+\concept{tidycrr tidiers}
