@@ -17,7 +17,9 @@ Imports:
     survival,
     tibble,
     broom,
-    purrr
+    purrr,
+    generics,
+    stringr
 Suggests: 
     covr,
     gtsummary,
