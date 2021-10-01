@@ -8,7 +8,9 @@
 \alias{model.matrix.tidycmprsk}
 \alias{model.frame.tidycmprsk}
 \alias{tidy.tidycmprsk}
+\alias{glance.tidycmprsk}
 \alias{predict.tidycmprsk}
+\alias{augment.tidycmprsk}
 \title{Competing Risks Regression}
 \usage{
 crr(x, ...)
@@ -25,7 +27,11 @@ crr(x, ...)
 
 \method{tidy}{tidycmprsk}(object, ...)
 
-\method{predict}{tidycmprsk}(object, new_data = NULL, ...)
+\method{glance}{tidycmprsk}(object, ...)
+
+\method{predict}{tidycmprsk}(object, new_data = NULL, quantiles = seq(0, 1, 0.25), ...)
+
+\method{augment}{tidycmprsk}(object, quantiles = seq(0, 1, 0.25), ...)
 }
 \arguments{
 \item{x}{placeholder}
@@ -41,6 +47,8 @@ crr(x, ...)
 \item{object}{placeholder}
 
 \item{new_data}{placeholder}
+
+\item{quantile}{placeholder}
 }
 \value{
 tidycrr object
