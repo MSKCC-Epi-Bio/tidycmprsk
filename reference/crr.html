@@ -162,8 +162,10 @@ of interest is inferred from the data.</p></td>
     <pre class="examples"><div class='input'><span class='fu'>crr</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>age</span>, <span class='va'>trial</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 11 cases omitted due to missing values</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>tidycrr()</span> <span style='color: #00BBBB;'>───────────────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; <span class='message'>• Call <span style='color: #00BB00;'>Surv(ttdeath, death_cr) ~ age</span></span></div><div class='output co'>#&gt; <span class='message'>• Failure type of interest <span style='color: #0000BB;'>"death from cancer"</span></span></div><div class='output co'>#&gt; 
 #&gt; Fine and Gray's model fit: 
-#&gt;   term   estimate   std.error statistic p.value
-#&gt; 1  age 0.00581448 0.009824244 0.5918501    0.55</div></pre>
+#&gt; <span style='color: #949494;'># A tibble: 1 × 5</span>
+#&gt;   term  estimate std.error statistic p.value
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> age    0.005<span style='text-decoration: underline;'>81</span>   0.009<span style='text-decoration: underline;'>82</span>     0.592    0.55</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
