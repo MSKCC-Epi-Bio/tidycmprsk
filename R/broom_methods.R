@@ -1,5 +1,6 @@
 #' Broom methods for tidycmprsk objects
 #'
+#' @inheritParams broom::tidy.crr
 #' @param new_data placeholder
 #' @param x placeholder
 #' @param quantiles placeholder
@@ -13,11 +14,11 @@ NULL
 #' @rdname broom_methods
 #' @export
 #' @family tidycrr tidiers
-tidy.tidycrr <- function(x, ...){
-  tibble::as_tibble(x$tidy)
+tidy.tidycrr <- function(x, exponentiate = FALSE, conf.level = 0.95, ...){
+  broom::tidy(
+    x$original_fit, exponentiate = exponentiate, conf.level = conf.level, ...)
 }
 
-# glance
 #' @rdname broom_methods
 #' @export
 #' @family tidycrr tidiers
@@ -33,7 +34,6 @@ glance.tidycrr <- function(x, ...){
   )
 }
 
-# augment
 #' @rdname broom_methods
 #' @export
 #' @family tidycrr tidiers

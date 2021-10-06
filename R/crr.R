@@ -93,12 +93,7 @@ crr_impl <- function(predictors, outcomes, failcode) {
   crr_fit <-
     cmprsk::crr(ftime = outcomes[, 1], fstatus = outcomes[, 2], cov1 = predictors, failcode = failcode)
 
-  tidy <-
-    summary(crr_fit)$coef %>%
-    as.data.frame() %>%
-    tibble::rownames_to_column("term") %>%
-    dplyr::select(.data$term, estimate = .data$coef, std.error = .data$`se(coef)`,
-                  statistic = .data$z, p.value = .data$`p-value`)
+  tidy <- broom::tidy(crr_fit)
 
   coefs <- tidy$estimate
   coef_names <- tidy$term

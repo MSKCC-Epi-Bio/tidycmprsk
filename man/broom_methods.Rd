@@ -7,7 +7,7 @@
 \alias{augment.tidycrr}
 \title{Broom methods for tidycmprsk objects}
 \usage{
-\method{tidy}{tidycrr}(x, ...)
+\method{tidy}{tidycrr}(x, exponentiate = FALSE, conf.level = 0.95, ...)
 
 \method{glance}{tidycrr}(x, ...)
 
@@ -15,6 +15,15 @@
 }
 \arguments{
 \item{x}{placeholder}
+
+\item{exponentiate}{Logical indicating whether or not to exponentiate the
+the coefficient estimates. This is typical for logistic and multinomial
+regressions, but a bad idea if there is no log or logit link. Defaults
+to \code{FALSE}.}
+
+\item{conf.level}{The confidence level to use for the confidence interval
+if \code{conf.int = TRUE}. Must be strictly greater than 0 and less than 1.
+Defaults to 0.95, which corresponds to a 95 percent confidence interval.}
 
 \item{...}{not used}
 
