@@ -22,16 +22,8 @@ tidy.tidycrr <- function(x, exponentiate = FALSE, conf.level = 0.95, ...){
 #' @rdname broom_methods
 #' @export
 #' @family tidycrr tidiers
-glance.tidycrr <- function(x, ...){
-  s <- summary(x$original_fit)
-  as_glance_tibble(
-    n = s$n,
-    n.missing = s$n.missing,
-    statistic.pseudoLRT = s$logtest[1],
-    df.pseudoLRT = s$logtest[2],
-    logpseudoLik = as.numeric(s$loglik),
-    na_types = "iirrr"
-  )
+glance.tidycrr <- function(x, ...) {
+  broom::glance(x$original_fit, ...)
 }
 
 #' @rdname broom_methods

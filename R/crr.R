@@ -40,7 +40,8 @@ as_numeric_failcode <- function(formula, data, failcode) {
     })
 
   # checking type of LHS -------------------------------------------------------
-  if (!inherits(formula_lhs, "Surv")) {
+  if (!inherits(formula_lhs, "Surv") ||
+      !identical(attr(formula_lhs, "type"), "mright")) {
     paste("The LHS of the formula must be of class 'Surv' and type 'mright'.",
           "Please review syntax in the help file.") %>%
     stop(call. = FALSE)

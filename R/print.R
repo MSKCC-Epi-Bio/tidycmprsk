@@ -5,7 +5,7 @@
 #'
 #' @export
 print.tidycrr <- function(x, ...){
-  cli::cli_h1("tidycrr()")
+  cli::cli_h1("crr()")
   cli::cli_li("Call {.field {deparse(x$formula)}}")
   cli::cli_li("Failure type of interest {.val {names(x$failcode)}}")
 
