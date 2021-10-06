@@ -1,1 +1,36 @@
 url: https://mskcc-epi-bio.github.io/tidycmprsk
+
+template:
+  params:
+    bootswatch: flatly
+# development:
+#   mode: auto
+#   version_label: default
+
+authors:
+  Daniel D. Sjoberg:
+    href: "http://www.danieldsjoberg.com/"
+  Teng Fei:
+    href: "http://scholarblogs.emory.edu/tfei"
+
+navbar:
+  type: default
+  left:
+  - icon: fa-home
+    href: index.html
+  - text: Reference
+    href: reference/index.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/ddsjoberg/gtsummary
+
+reference:
+  - title: Competing Risks Models
+  - contents:
+      - crr
+  - title: S3 Methods
+  - contents:
+      - broom_methods
+      - base_methods

@@ -13,20 +13,6 @@
 #' crr(Surv(ttdeath, death_cr) ~ age, trial)
 NULL
 
-# Generic
-#' @rdname crr
-#' @export
-crr <- function(x, ...) {
-  UseMethod("crr")
-}
-
-# Default
-#' @rdname crr
-#' @export
-crr.default <- function(x, ...) {
-  stop("`crr()` is not defined for a '", class(x)[1], "'.", call. = FALSE)
-}
-
 # Formula method
 #' @rdname crr
 #' @export
@@ -38,7 +24,7 @@ crr.formula<- function(formula, data, failcode = NULL, ...) {
 
   # building model -------------------------------------------------------------
   processed <- hardhat::mold(formula, data)
-  crr_bridge(processed, formula, failcode_numeric)
+  crr_bridge(processed, formula, failcode_numeric, data)
 }
 
 as_numeric_failcode <- function(formula, data, failcode) {
@@ -90,6 +76,7 @@ new_crr <- function(coefs, coef_names, formula, tidy, original_fit, data, failco
     coefs = coefs,
     coef_names = coef_names,
     formula = formula,
+    data = data,
     failcode = failcode,
     tidy = tidy,
     original_fit = original_fit,
@@ -124,7 +111,7 @@ crr_impl <- function(predictors, outcomes, failcode) {
   )
 }
 
-crr_bridge <- function(processed, formula, failcode) {
+crr_bridge <- function(processed, formula, failcode, data) {
 
   # function to connect object and implementation
 
@@ -135,19 +122,32 @@ crr_bridge <- function(processed, formula, failcode) {
 
   fit <- crr_impl(predictors, outcomes, failcode)
 
-  output <- new_crr(
-    coefs = fit$coefs,
-    coef_names = fit$coef_names,
-    formula = formula,
-    tidy = fit$tidy,
-    original_fit = fit$original_fit,
-    data = cbind(processed$outcomes,processed$predictors),
-    failcode = failcode,
-    blueprint = processed$blueprint
-  )
+  output <-
+    new_crr(
+      coefs = fit$coefs,
+      coef_names = fit$coef_names,
+      formula = formula,
+      data = data,
+      tidy = fit$tidy,
+      original_fit = fit$original_fit,
+      failcode = failcode,
+      blueprint = processed$blueprint
+    )
 
   output
 }
 
 
+# Generic
+#' @rdname crr
+#' @export
+crr <- function(x, ...) {
+  UseMethod("crr")
+}
 
+# Default
+#' @rdname crr
+#' @export
+crr.default <- function(x, ...) {
+  stop("`crr()` is not defined for a '", class(x)[1], "'.", call. = FALSE)
+}

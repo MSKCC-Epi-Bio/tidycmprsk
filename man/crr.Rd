@@ -2,27 +2,27 @@
 % Please edit documentation in R/crr.R
 \name{crr}
 \alias{crr}
-\alias{crr.default}
 \alias{crr.formula}
+\alias{crr.default}
 \title{Competing Risks Regression}
 \usage{
+\method{crr}{formula}(formula, data, failcode = NULL, ...)
+
 crr(x, ...)
 
 \method{crr}{default}(x, ...)
-
-\method{crr}{formula}(formula, data, failcode = NULL, ...)
 }
 \arguments{
-\item{x}{input object}
-
-\item{...}{passed to methods}
-
 \item{formula}{formula with \code{Surv()} on LHS and covariates on RHS.}
 
 \item{data}{data frame}
 
 \item{failcode}{indicates event of interest. Default is \code{NULL} and event
 of interest is inferred from the data.}
+
+\item{...}{passed to methods}
+
+\item{x}{input object}
 }
 \value{
 tidycrr object

@@ -1,36 +1,29 @@
-# model.matrix
+#' Methods for tidycmprsk objects
+#'
+#' @param x,object,formula a tidycmprsk object
+#' @param quantiles vector of quantiles
+#' @param new_data a data frame
+#' @param ... not used
+#' @name base_methods
+NULL
+
 #' @export
+#' @rdname base_methods
 model.matrix.tidycrr <- function(object, ...){
-  stats::model.matrix(object$formula,object$model)[,-1]
   # by default there is no intercept term in F&G's model
+  stats::model.matrix(object$formula,object$model)[, -1, drop = FALSE]
 }
 
-# model.frame
 #' @export
+#' @rdname base_methods
 model.frame.tidycrr <- function(formula, ...){
-  processed <- hardhat::mold(formula$formula, formula$model)
-  cbind(processed$outcomes,processed$predictors)
+  stats::model.frame(formula = formula$formula, data = formula$data)
 }
 
-
-# model_frame.tidycrr <- function(object, ...){
-#   processed <- hardhat::mold(object$formula, object$model)
-#   frame_tib <- tibble::as_tibble(cbind(processed$outcomes,processed$predictors))
-#   frame_tib
-# }
-
-
-
-############################ Prediction
-
-# predict
 #' Predict
 #'
-#' @param quantiles placeholder
-#' @param object placeholder
-#' @param new_data placeholder
-#' @param ... not used
 #' @export
+#' @rdname base_methods
 predict.tidycrr <- function(object, new_data = NULL, quantiles = seq(0,1,0.25), ...) {
 
   if(is.null(new_data)){
@@ -65,6 +58,11 @@ predict.tidycrr <- function(object, new_data = NULL, quantiles = seq(0,1,0.25), 
     qout = qout,
     lpout = lpout
   )
+}
 
+#' @export
+#' @rdname base_methods
+terms.tidycrr <- function(x, ...) {
+  x$blueprint$terms
 }
 

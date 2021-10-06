@@ -15,7 +15,6 @@ A data frame with 200 rows--one row per patient
 \item{response}{Tumor Response}
 \item{death}{Patient Died}
 \item{death_cr}{Death Status}
-\item{death_cr_num}{Death Status (numeric)}
 \item{ttdeath}{Months to Death/Censor}
 }
 }
