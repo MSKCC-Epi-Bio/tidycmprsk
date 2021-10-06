@@ -28,11 +28,13 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(tidycmprsk)
 
-crr(crSurv(ttdeath, death_cr_num) ~ age, trial)
+crr(Surv(ttdeath, death_cr) ~ age, trial)
 #> 11 cases omitted due to missing values
-#> Call: 
-#> crSurv(ttdeath, death_cr_num) ~ age
-#> Failure type of interest: 1 
+#> 
+#> -- tidycrr() -------------------------------------------------------------------
+#> * Call Surv(ttdeath, death_cr) ~ age
+#> * Failure type of interest "death from cancer"
+#> 
 #> Fine and Gray's model fit: 
 #>   term   estimate   std.error statistic p.value
 #> 1  age 0.00581448 0.009824244 0.5918501    0.55
