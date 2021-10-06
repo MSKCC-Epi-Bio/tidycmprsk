@@ -10,16 +10,16 @@ URL: https://mskcc-epi-bio.github.io/tidycmprsk
 Depends: 
     R (>= 3.4)
 Imports: 
+    broom,
+    cli,
     cmprsk,
     dplyr (>= 1.0.3),
     hardhat,
-    rlang,
-    survival,
-    tibble,
-    broom,
     purrr,
-    generics,
-    stringr
+    rlang,
+    stringr,
+    survival,
+    tibble
 Suggests: 
     covr,
     gtsummary,

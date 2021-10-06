@@ -1,20 +1,16 @@
 #' Competing Risks Regression
 #'
-#' @param x placeholder
-#' @param formula placeholder
-#' @param data placeholder
-#' @param failcode placeholder
-#' @param new_data placeholder
-#' @param object placeholder
-#' @param quantiles placeholder
-#' @param ... placeholder
+#' @param x input object
+#' @param formula formula with `Surv()` on LHS and covariates on RHS.
+#' @param data data frame
+#' @param failcode indicates event of interest. Default is `NULL` and event
+#' of interest is inferred from the data.
+#' @param ... passed to methods
 #'
 #' @return tidycrr object
 #' @name crr
 #' @examples
-#' # ADD EXAMPLE!
-NULL
-#' @import generics hardhat
+#' crr(Surv(ttdeath, death_cr) ~ age, trial)
 NULL
 
 # Generic
@@ -34,9 +30,44 @@ crr.default <- function(x, ...) {
 # Formula method
 #' @rdname crr
 #' @export
-crr.formula<- function(formula, data, failcode=1, ...) {
+crr.formula<- function(formula, data, failcode = NULL, ...) {
+
+  # checking inputs and assigning the numeric failcode -------------------------
+  failcode_numeric <-
+    as_numeric_failcode(formula = formula, data = data, failcode = failcode)
+
+  # building model -------------------------------------------------------------
   processed <- hardhat::mold(formula, data)
-  crr_bridge(processed, formula, failcode)
+  crr_bridge(processed, formula, failcode_numeric)
+}
+
+as_numeric_failcode <- function(formula, data, failcode) {
+  # evaluating LHS of formula --------------------------------------------------
+  formula_lhs <-
+    tryCatch({
+      rlang::f_lhs(formula) %>%
+        rlang::eval_tidy(data = data)
+    },
+    error = function(e) {
+      cli::cli_alert_danger("There was an error evaluating the LHS of the formula.")
+      stop(e, call. = FALSE)
+    })
+
+  # checking type of LHS -------------------------------------------------------
+  if (!inherits(formula_lhs, "Surv")) {
+    paste("The LHS of the formula must be of class 'Surv' and type 'mright'.",
+          "Please review syntax in the help file.") %>%
+    stop(call. = FALSE)
+  }
+
+  # checking the failcode argument ---------------------------------------------
+  failcode <- failcode %||% attr(formula_lhs, "states")[1]
+  if (!is.null(failcode) && !failcode %in% attr(formula_lhs, "states")) {
+    stop("The `failcode=`")
+  }
+  failcode_numeric <- which(attr(formula_lhs, "states") %in% failcode)
+
+  return(failcode_numeric %>% rlang::set_names(failcode))
 }
 
 new_crr <- function(coefs, coef_names, formula, tidy, original_fit, data, failcode, blueprint) {
@@ -63,8 +94,8 @@ new_crr <- function(coefs, coef_names, formula, tidy, original_fit, data, failco
     tidy = tidy,
     original_fit = original_fit,
     model = data,
-    blueprint = blueprint
-    #class = "tidycrr"
+    blueprint = blueprint,
+    class = "tidycrr"
   )
 }
 
@@ -100,7 +131,7 @@ crr_bridge <- function(processed, formula, failcode) {
   # validate_outcomes_are_univariate(processed$outcomes)
 
   predictors <- as.matrix(processed$predictors)
-  outcomes <- as.matrix(processed$outcomes)
+  outcomes <- as.matrix(processed$outcomes[, 1, drop = TRUE])
 
   fit <- crr_impl(predictors, outcomes, failcode)
 
@@ -114,122 +145,9 @@ crr_bridge <- function(processed, formula, failcode) {
     failcode = failcode,
     blueprint = processed$blueprint
   )
-  class(output) = "tidycrr"
+
   output
 }
 
-# Print method
-#' @rdname crr
-#' @export
-print.tidycrr <- function(x, ...){
-  cat("Call: \n")
-  print(x$formula)
-  cat(paste("Failure type of interest:",x$failcode,"\n"))
-  cat("Fine and Gray's model fit: \n")
-  print(x$tidy)
-  invisible(x)
-}
 
 
-# model.matrix
-#' @rdname crr
-#' @export
-model.matrix.tidycrr <- function(object, ...){
-  stats::model.matrix(object$formula,object$model)[,-1]
-  # by default there is no intercept term in F&G's model
-}
-
-# model.frame
-#' @rdname crr
-#' @export
-model.frame.tidycrr <- function(formula, ...){
-  processed <- hardhat::mold(formula$formula, formula$model)
-  cbind(processed$outcomes,processed$predictors)
-}
-
-
-# model_frame.tidycrr <- function(object, ...){
-#   processed <- hardhat::mold(object$formula, object$model)
-#   frame_tib <- tibble::as_tibble(cbind(processed$outcomes,processed$predictors))
-#   frame_tib
-# }
-
-
-# tidy
-#' @rdname crr
-#' @export
-#' @family tidycrr tidiers
-tidy.tidycrr <- function(object, ...){
-  tibble::as_tibble(object$tidy)
-}
-
-# glance
-#' @rdname crr
-#' @export
-#' @family tidycrr tidiers
-glance.tidycrr <- function(object, ...){
-  s <- summary(object$original_fit)
-  as_glance_tibble(
-    n = s$n,
-    n.missing = s$n.missing,
-    statistic.pseudoLRT = s$logtest[1],
-    df.pseudoLRT = s$logtest[2],
-    logpseudoLik = as.numeric(s$loglik),
-    na_types = "iirrr"
-  )
-}
-
-############################ Prediction
-
-# predict
-#' @rdname crr
-#' @export
-predict.tidycrr <- function(object, new_data = NULL, quantiles = seq(0,1,0.25), ...) {
-
-  if(is.null(new_data)){
-    new_data <- object$model
-  }
-
-  # Enforces column order, type, column names, etc
-  processed <- hardhat::forge(new_data, object$blueprint)
-
-  out <- cmprsk::predict.crr(object$original_fit, as.matrix(processed$predictors))
-  colnames(out) <- c("time",rownames(processed$predictors))
-
-  # CIF at time quantiles
-  quarter.time <- quantile(out[,"time"],probs=quantiles,type=1)
-  quarter.labels <- paste(names(quarter.time), round(quarter.time,2))
-  qout <- t(out[out[,"time"] %in% quarter.time,-1])
-  colnames(qout) <- quarter.labels
-  qout <- tibble::as_tibble(qout)
-  attr(qout,"CIF_at_quantile")
-  validate_prediction_size(qout, new_data)
-
-  # linear predictor
-  coefs <- object$coefs
-  pred <- as.vector(as.matrix(processed$predictors) %*% coefs)
-  lpout <- hardhat::spruce_numeric(pred)
-  names(lpout) = "lp"
-  attr(lpout,"lp")
-  validate_prediction_size(lpout, new_data)
-
-  list(
-    newdata = processed$predictors,
-    qout = qout,
-    lpout = lpout
-  )
-
-}
-
-# augment
-#' @rdname crr
-#' @export
-#' @family tidycrr tidiers
-augment.tidycrr <- function(object, quantiles = seq(0,1,0.25), ...){
-
-  pred <- predict.tidycrr(object, new_data = object$model, quantiles = quantiles)
-  out <- cbind(pred$newdata,
-               pred$qout,
-               pred$lpout)
-  tibble::as_tibble(out)
-}
