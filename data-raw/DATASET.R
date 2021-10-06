@@ -11,10 +11,8 @@ trial <-
       TRUE ~ "death other causes"
     ) %>%
       factor(),
-    .after = death,
-    death_cr_num = as.numeric(death_cr) - 1L
+    .after = death
   ) %>%
-  labelled::set_variable_labels(death_cr = "Death Status",
-                                death_cr_num = "Death Status (numeric)")
+  labelled::set_variable_labels(death_cr = "Death Status")
 
 usethis::use_data(trial, overwrite = TRUE)

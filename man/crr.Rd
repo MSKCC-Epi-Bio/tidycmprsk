@@ -4,51 +4,25 @@
 \alias{crr}
 \alias{crr.default}
 \alias{crr.formula}
-\alias{print.tidycrr}
-\alias{model.matrix.tidycrr}
-\alias{model.frame.tidycrr}
-\alias{tidy.tidycrr}
-\alias{glance.tidycrr}
-\alias{predict.tidycrr}
-\alias{augment.tidycrr}
 \title{Competing Risks Regression}
 \usage{
 crr(x, ...)
 
 \method{crr}{default}(x, ...)
 
-\method{crr}{formula}(formula, data, failcode = 1, ...)
-
-\method{print}{tidycrr}(x, ...)
-
-\method{model.matrix}{tidycrr}(object, ...)
-
-\method{model.frame}{tidycrr}(formula, ...)
-
-\method{tidy}{tidycrr}(object, ...)
-
-\method{glance}{tidycrr}(object, ...)
-
-\method{predict}{tidycrr}(object, new_data = NULL, quantiles = seq(0, 1, 0.25), ...)
-
-\method{augment}{tidycrr}(object, quantiles = seq(0, 1, 0.25), ...)
+\method{crr}{formula}(formula, data, failcode = NULL, ...)
 }
 \arguments{
-\item{x}{placeholder}
+\item{x}{input object}
 
-\item{...}{placeholder}
+\item{...}{passed to methods}
 
-\item{formula}{placeholder}
+\item{formula}{formula with \code{Surv()} on LHS and covariates on RHS.}
 
-\item{data}{placeholder}
+\item{data}{data frame}
 
-\item{failcode}{placeholder}
-
-\item{object}{placeholder}
-
-\item{new_data}{placeholder}
-
-\item{quantiles}{placeholder}
+\item{failcode}{indicates event of interest. Default is \code{NULL} and event
+of interest is inferred from the data.}
 }
 \value{
 tidycrr object
@@ -57,6 +31,5 @@ tidycrr object
 Competing Risks Regression
 }
 \examples{
-# ADD EXAMPLE!
+crr(Surv(ttdeath, death_cr) ~ age, trial)
 }
-\concept{tidycrr tidiers}
