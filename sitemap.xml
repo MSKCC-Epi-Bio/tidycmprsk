@@ -4,13 +4,13 @@
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/index.html</loc>
   </url>
   <url>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/base_methods.html</loc>
+  </url>
+  <url>
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/broom_methods.html</loc>
   </url>
   <url>
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/crr.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/predict.tidycrr.html</loc>
   </url>
   <url>
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/print.tidycrr.html</loc>

@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
@@ -79,16 +79,24 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">News</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/ddsjoberg/gtsummary">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -116,7 +124,26 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-competing-risks-models" class="hasAnchor"><a href="#section-competing-risks-models" class="anchor"></a>Competing Risks Models</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="crr.html">crr()</a></code> </p>
+        </td>
+        <td><p>Competing Risks Regression</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-s-methods" class="hasAnchor"><a href="#section-s-methods" class="anchor"></a>S3 Methods</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -134,27 +161,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="crr.html">crr()</a></code> </p>
+          <p><code><a href="base_methods.html">model.matrix(<i>&lt;tidycrr&gt;</i>)</a></code> <code><a href="base_methods.html">model.frame(<i>&lt;tidycrr&gt;</i>)</a></code> <code><a href="base_methods.html">predict(<i>&lt;tidycrr&gt;</i>)</a></code> <code><a href="base_methods.html">terms(<i>&lt;tidycrr&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Competing Risks Regression</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="predict.tidycrr.html">predict(<i>&lt;tidycrr&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Predict</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="print.tidycrr.html">print(<i>&lt;tidycrr&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Print crr object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="trial.html">trial</a></code> </p>
-        </td>
-        <td><p>Results from a simulated study of two chemotherapy agents</p></td>
+        <td><p>Methods for tidycmprsk objects</p></td>
       </tr>
     </tbody>
     </table>

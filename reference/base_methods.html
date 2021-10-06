@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Broom methods for tidycmprsk objects — broom_methods • tidycmprsk</title>
+<title>Methods for tidycmprsk objects — base_methods • tidycmprsk</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Broom methods for tidycmprsk objects — broom_methods" />
-<meta property="og:description" content="Broom methods for tidycmprsk objects" />
+<meta property="og:title" content="Methods for tidycmprsk objects — base_methods" />
+<meta property="og:description" content="Methods for tidycmprsk objects
+Predict" />
 
 
 
@@ -111,48 +112,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Broom methods for tidycmprsk objects</h1>
+    <h1>Methods for tidycmprsk objects</h1>
     
-    <div class="hidden name"><code>broom_methods.Rd</code></div>
+    <div class="hidden name"><code>base_methods.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Broom methods for tidycmprsk objects</p>
+    <p>Methods for tidycmprsk objects</p>
+<p>Predict</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for tidycrr</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for tidycrr</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/glance.html'>glance</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for tidycrr</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>x</span>, quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.25</span><span class='op'>)</span>, <span class='va'>new_data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>object</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span>, quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.25</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for tidycrr</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/terms.html'>terms</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>placeholder</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>not used</p></td>
     </tr>
     <tr>
-      <th>quantiles</th>
-      <td><p>placeholder</p></td>
+      <th>new_data</th>
+      <td><p>a data frame</p></td>
     </tr>
     <tr>
-      <th>new_data</th>
-      <td><p>placeholder</p></td>
+      <th>quantiles</th>
+      <td><p>vector of quantiles</p></td>
+    </tr>
+    <tr>
+      <th>x, object, formula</th>
+      <td><p>a tidycmprsk object</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a tibble</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
