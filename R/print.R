@@ -2,7 +2,10 @@
 #'
 #' @param x tidycrr obejct
 #' @param ... not used
-#'
+#' @name print
+NULL
+
+#' @rdname print
 #' @export
 print.tidycrr <- function(x, ...){
   cli::cli_h1("crr()")
@@ -12,4 +15,11 @@ print.tidycrr <- function(x, ...){
   cat("\nFine and Gray's model fit: \n")
   print(x$tidy)
   invisible()
+}
+
+#' @rdname print
+#' @export
+print.tidycuminc <- function(x, ...){
+  cli::cli_h1("cuminc()")
+  print(x$original_fit)
 }
