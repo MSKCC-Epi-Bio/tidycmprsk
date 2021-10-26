@@ -36,6 +36,20 @@ predict.tidycrr <- function(object, new_data = NULL, quantiles = seq(0,1,0.25), 
   out <- cmprsk::predict.crr(object$original_fit, as.matrix(processed$predictors))
   colnames(out) <- c("time",rownames(processed$predictors))
 
+  # Observed event time
+  tout <- out[,1]
+  tout <- tibble::as_tibble(tout)
+  names(tout) = "event time"
+  attr(tout,"time")
+  # validate_prediction_size(qout, new_data)
+
+  # CIF at all event time
+  cifout <- t(out[,-1])
+  colnames(cifout) <- out[,1]
+  cifout <- tibble::as_tibble(cifout)
+  attr(cifout,"CIF")
+  # validate_prediction_size(qout, new_data)
+
   # CIF at time quantiles
   quarter.time <- stats::quantile(out[,"time"],probs=quantiles,type=1)
   quarter.labels <- paste(names(quarter.time), round(quarter.time,2))
@@ -55,6 +69,8 @@ predict.tidycrr <- function(object, new_data = NULL, quantiles = seq(0,1,0.25), 
 
   list(
     newdata = processed$predictors,
+    tout = tout,
+    cifout = cifout,
     qout = qout,
     lpout = lpout
   )
