@@ -10,7 +10,15 @@
 coverage](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/tidycmprsk?branch=main)
 <!-- badges: end -->
 
-The goal of tidycmprsk is to …
+The goal of `tidycmprsk` is to provide a compatible wrap of the
+competing risks analysis R package `cmprsk`, such that the output
+objects can work with methods like `model.frame()`, `model.matrix()`,
+`tidy()`, and so on. This package can be incorporated with `gtsummary`
+to provide convenient summary of competing risks models.
+
+Currently, the package supports Fine and Gray’s subdistribution hazard
+model (function `crr`). The non-parametric cumulative incidence function
+(function `cuminc`) is under development.
 
 ## Installation
 
@@ -23,7 +31,8 @@ devtools::install_github("/MSKCC-Epi-Bio/tidycmprsk")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Fit a Fine and Gray model for the example data `trial` with covariate
+`age`.
 
 ``` r
 library(tidycmprsk)
@@ -31,11 +40,13 @@ library(tidycmprsk)
 crr(Surv(ttdeath, death_cr) ~ age, trial)
 #> 11 cases omitted due to missing values
 #> 
-#> -- tidycrr() -------------------------------------------------------------------
+#> -- crr() -----------------------------------------------------------------------
 #> * Call Surv(ttdeath, death_cr) ~ age
 #> * Failure type of interest "death from cancer"
 #> 
 #> Fine and Gray's model fit: 
-#>   term   estimate   std.error statistic p.value
-#> 1  age 0.00581448 0.009824244 0.5918501    0.55
+#> # A tibble: 1 x 5
+#>   term  estimate std.error statistic p.value
+#>   <chr>    <dbl>     <dbl>     <dbl>   <dbl>
+#> 1 age    0.00581   0.00982     0.592    0.55
 ```
