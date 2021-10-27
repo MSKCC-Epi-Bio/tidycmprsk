@@ -30,7 +30,7 @@ You can install the released version of tidycmprsk from GitHub
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("/MSKCC-Epi-Bio/tidycmprsk")
+devtools::install_github("MSKCC-Epi-Bio/tidycmprsk")
 ```
 ## Example
 

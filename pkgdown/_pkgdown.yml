@@ -24,7 +24,7 @@ navbar:
     href: news/index.html
   right:
   - icon: fa-github fa-lg
-    href: https://github.com/ddsjoberg/gtsummary
+    href: https://github.com/mskcc-epi-bio/tidycmprsk
 
 reference:
   - title: Competing Risks
