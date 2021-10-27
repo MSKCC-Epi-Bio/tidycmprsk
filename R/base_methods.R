@@ -84,5 +84,5 @@ predict.tidycrr <- function(object, new_data = NULL, quantiles = seq(0, 1, 0.25)
 #' @export
 #' @rdname base_methods
 terms.tidycrr <- function(x, ...) {
-  x$blueprint$terms
+  stats::terms(x = x$formula, data = x$data)
 }
