@@ -37,8 +37,9 @@ Fit a Fine and Gray model for the example data `trial` with covariate
 ``` r
 library(tidycmprsk)
 
-crr(Surv(ttdeath, death_cr) ~ age, trial)
+crr_mod <- crr(Surv(ttdeath, death_cr) ~ age, trial)
 #> 11 cases omitted due to missing values
+crr_mod
 #> 
 #> -- crr() -----------------------------------------------------------------------
 #> * Call Surv(ttdeath, death_cr) ~ age
@@ -50,3 +51,21 @@ crr(Surv(ttdeath, death_cr) ~ age, trial)
 #>   <chr>    <dbl>     <dbl>     <dbl>   <dbl>
 #> 1 age    0.00581   0.00982     0.592    0.55
 ```
+
+The `tidycmprsk` plays will with other packages, such as, `gtsummary`.
+
+``` r
+library(gtsummary)
+#> 
+#> Attaching package: 'gtsummary'
+#> The following object is masked from 'package:tidycmprsk':
+#> 
+#>     trial
+
+tbl_regression(crr_mod) %>%
+  as_kable()
+```
+
+| **Characteristic** | **Beta** | **95% CI**  | **p-value** |
+|:-------------------|:---------|:------------|:------------|
+| Age                | 0.01     | -0.01, 0.03 | 0.6         |

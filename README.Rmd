@@ -39,5 +39,15 @@ Fit a Fine and Gray model for the example data `trial` with covariate `age`.
 ```{r example}
 library(tidycmprsk)
 
-crr(Surv(ttdeath, death_cr) ~ age, trial)
+crr_mod <- crr(Surv(ttdeath, death_cr) ~ age, trial)
+crr_mod
+```
+
+The `tidycmprsk` plays will with other packages, such as, `gtsummary`.
+
+```{r gtsummary}
+library(gtsummary)
+
+tbl_regression(crr_mod) %>%
+  as_kable()
 ```
