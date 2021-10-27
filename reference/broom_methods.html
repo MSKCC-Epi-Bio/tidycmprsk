@@ -121,7 +121,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for tidycrr</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, exponentiate <span class='op'>=</span> <span class='cn'>FALSE</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, exponentiate <span class='op'>=</span> <span class='cn'>FALSE</span>, conf.int <span class='op'>=</span> <span class='cn'>FALSE</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for tidycrr</span>
 <span class='fu'><a href='https://generics.r-lib.org/reference/glance.html'>glance</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -142,6 +142,11 @@
 the coefficient estimates. This is typical for logistic and multinomial
 regressions, but a bad idea if there is no log or logit link. Defaults
 to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>conf.int</th>
+      <td><p>Logical indicating whether or not to include a confidence
+interval in the tidied output. Defaults to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
