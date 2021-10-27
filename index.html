@@ -91,8 +91,9 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mskcc-epi-bio.github.io/tidycmprsk">tidycmprsk</a></span><span class="op">)</span>
 
-<span class="fu"><a href="reference/crr.html">crr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">age</span>, <span class="va">trial</span><span class="op">)</span>
+<span class="va">crr_mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/crr.html">crr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">age</span>, <span class="va">trial</span><span class="op">)</span>
 <span class="co">#&gt; 11 cases omitted due to missing values</span>
+<span class="va">crr_mod</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; -- crr() -----------------------------------------------------------------------</span>
 <span class="co">#&gt; * Call Surv(ttdeath, death_cr) ~ age</span>
@@ -103,6 +104,31 @@
 <span class="co">#&gt;   term  estimate std.error statistic p.value</span>
 <span class="co">#&gt;   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 age    0.00581   0.00982     0.592    0.55</span></code></pre></div>
+<p>The <code>tidycmprsk</code> plays will with other packages, such as, <code>gtsummary</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/gtsummary">gtsummary</a></span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'gtsummary'</span>
+<span class="co">#&gt; The following object is masked from 'package:tidycmprsk':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     trial</span>
+
+<span class="fu"><a href="http://www.danieldsjoberg.com/gtsummary//reference/tbl_regression.html">tbl_regression</a></span><span class="op">(</span><span class="va">crr_mod</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="http://www.danieldsjoberg.com/gtsummary//reference/as_kable.html">as_kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left"><strong>Characteristic</strong></th>
+<th align="left"><strong>Beta</strong></th>
+<th align="left"><strong>95% CI</strong></th>
+<th align="left"><strong>p-value</strong></th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">Age</td>
+<td align="left">0.01</td>
+<td align="left">-0.01, 0.03</td>
+<td align="left">0.6</td>
+</tr></tbody>
+</table>
 </div>
 </div>
   </div>
