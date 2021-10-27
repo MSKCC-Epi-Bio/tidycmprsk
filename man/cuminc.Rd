@@ -4,7 +4,7 @@
 \alias{cuminc}
 \alias{cuminc.formula}
 \alias{cuminc.default}
-\title{Competing Risks Regression}
+\title{Competing Risks Cumulative Incidence}
 \usage{
 \method{cuminc}{formula}(formula, data, strata, rho = 0, ...)
 
@@ -17,6 +17,15 @@ cuminc(x, ...)
 
 \item{data}{data frame}
 
+\item{strata}{
+stratification variable.  Has no effect on estimates.  Tests will be
+stratified on this variable.  (all data in 1 stratum, if missing)
+}
+
+\item{rho}{
+Power of the weight function used in the tests.
+}
+
 \item{...}{passed to methods}
 
 \item{x}{input object}
@@ -25,7 +34,7 @@ cuminc(x, ...)
 tidycuminc object
 }
 \description{
-Competing Risks Regression
+Competing Risks Cumulative Incidence
 }
 \examples{
 cuminc(Surv(ttdeath, death_cr) ~ trt, trial)

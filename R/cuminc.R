@@ -4,6 +4,7 @@
 #' @param formula formula with `Surv()` on LHS and covariates on RHS.
 #' @param data data frame
 #' @param ... passed to methods
+#' @inheritParams cmprsk::cuminc
 #'
 #' @return tidycuminc object
 #' @name cuminc
@@ -19,7 +20,7 @@ cuminc.formula<- function(formula, data, strata, rho = 0, ...) {
   # hardhat::mold() doesn't allow for a constant on the RHS,
   # performing check, and re-formulating formula with NULL on RHS if needed
   if (tryCatch(abs(rlang::f_rhs(formula) - 1) < 10e-9, error = function(e) FALSE)) {
-    formula <- reformulate("NULL", formula[[2]])
+    formula <- stats::reformulate("NULL", formula[[2]])
     processed <-
       hardhat::mold(
         formula, data,
