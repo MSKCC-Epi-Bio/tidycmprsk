@@ -91,6 +91,10 @@ new_crr <- function(coefs, coef_names, formula, tidy, original_fit, data, failco
     formula = formula,
     data = data,
     failcode = failcode,
+    xlevels =
+      model.frame(formula, data = data)[, -1] %>%
+      lapply(levels) %>%
+      purrr::compact(),
     tidy = tidy,
     original_fit = original_fit,
     model = data,
@@ -103,7 +107,10 @@ crr_impl <- function(predictors, outcomes, failcode) {
 
   # function to run crr and summarize with tidy (implementation)
   crr_fit <-
-    cmprsk::crr(ftime = outcomes[, 1], fstatus = outcomes[, 2], cov1 = predictors, failcode = failcode)
+    cmprsk::crr(ftime = outcomes[, 1],
+                fstatus = outcomes[, 2],
+                cov1 = predictors,
+                failcode = failcode)
 
   tidy <- broom::tidy(crr_fit)
 
