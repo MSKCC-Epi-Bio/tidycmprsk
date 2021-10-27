@@ -16,12 +16,21 @@ NULL
 #' @export
 cuminc.formula<- function(formula, data, strata, rho = 0, ...) {
 
-  # checking inputs and assigning the numeric failcode -------------------------
-  # failcode_numeric <-
-  #   as_numeric_failcode(formula = formula, data = data, failcode = failcode)
+  # hardhat::mold() doesn't allow for a constant on the RHS,
+  # performing check, and re-formulating formula with NULL on RHS if needed
+  if (tryCatch(abs(rlang::f_rhs(formula) - 1) < 10e-9, error = function(e) FALSE)) {
+    formula <- reformulate("NULL", formula[[2]])
+    processed <-
+      hardhat::mold(
+        formula, data,
+        blueprint = hardhat::default_formula_blueprint(intercept = TRUE)
+      )
+  }
+  else{
+    processed <- hardhat::mold(formula, data)
+  }
 
   # building model -------------------------------------------------------------
-  processed <- hardhat::mold(formula, data)
   cuminc_bridge(processed, formula, data, strata, rho)
 }
 
