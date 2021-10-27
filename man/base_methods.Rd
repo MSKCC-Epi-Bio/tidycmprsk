@@ -4,6 +4,7 @@
 \alias{base_methods}
 \alias{model.matrix.tidycrr}
 \alias{model.frame.tidycrr}
+\alias{model.frame.tidycuminc}
 \alias{predict.tidycrr}
 \alias{terms.tidycrr}
 \title{Methods for tidycmprsk objects}
@@ -11,6 +12,8 @@
 \method{model.matrix}{tidycrr}(object, ...)
 
 \method{model.frame}{tidycrr}(formula, ...)
+
+\method{model.frame}{tidycuminc}(formula, ...)
 
 \method{predict}{tidycrr}(object, new_data = NULL, quantiles = seq(0, 1, 0.25), ...)
 

@@ -21,5 +21,8 @@ print.tidycrr <- function(x, ...){
 #' @export
 print.tidycuminc <- function(x, ...){
   cli::cli_h1("cuminc()")
+  cli::cli_li("Call {.field {deparse(x$formula)}}")
+  cli::cli_li("Failure type of interest {.val {names(x$failcode)}}")
+
   print(x$original_fit)
 }

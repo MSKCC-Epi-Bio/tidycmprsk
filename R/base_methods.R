@@ -20,6 +20,12 @@ model.frame.tidycrr <- function(formula, ...){
   stats::model.frame(formula = formula$formula, data = formula$data)
 }
 
+#' @export
+#' @rdname base_methods
+model.frame.tidycuminc <- function(formula, ...){
+  stats::model.frame(formula = formula$formula, data = formula$data)
+}
+
 #' Predict
 #'
 #' @export

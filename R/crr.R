@@ -24,7 +24,7 @@ crr.formula<- function(formula, data, failcode = NULL, ...) {
 
   # building model -------------------------------------------------------------
   processed <- hardhat::mold(formula, data)
-  crr_bridge(processed, formula, failcode_numeric, data)
+  crr_bridge(processed, formula, data, failcode_numeric)
 }
 
 as_numeric_failcode <- function(formula, data, failcode) {
@@ -90,7 +90,6 @@ new_crr <- function(coefs, coef_names, formula, tidy, original_fit, data, failco
 crr_impl <- function(predictors, outcomes, failcode) {
 
   # function to run crr and summarize with tidy (implementation)
-
   crr_fit <-
     cmprsk::crr(ftime = outcomes[, 1], fstatus = outcomes[, 2], cov1 = predictors, failcode = failcode)
 
@@ -107,7 +106,7 @@ crr_impl <- function(predictors, outcomes, failcode) {
   )
 }
 
-crr_bridge <- function(processed, formula, failcode, data) {
+crr_bridge <- function(processed, formula, data, failcode) {
 
   # function to connect object and implementation
 
