@@ -19,7 +19,7 @@ NULL
 # Formula method
 #' @rdname cuminc
 #' @export
-cuminc.formula<- function(formula, data, strata, rho = 0, ...) {
+cuminc.formula <- function(formula, data, strata, rho = 0, ...) {
 
   # extracting failure level ---------------------------------------------------
   failcode_numeric <-
@@ -34,8 +34,7 @@ cuminc.formula<- function(formula, data, strata, rho = 0, ...) {
         formula, data,
         blueprint = hardhat::default_formula_blueprint(intercept = TRUE)
       )
-  }
-  else{
+  } else {
     processed <- hardhat::mold(formula, data)
   }
 
@@ -62,12 +61,14 @@ cuminc_impl <- function(predictors, outcomes, strata, rho) {
   # function to run cuminc and summarize with tidy (implementation)
 
   cuminc_fit <-
-    cmprsk::cuminc(ftime = outcomes[, 1],
-                   fstatus = outcomes[, 2],
-                   group = predictors,
-                   cencode = 0,
-                   strata = strata,
-                   rho = rho)
+    cmprsk::cuminc(
+      ftime = outcomes[, 1],
+      fstatus = outcomes[, 2],
+      group = predictors,
+      cencode = 0,
+      strata = strata,
+      rho = rho
+    )
 
   list(
     original_fit = cuminc_fit

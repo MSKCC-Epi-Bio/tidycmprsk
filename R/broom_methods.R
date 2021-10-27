@@ -14,9 +14,13 @@ NULL
 #' @rdname broom_methods
 #' @export
 #' @family tidycrr tidiers
-tidy.tidycrr <- function(x, exponentiate = FALSE, conf.level = 0.95, ...){
+tidy.tidycrr <- function(x, exponentiate = FALSE, conf.int = FALSE,
+                         conf.level = 0.95, ...) {
   broom::tidy(
-    x$original_fit, exponentiate = exponentiate, conf.level = conf.level, ...)
+    x$original_fit,
+    exponentiate = exponentiate, conf.int = conf.int,
+    conf.level = conf.level, ...
+  )
 }
 
 #' @rdname broom_methods
@@ -29,11 +33,12 @@ glance.tidycrr <- function(x, ...) {
 #' @rdname broom_methods
 #' @export
 #' @family tidycrr tidiers
-augment.tidycrr <- function(x, quantiles = seq(0,1,0.25), new_data, ...){
-
+augment.tidycrr <- function(x, quantiles = seq(0, 1, 0.25), new_data, ...) {
   pred <- predict.tidycrr(x, new_data = x$model, quantiles = quantiles)
-  out <- cbind(pred$newdata,
-               pred$qout,
-               pred$lpout)
+  out <- cbind(
+    pred$newdata,
+    pred$qout,
+    pred$lpout
+  )
   tibble::as_tibble(out)
 }

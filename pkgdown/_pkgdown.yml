@@ -31,7 +31,11 @@ reference:
   - contents:
       - crr
       - cuminc
-  - title: S3 Methods
+
+  - title: broom-like tidiers
   - contents:
       - broom_methods
+
+  - title: S3 Methods
+  - contents:
       - base_methods

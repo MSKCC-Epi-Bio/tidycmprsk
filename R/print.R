@@ -7,7 +7,7 @@ NULL
 
 #' @rdname print
 #' @export
-print.tidycrr <- function(x, ...){
+print.tidycrr <- function(x, ...) {
   cli::cli_h1("crr()")
   cli::cli_li("Call {.field {deparse(x$formula)}}")
   cli::cli_li("Failure type of interest {.val {names(x$failcode)}}")
@@ -19,7 +19,7 @@ print.tidycrr <- function(x, ...){
 
 #' @rdname print
 #' @export
-print.tidycuminc <- function(x, ...){
+print.tidycuminc <- function(x, ...) {
   cli::cli_h1("cuminc()")
   cli::cli_li("Call {.field {deparse(x$formula)}}")
   cli::cli_li("Failure type of interest {.val {names(x$failcode)}}")

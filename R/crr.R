@@ -16,7 +16,7 @@ NULL
 # Formula method
 #' @rdname crr
 #' @export
-crr.formula<- function(formula, data, failcode = NULL, ...) {
+crr.formula <- function(formula, data, failcode = NULL, ...) {
 
   # checking inputs and assigning the numeric failcode -------------------------
   failcode_numeric <-
@@ -30,21 +30,25 @@ crr.formula<- function(formula, data, failcode = NULL, ...) {
 as_numeric_failcode <- function(formula, data, failcode) {
   # evaluating LHS of formula --------------------------------------------------
   formula_lhs <-
-    tryCatch({
-      rlang::f_lhs(formula) %>%
-        rlang::eval_tidy(data = data)
-    },
-    error = function(e) {
-      cli::cli_alert_danger("There was an error evaluating the LHS of the formula.")
-      stop(e, call. = FALSE)
-    })
+    tryCatch(
+      {
+        rlang::f_lhs(formula) %>%
+          rlang::eval_tidy(data = data)
+      },
+      error = function(e) {
+        cli::cli_alert_danger("There was an error evaluating the LHS of the formula.")
+        stop(e, call. = FALSE)
+      }
+    )
 
   # checking type of LHS -------------------------------------------------------
   if (!inherits(formula_lhs, "Surv") ||
-      !identical(attr(formula_lhs, "type"), "mright")) {
-    paste("The LHS of the formula must be of class 'Surv' and type 'mright'.",
-          "Please review syntax in the help file.") %>%
-    stop(call. = FALSE)
+    !identical(attr(formula_lhs, "type"), "mright")) {
+    paste(
+      "The LHS of the formula must be of class 'Surv' and type 'mright'.",
+      "Please review syntax in the help file."
+    ) %>%
+      stop(call. = FALSE)
   }
 
   # checking the failcode argument ---------------------------------------------
