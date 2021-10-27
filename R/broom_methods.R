@@ -14,11 +14,14 @@ NULL
 #' @rdname broom_methods
 #' @export
 #' @family tidycrr tidiers
-tidy.tidycrr <- function(x, exponentiate = FALSE, conf.int = FALSE,
+tidy.tidycrr <- function(x,
+                         exponentiate = FALSE,
+                         conf.int = FALSE,
                          conf.level = 0.95, ...) {
   broom::tidy(
     x$original_fit,
-    exponentiate = exponentiate, conf.int = conf.int,
+    exponentiate = exponentiate,
+    conf.int = conf.int,
     conf.level = conf.level, ...
   )
 }

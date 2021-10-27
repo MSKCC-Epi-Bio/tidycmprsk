@@ -54,7 +54,7 @@ as_numeric_failcode <- function(formula, data, failcode) {
   # checking the failcode argument ---------------------------------------------
   failcode <- failcode %||% attr(formula_lhs, "states")[1]
   if (!is.null(failcode) && !failcode %in% attr(formula_lhs, "states")) {
-    stop("The `failcode=`")
+    stop("Invalid `failcode=` specification.")
   }
   failcode_numeric <- which(attr(formula_lhs, "states") %in% failcode)
 

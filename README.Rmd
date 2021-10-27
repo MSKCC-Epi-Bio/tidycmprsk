@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/MSKCC-Epi-Bio/tidycmprsk/workflows/R-CMD-check/badge.svg)](https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions)
-[![Codecov test coverage](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge.svg)](https://codecov.io/gh/ddsjoberg/tidycmprsk?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge.svg)](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk?branch=main)
 <!-- badges: end -->
 
   The goal of `tidycmprsk` is to provide a compatible wrap of the competing risks analysis R package `cmprsk`, such that the output objects can work with methods like `model.frame()`, `model.matrix()`, `tidy()`, and so on. This package can be incorporated with `gtsummary` to provide convenient summary of competing risks models. 
