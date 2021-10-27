@@ -22,8 +22,16 @@ crr.formula <- function(formula, data, failcode = NULL, ...) {
   failcode_numeric <-
     as_numeric_failcode(formula = formula, data = data, failcode = failcode)
 
+  # process model variables ----------------------------------------------------
+  processed <-
+    hardhat::mold(
+      formula, data,
+      blueprint = hardhat::default_formula_blueprint(intercept = TRUE)
+    )
+  #remove intercept
+  processed$predictors <- processed$predictors[,-1]
+
   # building model -------------------------------------------------------------
-  processed <- hardhat::mold(formula, data)
   crr_bridge(processed, formula, data, failcode_numeric)
 }
 
@@ -43,7 +51,7 @@ as_numeric_failcode <- function(formula, data, failcode) {
 
   # checking type of LHS -------------------------------------------------------
   if (!inherits(formula_lhs, "Surv") ||
-    !identical(attr(formula_lhs, "type"), "mright")) {
+      !identical(attr(formula_lhs, "type"), "mright")) {
     paste(
       "The LHS of the formula must be of class 'Surv' and type 'mright'.",
       "Please review syntax in the help file."
