@@ -11,7 +11,6 @@ Depends:
     R (>= 3.4)
 Imports: 
     broom (>= 0.7.9),
-    broom.helpers,
     cli (>= 3.0.1),
     cmprsk (>= 2.2.10),
     dplyr (>= 1.0.7),
@@ -25,8 +24,6 @@ Imports:
 Suggests: 
     covr (>= 3.5.1),
     testthat (>= 3.0.4)
-Remotes:
-    larmarange/broom.helpers
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true

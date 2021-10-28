@@ -112,7 +112,7 @@ crr_impl <- function(predictors, outcomes, failcode) {
                 cov1 = predictors,
                 failcode = failcode)
 
-  tidy <- broom::tidy(crr_fit)
+  tidy <- broom::tidy(crr_fit, conf.int = TRUE)
 
   coefs <- tidy$estimate
   coef_names <- tidy$term

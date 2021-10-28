@@ -18,12 +18,21 @@ tidy.tidycrr <- function(x,
                          exponentiate = FALSE,
                          conf.int = FALSE,
                          conf.level = 0.95, ...) {
-  broom::tidy(
+  df_tidy <-
+    broom::tidy(
     x$original_fit,
     exponentiate = exponentiate,
     conf.int = conf.int,
     conf.level = conf.level, ...
   )
+
+  if (isTRUE(conf.int)) {
+    df_tidy <-
+      df_tidy %>%
+      dplyr::relocate(.data$conf.low, .data$conf.high, .before = .data$p.value)
+  }
+
+  df_tidy
 }
 
 #' @rdname broom_methods

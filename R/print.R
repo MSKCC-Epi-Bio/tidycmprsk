@@ -11,69 +11,42 @@ print.tidycrr <- function(x, ...) {
   cli::cli_h1("crr()")
   cli::cli_li("Call {.field {deparse(x$formula)}}")
   cli::cli_li("Failure type of interest {.val {names(x$failcode)}}")
+  cat("\n")
 
-  cat("\nFine and Gray's model fit: \n")
-  df_print <-
-    crr_mod %>%
-    broom.helpers::tidy_and_attach(
-      model = x,
-      tidy_fun = tidy,
-      exponentiate = TRUE,
-      conf.int = TRUE
-    ) %>%
-    broom.helpers::tidy_add_reference_rows() %>%
-    broom.helpers::tidy_add_header_rows() %>%
+  x$tidy %>%
     dplyr::mutate(
-      dplyr::across(c(where(is.numeric), -.data$p.value), ~gtsummary::style_sigfig(., digits = 3)),
+      dplyr::across(c(.data$estimate, .data$conf.low, .data$conf.high), exp),
+      dplyr::across(c(where(is.numeric), -.data$std.error, -.data$p.value),
+                    ~gtsummary::style_ratio(., digits = 2)),
+      std.error = gtsummary::style_sigfig(.data$std.error, digits = 3),
       p.value = gtsummary::style_pvalue(.data$p.value, digits = 2),
-      dplyr::across(where(is.character), ~dplyr::if_else(is.na(.), "", .)),
-      dplyr::across(where(is.character),
-                    ~ifelse(reference_row %in% TRUE & . == "", "\U2014", .))
-    )
-
-  df_print_padded <-
-    df_print %>%
-    tibble::add_row(label = "Variable",
-                    estimate = "HR",
-                    std.error = "SE",
-                    conf.low = "Low",
-                    conf.high = "High",
-                    p.value = "P",
-                    .before = 1)
-
-  for (v in names(df_print_padded)) {
-    if (is.character(df_print_padded[[v]]))
-      df_print_padded[[v]] <-
-        stringr::str_pad(df_print_padded[[v]],
-                         side = "right",
-                         width = max(nchar(df_print_padded[[v]])) + 1L)
-  }
-
-  df_print_padded2 <-
-    df_print_padded %>%
+      conf.int = paste(conf.low, conf.high, sep = ", "),
+      dplyr::across(where(is.character), ~dplyr::if_else(is.na(.), "", .))
+    ) %>%
+    select(-.data$statistic, -.data$conf.low, -.data$conf.high) %>%
+    tibble::add_row(
+      term = "Variable",
+      estimate = "HR",
+      std.error = "SE",
+      conf.int = "95% CI",
+      p.value = "p-value",
+      .before = 1
+    ) %>%
     dplyr::mutate(
+      dplyr::across(
+        where(is.character),
+        ~stringr::str_pad(., side = "right", width = max(nchar(.)) + 3L)),
       dplyr::across(everything(),
                     ~ifelse(dplyr::row_number() == 1L,
                             cli::style_underline(.) %>% cli::style_italic(), .)),
-      cli_label =
-        ifelse(
-          header_row %in% c(NA, TRUE) & dplyr::row_number() > 1,
-          cli::style_bold(label) %>% cli::col_black(),
-          label
-        ),
-      cli_label =
-        ifelse(
-          header_row %in% FALSE & dplyr::row_number() > 1,
-          cli::style_italic(label) %>% cli::col_blue(),
-          cli_label
-        )
+      term =
+        ifelse(dplyr::row_number() > 1L, cli::style_bold(.data$term), .data$term)
     ) %>%
-    dplyr::select(.data$cli_label, .data$estimate, .data$std.error,
-                  .data$conf.low, .data$conf.high, .data$p.value)
-
-  for (i in seq_len(nrow(df_print_padded2))) {
-    df_print_padded2[i,] %>% unlist() %>% paste(collapse = "") %>% cat("\n")
-  }
+    dplyr::relocate(.data$conf.int, .before = .data$p.value) %>%
+    {purrr::walk(
+      seq_len(nrow(.)),
+      function(.x) .[.x, ] %>% unlist() %>% paste(collapse = "") %>% cat("\n")
+    )}
 
   invisible()
 }
