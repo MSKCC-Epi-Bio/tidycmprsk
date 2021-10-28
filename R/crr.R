@@ -93,7 +93,13 @@ new_crr <- function(coefs, coef_names, formula, tidy, original_fit, data, failco
     failcode = failcode,
     xlevels =
       stats::model.frame(formula, data = data)[, -1] %>%
-      lapply(levels) %>%
+      purrr::map(
+        function(.x) {
+          if (inherits(.x, "factor")) return(levels(.x))
+          if (inherits(.x, "character")) return(unique(.x) %>% sort())
+          return(NULL)
+        }
+      ) %>%
       purrr::compact(),
     tidy = tidy,
     original_fit = original_fit,
