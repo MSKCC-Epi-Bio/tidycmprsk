@@ -20,6 +20,7 @@ Imports:
     rlang (>= 0.4.11),
     stringr (>= 1.4.0),
     survival,
+    tidyr (>= 1.1.4),
     tibble (>= 3.1.4)
 Suggests: 
     covr (>= 3.5.1),

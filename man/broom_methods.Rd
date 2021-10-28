@@ -5,6 +5,7 @@
 \alias{tidy.tidycrr}
 \alias{glance.tidycrr}
 \alias{augment.tidycrr}
+\alias{tidy.tidycuminc}
 \title{Broom methods for tidycmprsk objects}
 \usage{
 \method{tidy}{tidycrr}(x, exponentiate = FALSE, conf.int = FALSE, conf.level = 0.95, ...)
@@ -12,6 +13,8 @@
 \method{glance}{tidycrr}(x, ...)
 
 \method{augment}{tidycrr}(x, quantiles = seq(0, 1, 0.25), new_data, ...)
+
+\method{tidy}{tidycuminc}(x, conf.int = FALSE, conf.level = 0.95, ...)
 }
 \arguments{
 \item{x}{placeholder}
