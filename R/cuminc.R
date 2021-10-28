@@ -34,8 +34,17 @@ cuminc.formula <- function(formula, data, strata, rho = 0, ...) {
         formula, data,
         blueprint = hardhat::default_formula_blueprint(intercept = TRUE)
       )
-  } else {
-    processed <- hardhat::mold(formula, data)
+  }
+  else {
+    # instead of using dummy variables, try to keep covariates "as is".
+    processed <-
+      hardhat::mold(
+        formula, data,
+        blueprint = hardhat::default_formula_blueprint(indicators = "none")
+      )
+
+    # use covariate interactions as input to cmprsk::cuminc
+    processed$predictors <- interaction(processed$predictors)
   }
 
   # building model -------------------------------------------------------------
@@ -100,13 +109,18 @@ cuminc_bridge <- function(processed, formula, data, strata, rho, failcode) {
 }
 
 new_cuminc <- function(formula, data, failcode, blueprint, original_fit) {
-  hardhat::new_model(
-    formula = formula,
-    data = data,
-    failcode = failcode,
-    original_fit = original_fit,
-    model = data,
-    blueprint = blueprint,
-    class = "tidycuminc"
-  )
+  new_cuminc <-
+    hardhat::new_model(
+      formula = formula,
+      data = data,
+      failcode = failcode,
+      original_fit = original_fit,
+      model = data,
+      blueprint = blueprint,
+      class = "tidycuminc"
+    )
+  new_cuminc <-
+    new_cuminc %>%
+    purrr::list_modify(tidy = tidy(new_cuminc, conf.int = TRUE))
+  new_cuminc
 }

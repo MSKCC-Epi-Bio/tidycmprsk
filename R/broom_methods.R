@@ -4,6 +4,8 @@
 #' @param new_data placeholder
 #' @param x placeholder
 #' @param quantiles placeholder
+#' @param times vector of numeric time points where risk estimates will be shown.
+#' Default it to use all observed times.
 #' @param ... not used
 #'
 #' @name broom_methods
@@ -58,7 +60,8 @@ augment.tidycrr <- function(x, quantiles = seq(0, 1, 0.25), new_data, ...) {
 #' @rdname broom_methods
 #' @export
 #' @family tidycrr tidiers
-tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,  ...) {
+tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,
+                            times = NULL, ...) {
   # create df of each outcome level with an ID column as well
   df_outcomes <-
     rlang::f_lhs(x$formula) %>%
@@ -69,6 +72,7 @@ tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,  ...) {
 
   # will calculate risk estimates at all observed followup times
   times <-
+    times %||%
     stats::model.frame(x$formula, data = x$data)[[1]][, 1] %>% unique() %>% sort()
 
   # convert estimates into tibble
@@ -88,7 +92,7 @@ tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,  ...) {
   df_tidy <-
     dplyr::full_join(
       df_est, df_se,
-      by = c("strata_id", "outcome_id", "time")
+      by = c("strata", "outcome_id", "time")
     ) %>%
     dplyr::full_join(
       df_outcomes,
@@ -97,25 +101,8 @@ tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,  ...) {
     dplyr::select(.data$outcome, dplyr::everything(), -.data$outcome_id)
 
   # if only one group, then remove the column from
-  if (length(unique(df_tidy$strata_id)) == 1L) {
-    df_tidy$strata_id <- NULL
-  }
-  #otherwise, link the strata_id to the stratifying variables
-  else {
-    processed <- hardhat::mold(x$formula, x$data)
-    df_strata <-
-      dplyr::distinct(processed$predictors)
-      names(processed$predictors) %>%
-      stats::setNames(seq_len(length(.)) - 1L) %>%
-      tibble::enframe("strata_id", "strata")
-
-    df_tidy <-
-      df_tidy %>%
-      dplyr::full_join(
-        df_strata,
-        by = "strata_id"
-      ) %>%
-      dplyr::select(.data$strata, dplyr::everything(), -.data$strata_id)
+  if (length(unique(df_tidy$strata)) == 1L) {
+    df_tidy$strata <- NULL
   }
 
   # if user requested conf.int, add to tibble
@@ -144,13 +131,13 @@ cuminc_matrix_to_df <- function(x, name) {
     tibble::rownames_to_column() %>%
     tibble::as_tibble() %>%
     dplyr::mutate(
-      strata_id = stringr::word(.data$rowname),
-      outcome_id = stringr::word(.data$rowname, 2L),
+      strata = stringr::word(.data$rowname, 1, -2),
+      outcome_id = stringr::word(.data$rowname, -1L),
       .before = .data$rowname
     ) %>%
     dplyr::select(-.data$rowname) %>%
     tidyr::pivot_longer(
-      cols = -c(.data$strata_id, .data$outcome_id),
+      cols = -c(.data$strata, .data$outcome_id),
       names_to = "time",
       values_to = name
     ) %>%

@@ -14,7 +14,7 @@
 
 \method{augment}{tidycrr}(x, quantiles = seq(0, 1, 0.25), new_data, ...)
 
-\method{tidy}{tidycuminc}(x, conf.int = FALSE, conf.level = 0.95, ...)
+\method{tidy}{tidycuminc}(x, conf.int = FALSE, conf.level = 0.95, times = NULL, ...)
 }
 \arguments{
 \item{x}{placeholder}
@@ -36,6 +36,9 @@ Defaults to 0.95, which corresponds to a 95 percent confidence interval.}
 \item{quantiles}{placeholder}
 
 \item{new_data}{placeholder}
+
+\item{times}{vector of numeric time points where risk estimates will be shown.
+Default it to use all observed times.}
 }
 \value{
 a tibble

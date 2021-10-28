@@ -55,8 +55,48 @@ print.tidycrr <- function(x, ...) {
 #' @export
 print.tidycuminc <- function(x, ...) {
   cli::cli_h1("cuminc()")
-  cli::cli_li("Call {.field {deparse(x$formula)}}")
-  cli::cli_li("Failure type of interest {.val {names(x$failcode)}}")
 
-  print(x$original_fit)
+  # selecting times to report
+  times <- stats::model.frame(x$formula, data = x$data)[[1]][, 1]
+  times <- pretty(times) %>% purrr::discard(~ .x <= 0 | .x > max(times, na.rm = TRUE))
+
+  # getting summaries at specified timepoints
+  df_tidy <- tidy(x, times = times)
+
+  # printing estimates for each outcome
+  unique(df_tidy$outcome) %>%
+    purrr::walk(
+      function(outcome) {
+        cat("\n")
+        cli::cli_li("Failure type {.val {outcome}}")
+        # cat("\n")
+
+        df_tidy %>%
+          # filter on the outcome of interest
+          dplyr::filter(.data$outcome %in% .env$outcome) %>%
+          dplyr::select(-.data$outcome) %>%
+          # round all stats
+          dplyr::mutate(dplyr::across(where(is.numeric), ~gtsummary::style_sigfig(., digits = 3))) %>%
+          # add header row
+          {tibble::add_row(
+            .data = .,
+            !!!stats::setNames(as.list(names(.)), names(.)),
+            .before = 0L
+          )} %>%
+          # add cli styling to the header row
+          dplyr::mutate(
+            dplyr::across(
+              where(is.character),
+              ~stringr::str_pad(., side = "right", width = max(nchar(.)) + 3L)),
+            dplyr::across(everything(),
+                          ~ifelse(dplyr::row_number() == 1L,
+                                  cli::style_underline(.) %>% cli::style_italic(), .))
+          ) %>%
+          # print results table
+          {purrr::walk(
+            seq_len(nrow(.)),
+            function(.x) .[.x, ] %>% unlist() %>% paste(collapse = "") %>% cat("\n")
+          )}
+      }
+    )
 }
