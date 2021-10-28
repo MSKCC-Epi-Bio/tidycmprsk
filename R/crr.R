@@ -92,7 +92,7 @@ new_crr <- function(coefs, coef_names, formula, tidy, original_fit, data, failco
     data = data,
     failcode = failcode,
     xlevels =
-      model.frame(formula, data = data)[, -1] %>%
+      stats::model.frame(formula, data = data)[, -1] %>%
       lapply(levels) %>%
       purrr::compact(),
     tidy = tidy,

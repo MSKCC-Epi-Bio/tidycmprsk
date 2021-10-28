@@ -20,7 +20,7 @@ print.tidycrr <- function(x, ...) {
                     ~gtsummary::style_ratio(., digits = 2)),
       std.error = gtsummary::style_sigfig(.data$std.error, digits = 3),
       p.value = gtsummary::style_pvalue(.data$p.value, digits = 2),
-      conf.int = paste(conf.low, conf.high, sep = ", "),
+      conf.int = paste(.data$conf.low, .data$conf.high, sep = ", "),
       dplyr::across(where(is.character), ~dplyr::if_else(is.na(.), "", .))
     ) %>%
     select(-.data$statistic, -.data$conf.low, -.data$conf.high) %>%
