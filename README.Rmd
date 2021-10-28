@@ -39,15 +39,28 @@ Fit a Fine and Gray model for the example data `trial` with covariate `age`.
 ```{r example}
 library(tidycmprsk)
 
-crr_mod <- crr(Surv(ttdeath, death_cr) ~ age, trial)
+crr_mod <- crr(Surv(ttdeath, death_cr) ~ age + trt, trial)
 crr_mod
 ```
 
-The `tidycmprsk` plays will with other packages, such as, `gtsummary`.
+The `tidycmprsk` plays will with other packages, such as `gtsummary`.
 
-```{r gtsummary}
+```{r gtsummary, message = FALSE}
 library(gtsummary)
 
-tbl_regression(crr_mod) %>%
-  as_kable()
+tbl <- tbl_regression(crr_mod, exponentiate = TRUE)
+```
+
+```{r gtsummary_print, include = FALSE}
+# Had to manually save images in temp file, not sure if better way.
+gt::gtsave(as_gt(tbl), file = file.path(tempdir(), "temp.png"))
+```
+
+```{r out.width = "60%", echo = FALSE}
+# Have to do this workaround since the README needs markdown format for GitHub page but a different format for the website.
+if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
+  tbl
+} else {
+  knitr::include_graphics("man/figures/README-gtsummary_print-1.png")
+} 
 ```
