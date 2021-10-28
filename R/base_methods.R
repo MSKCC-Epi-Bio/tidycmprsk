@@ -86,3 +86,9 @@ predict.tidycrr <- function(object, new_data = NULL, quantiles = seq(0, 1, 0.25)
 terms.tidycrr <- function(x, ...) {
   stats::terms(x = x$formula, data = x$data)
 }
+
+#' @export
+#' @rdname base_methods
+coef.tidycrr <- function(object, ...) {
+  object$coefs
+}

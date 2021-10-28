@@ -7,6 +7,7 @@
 \alias{model.frame.tidycuminc}
 \alias{predict.tidycrr}
 \alias{terms.tidycrr}
+\alias{coef.tidycrr}
 \title{Methods for tidycmprsk objects}
 \usage{
 \method{model.matrix}{tidycrr}(object, ...)
@@ -18,6 +19,8 @@
 \method{predict}{tidycrr}(object, new_data = NULL, quantiles = seq(0, 1, 0.25), ...)
 
 \method{terms}{tidycrr}(x, ...)
+
+\method{coef}{tidycrr}(object, ...)
 }
 \arguments{
 \item{...}{not used}

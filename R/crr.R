@@ -86,8 +86,7 @@ new_crr <- function(coefs, coef_names, formula, tidy, original_fit, data, failco
   }
 
   hardhat::new_model(
-    coefs = coefs,
-    coef_names = coef_names,
+    coefs = coefs %>% stats::setNames(coef_names),
     formula = formula,
     data = data,
     failcode = failcode,
