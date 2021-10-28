@@ -165,38 +165,36 @@ stratified on this variable.  (all data in 1 stratum, if missing)</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># calculate risk for entire cohort -----------</span>
 <span class='fu'>cuminc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='fl'>1</span>, <span class='va'>trial</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>cuminc()</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; <span class='message'>• Call <span style='color: #00BB00;'>Surv(ttdeath, death_cr) ~ NULL</span></span></div><div class='output co'>#&gt; <span class='message'>• Failure type of interest <span style='color: #0000BB;'>"death from cancer"</span></span></div><div class='output co'>#&gt; Estimates and Variances:
-#&gt; $est
-#&gt;         5    10   15    20
-#&gt; 1 1 0.000 0.030 0.12 0.215
-#&gt; 1 2 0.005 0.025 0.09 0.205
-#&gt; 
-#&gt; $var
-#&gt;           5           10           15           20
-#&gt; 1 1 0.0e+00 0.0001462496 0.0005310113 0.0008494634
-#&gt; 1 2 2.5e-05 0.0001225043 0.0004117860 0.0008202605
-#&gt; </div><div class='input'>
+</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>cuminc()</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>• Failure type <span style='color: #0000BB;'>"death from cancer"</span></span></div><div class='output co'>#&gt; <span style='font-style: italic; text-decoration: underline;'>time   estimate   std.error   </span> 
+#&gt; 5.00   0.000      0.000        
+#&gt; 10.0   0.030      0.012        
+#&gt; 15.0   0.120      0.023        
+#&gt; 20.0   0.215      0.029        
+#&gt; </div><div class='output co'>#&gt; <span class='message'>• Failure type <span style='color: #0000BB;'>"death other causes"</span></span></div><div class='output co'>#&gt; <span style='font-style: italic; text-decoration: underline;'>time   estimate   std.error   </span> 
+#&gt; 5.00   0.005      0.005        
+#&gt; 10.0   0.025      0.011        
+#&gt; 15.0   0.090      0.020        
+#&gt; 20.0   0.205      0.029        </div><div class='input'>
 <span class='co'># calculate risk by treatment group ----------</span>
 <span class='fu'>cuminc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>trt</span>, <span class='va'>trial</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>cuminc()</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; <span class='message'>• Call <span style='color: #00BB00;'>Surv(ttdeath, death_cr) ~ trt</span></span></div><div class='output co'>#&gt; <span class='message'>• Failure type of interest <span style='color: #0000BB;'>"death from cancer"</span></span></div><div class='output co'>#&gt; Tests:
-#&gt;           stat pv df
-#&gt; 1 1.560312e-32  1  1
-#&gt; 2 1.797470e-33  1  1
-#&gt; Estimates and Variances:
-#&gt; $est
-#&gt;         5    10   15    20
-#&gt; 0 1 0.000 0.030 0.12 0.215
-#&gt; 1 1 0.000 0.030 0.12 0.215
-#&gt; 0 2 0.005 0.025 0.09 0.205
-#&gt; 1 2 0.005 0.025 0.09 0.205
-#&gt; 
-#&gt; $var
-#&gt;           5           10           15           20
-#&gt; 0 1 0.0e+00 0.0001462496 0.0005310113 0.0008494634
-#&gt; 1 1 0.0e+00 0.0001462496 0.0005310113 0.0008494634
-#&gt; 0 2 2.5e-05 0.0001225043 0.0004117860 0.0008202605
-#&gt; 1 2 2.5e-05 0.0001225043 0.0004117860 0.0008202605
-#&gt; </div></pre>
+</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>cuminc()</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>• Failure type <span style='color: #0000BB;'>"death from cancer"</span></span></div><div class='output co'>#&gt; <span style='font-style: italic; text-decoration: underline;'>strata   time   estimate   std.error   </span> 
+#&gt; Drug A   5.00   0.000      0.000        
+#&gt; Drug A   10.0   0.020      0.014        
+#&gt; Drug A   15.0   0.071      0.026        
+#&gt; Drug A   20.0   0.173      0.039        
+#&gt; Drug B   5.00   0.000      0.000        
+#&gt; Drug B   10.0   0.039      0.019        
+#&gt; Drug B   15.0   0.167      0.037        
+#&gt; Drug B   20.0   0.255      0.043        
+#&gt; </div><div class='output co'>#&gt; <span class='message'>• Failure type <span style='color: #0000BB;'>"death other causes"</span></span></div><div class='output co'>#&gt; <span style='font-style: italic; text-decoration: underline;'>strata   time   estimate   std.error   </span> 
+#&gt; Drug A   5.00   0.010      0.010        
+#&gt; Drug A   10.0   0.020      0.014        
+#&gt; Drug A   15.0   0.082      0.028        
+#&gt; Drug A   20.0   0.204      0.041        
+#&gt; Drug B   5.00   0.000      0.000        
+#&gt; Drug B   10.0   0.029      0.017        
+#&gt; Drug B   15.0   0.098      0.030        
+#&gt; Drug B   20.0   0.206      0.040        </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

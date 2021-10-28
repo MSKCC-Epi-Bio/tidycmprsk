@@ -130,7 +130,7 @@
 <span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>x</span>, quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.25</span><span class='op'>)</span>, <span class='va'>new_data</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for tidycuminc</span>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, conf.int <span class='op'>=</span> <span class='cn'>FALSE</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>x</span>, conf.int <span class='op'>=</span> <span class='cn'>FALSE</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, times <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,6 +168,11 @@ Defaults to 0.95, which corresponds to a 95 percent confidence interval.</p></td
     <tr>
       <th>new_data</th>
       <td><p>placeholder</p></td>
+    </tr>
+    <tr>
+      <th>times</th>
+      <td><p>vector of numeric time points where risk estimates will be shown.
+Default it to use all observed times.</p></td>
     </tr>
     </table>
 
