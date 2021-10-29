@@ -1,7 +1,8 @@
 #' @keywords internal
-#' @importFrom rlang .data .env
+#' @importFrom rlang .data .env expr
 #' @importFrom dplyr select everything
 #' @importFrom purrr %||%
+#' @importFrom ggplot2 ggplot aes geom_step geom_ribbon
 "_PACKAGE"
 
 # allowing for the use of the dot when piping

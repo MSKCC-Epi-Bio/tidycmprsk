@@ -30,6 +30,15 @@ a tibble
 \description{
 Broom methods for tidy cuminc objects
 }
+\section{\code{tidy()} confidence intervals}{
+
+
+The confidence intervals in \code{tidy()} use the recommended method in
+\emph{Competing Risks: A Practical Perspective} by Melania Pintilie.
+
+\verb{  x^exp(-z * se / (x * log(x))), x^exp(z * se / (x * log(x)))}
+}
+
 \examples{
 cuminc <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
 

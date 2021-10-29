@@ -74,6 +74,14 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #'
 #' @name broom_methods_cuminc
 #' @return a tibble
+#'
+#' @section `tidy()` confidence intervals:
+#'
+#' The confidence intervals in `tidy()` use the recommended method in
+#' *Competing Risks: A Practical Perspective* by Melania Pintilie.
+#'
+#' `   x^exp(-z * se / (x * log(x))), x^exp(z * se / (x * log(x))) `
+#'
 #' @examples
 #' cuminc <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
 #'
@@ -88,7 +96,12 @@ NULL
 #' @family cuminc tidiers
 tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,
                             times = NULL, ...) {
-  # create df of each outcome level with an ID column as well
+  # check inputs ---------------------------------------------------------------
+  if (!is.numeric(conf.level)  || !dplyr::between(conf.level, 0, 1)) {
+    stop("`conf.level=` must be between 0 and 1")
+  }
+
+  # create df of each outcome level with an ID column as well ------------------
   df_outcomes <-
     rlang::f_lhs(x$formula) %>%
     rlang::eval_tidy(data = x$data) %>%
@@ -96,21 +109,21 @@ tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,
     stats::setNames(seq_len(length(.))) %>%
     tibble::enframe("outcome_id", "outcome")
 
-  # will calculate risk estimates at all observed followup times
+  # will calculate risk estimates at all observed followup times ---------------
   times <-
     times %||%
     stats::model.frame(x$formula, data = x$data)[[1]][, 1] %>%
     unique() %>%
     sort()
 
-  # convert estimates into tibble
+  # convert estimates into tibble ----------------------------------------------
   df_est <-
     x$cmprsk %>%
     cmprsk::timepoints(times = times) %>%
     purrr::pluck("est") %>%
     cuminc_matrix_to_df(name = "estimate")
 
-  # convert variances into tibble
+  # convert variances into tibble ----------------------------------------------
   df_se <-
     x$cmprsk %>%
     cmprsk::timepoints(times = times) %>%
@@ -118,7 +131,7 @@ tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,
     sqrt() %>%
     cuminc_matrix_to_df(name = "std.error")
 
-  # combine estimates and variances into single tibble
+  # combine estimates and variances into single tibble -------------------------
   df_tidy <-
     dplyr::full_join(
       df_est, df_se,
@@ -130,7 +143,7 @@ tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,
     ) %>%
     dplyr::select(.data$outcome, dplyr::everything(), -.data$outcome_id)
 
-  # if only one group, then remove the column from
+  # if only one group, then remove the column from -----------------------------
   if (length(unique(df_tidy$strata)) == 1L) {
     df_tidy$strata <- NULL
   }

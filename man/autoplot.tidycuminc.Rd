@@ -4,10 +4,25 @@
 \alias{autoplot.tidycuminc}
 \title{Plot cuminc Estimates}
 \usage{
-\method{autoplot}{tidycuminc}(object, ...)
+\method{autoplot}{tidycuminc}(
+  object,
+  outcomes = names(object$failcode),
+  conf.int = FALSE,
+  conf.level = 0.95,
+  ...
+)
 }
 \arguments{
 \item{object}{object of class 'cuminc'}
+
+\item{outcomes}{character vector of outcomes to include in plot}
+
+\item{conf.int}{Logical indicating whether or not to include a confidence
+interval in the tidied output. Defaults to \code{FALSE}.}
+
+\item{conf.level}{The confidence level to use for the confidence interval
+if \code{conf.int = TRUE}. Must be strictly greater than 0 and less than 1.
+Defaults to 0.95, which corresponds to a 95 percent confidence interval.}
 
 \item{...}{not used}
 }
@@ -15,6 +30,15 @@
 Function uses the result from \code{tidy(object)} to create figure.
 }
 \examples{
+# Example 1 ----------------------------------
 cuminc(Surv(ttdeath, death_cr) ~ trt, trial) \%>\%
   autoplot()
+
+# Example 2 ----------------------------------
+cuminc(Surv(ttdeath, death_cr) ~ 1, trial) \%>\%
+  autoplot(outcomes = "death from cancer", conf.int = TRUE) +
+  ggplot2::labs(
+    x = "Months from Treatment",
+    y = "Risk of Death"
+  )
 }
