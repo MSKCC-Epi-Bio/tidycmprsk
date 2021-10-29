@@ -2,8 +2,14 @@ Package: tidycmprsk
 Title: Tidy Implementation of Competing Risks Regression
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    c(person(given = "Daniel D.",
+             family = "Sjoberg",
+             role = c("aut", "cre"),
+             email = "danield.sjoberg@gmail.com",
+             comment = c(ORCID = "0000-0003-0862-2018")),
+      person(given = "Teng",
+             family = "Fei",
+             role = "aut"))
 Description: What the package does (one paragraph).
 License: AGPL (>= 3)
 URL: https://mskcc-epi-bio.github.io/tidycmprsk

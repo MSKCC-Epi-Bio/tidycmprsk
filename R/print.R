@@ -69,14 +69,15 @@ print.tidycuminc <- function(x, ...) {
       function(outcome) {
         cat("\n")
         cli::cli_li("Failure type {.val {outcome}}")
-        # cat("\n")
 
         df_tidy %>%
           # filter on the outcome of interest
           dplyr::filter(.data$outcome %in% .env$outcome) %>%
-          dplyr::select(-.data$outcome) %>%
           # round all stats
-          dplyr::mutate(dplyr::across(where(is.numeric), ~gtsummary::style_sigfig(., digits = 3))) %>%
+          dplyr::mutate(
+            dplyr::across(where(is.numeric), ~gtsummary::style_sigfig(., digits = 3))
+          ) %>%
+          dplyr::select(-.data$outcome) %>%
           # add header row
           {tibble::add_row(
             .data = .,

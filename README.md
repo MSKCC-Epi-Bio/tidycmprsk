@@ -10,29 +10,27 @@
 coverage](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge.svg)](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk?branch=main)
 <!-- badges: end -->
 
-The goal of `tidycmprsk` is to provide a compatible wrap of the
-competing risks analysis R package `cmprsk`, such that the output
-objects can work with methods like `model.frame()`, `model.matrix()`,
-`tidy()`, and so on. This package can be incorporated with `gtsummary`
-to provide convenient summary of competing risks models.
+The `tidycmprsk` package provides an improved interface for working with
+the competing risk endpoints. The package wraps `cmprsk` package, and
+exports functions for univariate cumulative incidence estimates with
+`cuminc()` and competing risk regression with `crr()`.
 
-Currently, the package supports Fine and Gray’s subdistribution hazard
-model (function `crr`). The non-parametric cumulative incidence function
-(function `cuminc`) is under development.
+The package also exports broom-style tidiers: `tidy()`, `augment()`, and
+`glance()`.
 
 ## Installation
 
-You can install the released version of tidycmprsk from GitHub
+You can install the dev version of `tidycmprsk` from GitHub
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("MSKCC-Epi-Bio/tidycmprsk")
 ```
 
-## Example
+## Competing Risk Regression
 
-Fit a Fine and Gray model for the example data `trial` with covariate
-`age`.
+Fit a Fine and Gray model for the example data `trial` with covariates
+`age` and `trt`.
 
 ``` r
 library(tidycmprsk)
@@ -53,9 +51,29 @@ crr_mod
 The `tidycmprsk` plays will with other packages, such as `gtsummary`.
 
 ``` r
-library(gtsummary)
-
-tbl <- tbl_regression(crr_mod, exponentiate = TRUE)
+tbl <- 
+  crr_mod %>%
+  gtsummary::tbl_regression(exponentiate = TRUE)
 ```
 
-<img src="man/figures/README-gtsummary_print-1.png" width="60%" />
+<img src="man/figures/README-gtsummary_print-1.png" width="50%" />
+
+## Cumulative Incidence
+
+``` r
+cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
+#> 
+#> -- cuminc() --------------------------------------------------------------------
+#> * Failure type "death from cancer"
+#> time   estimate   std.error    
+#> 5.00   0.000      0.000        
+#> 10.0   0.030      0.012        
+#> 15.0   0.120      0.023        
+#> 20.0   0.215      0.029
+#> * Failure type "death other causes"
+#> time   estimate   std.error    
+#> 5.00   0.005      0.005        
+#> 10.0   0.025      0.011        
+#> 15.0   0.090      0.020        
+#> 20.0   0.205      0.029
+```
