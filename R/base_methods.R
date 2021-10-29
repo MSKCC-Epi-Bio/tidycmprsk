@@ -3,7 +3,8 @@
 #' @param x,object,formula a tidycmprsk object
 #' @param times times
 #' @param probs probs
-#' @param newdata a data frame
+#' @param newdata A `base::data.frame()` or `tibble::tibble()` containing all
+#' the original predictors used to create x. Defaults to `NULL`.
 #' @param ... not used
 #' @name base_methods
 NULL
@@ -60,20 +61,19 @@ times_at_probs <- function(matrix_pred, probs) {
       ~purrr::map_dbl(
         seq_len(ncol(matrix_pred) - 1L),
         function(i) {
-          # browser()
+          # adding 0 to the matrix, keeping only the time column, and col of interest
           m <- rbind(matrix_zero, matrix_pred[, c(1L, i + 1L)])
 
-          # return NA if the qunatiles are all missing OR prob is larger than observed
-          if (all(is.na(m[-1, 2])) || .x >= max(m[, 2])) return(NA)
+          # return NA if the quantiles are all missing OR prob is larger than observed
+          if (all(is.na(m[-1, 2])) || .x > max(m[, 2])) return(NA)
+          if (.x %in% m[, 2]) return(m[m[, 2] %in% .x, 1])
           return(m[which.min(m[, 2] <= .x), 1])
         }
       )
     ) %>%
     stats::setNames(paste0("prob ", probs * 100, "%"))
 
-  # extracting vector of risks at specified time -------------------------------
-  if (length(probs) == 1L)
-    return(lst_time_risk[[1]])
+  # returning results ----------------------------------------------------------
   lst_time_risk
 }
 
@@ -81,12 +81,18 @@ times_at_probs <- function(matrix_pred, probs) {
 probs_at_times <- function(matrix_pred, times) {
   # defining times for predictions ---------------------------------------------
   all_times <- union(0, matrix_pred[, 1]) %>% sort()
-  if (max(times) >= max(all_times)) {
+  if (max(times) > max(all_times)) {
     stringr::str_glue("`times=` cannot be larger than {max(all_times)}") %>%
       stop(call. = FALSE)
   }
   times_obs <-
-    purrr::map_dbl(times, ~all_times[which.min(all_times <= .x) - 1L])
+    purrr::map_dbl(
+      times,
+      function(.x) {
+        if (.x %in% all_times) return(all_times[all_times %in% .x])
+        all_times[which.min(all_times <= .x) - 1L]
+      }
+    )
 
   # named list of the risks, the names are the times,
   # the values are the estimates of risk at the covar levels
@@ -96,13 +102,10 @@ probs_at_times <- function(matrix_pred, times) {
     dplyr::bind_cols() %>%
     dplyr::mutate(`0` = 0, .before = 1) %>%
     as.list() %>%
-    stats::setNames(paste("time", times))
+    stats::setNames(paste("time", all_times))
 
-  # extracting vector of risks at specified time -------------------------------
-  if (length(times_obs) == 1L)
-    return(lst_risk_time[[as.character(times_obs)]])
-
-  lst_risk_time[as.character(times_obs)]
+  # extracting risks at specified time -----------------------------------------
+  lst_risk_time[paste("time", times_obs)]
 }
 
 #' @export

@@ -1,9 +1,8 @@
 #' Broom methods for tidycmprsk objects
 #'
 #' @inheritParams broom::tidy.crr
-#' @param new_data placeholder
+#' @inheritParams base_methods
 #' @param x placeholder
-#' @param quantiles placeholder
 #' @param times vector of numeric time points where risk estimates will be shown.
 #' Default it to use all observed times.
 #' @param ... not used
@@ -22,11 +21,11 @@ tidy.tidycrr <- function(x,
                          conf.level = 0.95, ...) {
   df_tidy <-
     broom::tidy(
-    x$original_fit,
-    exponentiate = exponentiate,
-    conf.int = conf.int,
-    conf.level = conf.level, ...
-  )
+      x$original_fit,
+      exponentiate = exponentiate,
+      conf.int = conf.int,
+      conf.level = conf.level, ...
+    )
 
   if (isTRUE(conf.int)) {
     df_tidy <-
@@ -47,14 +46,16 @@ glance.tidycrr <- function(x, ...) {
 #' @rdname broom_methods
 #' @export
 #' @family tidycrr tidiers
-augment.tidycrr <- function(x, quantiles = seq(0, 1, 0.25), new_data, ...) {
-  pred <- predict.tidycrr(x, new_data = x$model, quantiles = quantiles)
-  out <- cbind(
-    pred$newdata,
-    pred$qout,
-    pred$lpout
-  )
-  tibble::as_tibble(out)
+augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) {
+  pred <-
+    predict.tidycrr(x, times = times, probs = probs, newdata = newdata) %>%
+    dplyr::bind_cols()
+
+  dplyr::bind_cols(
+    newdata %||% x$data,
+    pred
+  ) %>%
+    tibble::as_tibble()
 }
 
 #' @rdname broom_methods
@@ -127,7 +128,7 @@ tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,
 }
 
 cuminc_matrix_to_df <- function(x, name) {
-    as.data.frame(x) %>%
+  as.data.frame(x) %>%
     tibble::rownames_to_column() %>%
     tibble::as_tibble() %>%
     dplyr::mutate(

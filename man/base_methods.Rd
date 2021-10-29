@@ -29,7 +29,8 @@
 
 \item{probs}{probs}
 
-\item{newdata}{a data frame}
+\item{newdata}{A \code{base::data.frame()} or \code{tibble::tibble()} containing all
+the original predictors used to create x. Defaults to \code{NULL}.}
 
 \item{x, object, formula}{a tidycmprsk object}
 }
