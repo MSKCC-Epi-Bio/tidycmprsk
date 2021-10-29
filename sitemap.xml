@@ -4,16 +4,25 @@
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/index.html</loc>
   </url>
   <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/base_methods.html</loc>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/base_methods_crr.html</loc>
   </url>
   <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/broom_methods.html</loc>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/base_methods_cuminc.html</loc>
+  </url>
+  <url>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/broom_methods_crr.html</loc>
+  </url>
+  <url>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/broom_methods_cuminc.html</loc>
   </url>
   <url>
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/crr.html</loc>
   </url>
   <url>
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/cuminc.html</loc>
+  </url>
+  <url>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/predict.tidycrr.html</loc>
   </url>
   <url>
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/print.html</loc>
