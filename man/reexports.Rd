@@ -5,6 +5,7 @@
 \alias{reexports}
 \alias{\%>\%}
 \alias{Surv}
+\alias{autoplot}
 \alias{tidy}
 \alias{glance}
 \alias{augment}
@@ -18,6 +19,8 @@ below to see their documentation.
   \item{broom}{\code{\link[broom:reexports]{augment}}, \code{\link[broom:reexports]{glance}}, \code{\link[broom:reexports]{tidy}}}
 
   \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}}
+
+  \item{ggplot2}{\code{\link[ggplot2]{autoplot}}}
 
   \item{survival}{\code{\link[survival]{Surv}}}
 }}

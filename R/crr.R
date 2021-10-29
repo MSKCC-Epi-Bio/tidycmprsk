@@ -2,9 +2,12 @@
 #'
 #' @param x input object
 #' @param formula formula with `Surv()` on LHS and covariates on RHS.
+#' The event status variable must be a factor, with the first level indicating
+#' 'censor' and subsequent levels the competing risks.
 #' @param data data frame
-#' @param failcode indicates event of interest. Default is `NULL` and event
-#' of interest is inferred from the data.
+#' @param failcode Indicates event of interest. If `failcode=` is `NULL`,
+#' the first listed competing event will be used as the event of interest.
+#' Default is `NULL`.
 #' @param ... passed to methods
 #'
 #' @return tidycrr object

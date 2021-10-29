@@ -1,10 +1,8 @@
 #' Competing Risks Cumulative Incidence
 #'
-#' @param x input object
-#' @param formula formula with `Surv()` on LHS and covariates on RHS.
-#' @param data data frame
-#' @param ... passed to methods
+#' @inheritParams crr
 #' @inheritParams cmprsk::cuminc
+#' @param x input object
 #'
 #' @return tidycuminc object
 #' @name cuminc

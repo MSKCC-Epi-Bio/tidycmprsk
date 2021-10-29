@@ -37,6 +37,10 @@ reference:
       - broom_methods_crr
       - broom_methods_cuminc
 
+  - title: Plots
+  - contents:
+       - autoplot.tidycuminc
+
   - title: Other Functions
   - contents:
       - predict.tidycrr

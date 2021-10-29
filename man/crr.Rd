@@ -13,12 +13,15 @@ crr(x, ...)
 \method{crr}{default}(x, ...)
 }
 \arguments{
-\item{formula}{formula with \code{Surv()} on LHS and covariates on RHS.}
+\item{formula}{formula with \code{Surv()} on LHS and covariates on RHS.
+The event status variable must be a factor, with the first level indicating
+'censor' and subsequent levels the competing risks.}
 
 \item{data}{data frame}
 
-\item{failcode}{indicates event of interest. Default is \code{NULL} and event
-of interest is inferred from the data.}
+\item{failcode}{Indicates event of interest. If \verb{failcode=} is \code{NULL},
+the first listed competing event will be used as the event of interest.
+Default is \code{NULL}.}
 
 \item{...}{passed to methods}
 

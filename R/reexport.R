@@ -8,6 +8,11 @@ dplyr::`%>%`
 #' @importFrom survival Surv
 survival::Surv
 
+# ggplot2 ----------------------------------------------------------------------
+#' @export
+#' @importFrom ggplot2 autoplot
+ggplot2::autoplot
+
 # broom ------------------------------------------------------------------------
 #' @export
 #' @importFrom broom tidy
