@@ -3,7 +3,10 @@ test_that("cuminc() works", {
     cuminc1 <- cuminc(Surv(ttdeath, death_cr) ~ 1, trial),
     NA
   )
-
+  expect_error(
+    print(cuminc1),
+    NA
+  )
   expect_error(
     cuminc2 <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial),
     NA
@@ -21,3 +24,6 @@ test_that("cuminc() works", {
     ignore_attr = TRUE
   )
 })
+
+
+

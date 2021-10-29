@@ -102,10 +102,11 @@ probs_at_times <- function(matrix_pred, times) {
     dplyr::bind_cols() %>%
     dplyr::mutate(`0` = 0, .before = 1) %>%
     as.list() %>%
-    stats::setNames(paste("time", all_times))
+    stats::setNames(all_times)
 
   # extracting risks at specified time -----------------------------------------
-  lst_risk_time[paste("time", times_obs)]
+  lst_risk_time[times_obs] %>%
+    stats::setNames(paste("time", times))
 }
 
 #' @export

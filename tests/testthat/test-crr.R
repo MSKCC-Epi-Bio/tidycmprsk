@@ -26,3 +26,62 @@ test_that("crr() works", {
     crr(letters)
   )
 })
+
+test_that("base methods", {
+  crr1 <- crr(Surv(ttdeath, death_cr) ~ age, trial)
+
+  expect_error(
+    print(crr1),
+    NA
+  )
+
+  expect_error(
+    model.matrix(crr1),
+    NA
+  )
+
+  expect_error(
+    model.frame(crr1),
+    NA
+  )
+
+  expect_error(
+    predict(crr1, times = c(10, 15)),
+    NA
+  )
+  expect_error(
+    predict(crr1, times = 20),
+    NA
+  )
+  expect_error(
+    coef(crr1),
+    NA
+  )
+  expect_error(
+    terms(crr1),
+    NA
+  )
+  expect_error(predict(crr1, times = -20))
+  expect_error(predict(crr1, probs = -20))
+  expect_error(predict(crr1))
+})
+
+
+test_that("broom methods", {
+  crr1 <- crr(Surv(ttdeath, death_cr) ~ age + grade, trial)
+
+  expect_error(
+    augment(crr1, times = c(10, 12)),
+    NA
+  )
+  expect_error(
+    tidy(crr1),
+    NA
+  )
+  expect_error(
+    tidy(crr1, conf.int = TRUE),
+    NA
+  )
+
+
+})
