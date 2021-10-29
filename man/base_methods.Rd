@@ -16,7 +16,7 @@
 
 \method{model.frame}{tidycuminc}(formula, ...)
 
-\method{predict}{tidycrr}(object, new_data = NULL, quantiles = seq(0, 1, 0.25), ...)
+\method{predict}{tidycrr}(object, times = NULL, probs = NULL, newdata = NULL, ...)
 
 \method{terms}{tidycrr}(x, ...)
 
@@ -25,9 +25,11 @@
 \arguments{
 \item{...}{not used}
 
-\item{new_data}{a data frame}
+\item{times}{times}
 
-\item{quantiles}{vector of quantiles}
+\item{probs}{probs}
+
+\item{newdata}{a data frame}
 
 \item{x, object, formula}{a tidycmprsk object}
 }
