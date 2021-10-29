@@ -132,7 +132,7 @@ Predict" />
 <span class='fu'><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for tidycrr</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>object</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span>, quantiles <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.25</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>object</span>, times <span class='op'>=</span> <span class='cn'>NULL</span>, probs <span class='op'>=</span> <span class='cn'>NULL</span>, newdata <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for tidycrr</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/terms.html'>terms</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -148,12 +148,16 @@ Predict" />
       <td><p>not used</p></td>
     </tr>
     <tr>
-      <th>new_data</th>
-      <td><p>a data frame</p></td>
+      <th>times</th>
+      <td><p>times</p></td>
     </tr>
     <tr>
-      <th>quantiles</th>
-      <td><p>vector of quantiles</p></td>
+      <th>probs</th>
+      <td><p>probs</p></td>
+    </tr>
+    <tr>
+      <th>newdata</th>
+      <td><p>a data frame</p></td>
     </tr>
     <tr>
       <th>x, object, formula</th>
