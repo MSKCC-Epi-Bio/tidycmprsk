@@ -21,7 +21,7 @@ tidy.tidycrr <- function(x,
                          conf.level = 0.95, ...) {
   df_tidy <-
     broom::tidy(
-      x$original_fit,
+      x$cmprsk,
       exponentiate = exponentiate,
       conf.int = conf.int,
       conf.level = conf.level, ...
@@ -40,7 +40,7 @@ tidy.tidycrr <- function(x,
 #' @export
 #' @family tidycrr tidiers
 glance.tidycrr <- function(x, ...) {
-  broom::glance(x$original_fit, ...)
+  broom::glance(x$cmprsk, ...)
 }
 
 #' @rdname broom_methods
@@ -74,17 +74,21 @@ tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,
   # will calculate risk estimates at all observed followup times
   times <-
     times %||%
-    stats::model.frame(x$formula, data = x$data)[[1]][, 1] %>% unique() %>% sort()
+    stats::model.frame(x$formula, data = x$data)[[1]][, 1] %>%
+    unique() %>%
+    sort()
 
   # convert estimates into tibble
   df_est <-
-    x$original_fit %>% cmprsk::timepoints(times = times) %>%
+    x$cmprsk %>%
+    cmprsk::timepoints(times = times) %>%
     purrr::pluck("est") %>%
     cuminc_matrix_to_df(name = "estimate")
 
   # convert variances into tibble
   df_se <-
-    x$original_fit %>% cmprsk::timepoints(times = times) %>%
+    x$cmprsk %>%
+    cmprsk::timepoints(times = times) %>%
     purrr::pluck("var") %>%
     sqrt() %>%
     cuminc_matrix_to_df(name = "std.error")
@@ -114,12 +118,12 @@ tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,
       df_tidy %>%
       dplyr::mutate(
         conf.low =
-          .data$estimate ^ exp(stats::qnorm((1 - .env$conf.level) / 2) * .data$std.error /
-                                 (.data$estimate * log(.data$estimate))),
+          .data$estimate^exp(stats::qnorm((1 - .env$conf.level) / 2) * .data$std.error /
+            (.data$estimate * log(.data$estimate))),
         conf.high =
-          .data$estimate ^ exp(-stats::qnorm((1 - .env$conf.level) / 2) * .data$std.error /
-                                 (.data$estimate * log(.data$estimate))),
-        dplyr::across(c(.data$conf.low, .data$conf.high), ~ifelse(is.nan(.), NA, .))
+          .data$estimate^exp(-stats::qnorm((1 - .env$conf.level) / 2) * .data$std.error /
+            (.data$estimate * log(.data$estimate))),
+        dplyr::across(c(.data$conf.low, .data$conf.high), ~ ifelse(is.nan(.), NA, .))
       )
   }
 
@@ -143,4 +147,37 @@ cuminc_matrix_to_df <- function(x, name) {
       values_to = name
     ) %>%
     dplyr::mutate(time = as.numeric(.data$time))
+}
+
+#' @rdname broom_methods
+#' @export
+#' @family tidycrr tidiers
+glance.tidycuminc <- function(x, ...) {
+  if (is.null(x$cmprsk$Tests)) {
+    return(tibble::tibble())
+  }
+
+  # create select input for re-ordering variables at the end
+  select_expr <-
+    stringr::str_glue("ends_with('_{x$failcode}')") %>%
+    purrr::map(rlang::parse_expr)
+
+  x$cmprsk$Tests %>%
+    as.data.frame() %>%
+    tibble::rownames_to_column("failcode_id") %>%
+    tibble::as_tibble() %>%
+    dplyr::left_join(
+      x$failcode %>%
+        tibble::enframe("outcome", "failcode_id") %>%
+        dplyr::mutate(failcode_id = as.character(.data$failcode_id)),
+      by = "failcode_id"
+    ) %>%
+    select(.data$outcome, .data$failcode_id, statistic = .data$stat,
+           .data$df, p.value = .data$pv) %>%
+    tidyr::pivot_wider(
+      values_from = c(.data$outcome, .data$statistic, .data$df, .data$p.value),
+      names_from = .data$failcode_id,
+      names_glue = "{.value}_{failcode_id}"
+    ) %>%
+    select(!!!select_expr)
 }

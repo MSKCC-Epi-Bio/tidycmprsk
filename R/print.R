@@ -100,4 +100,47 @@ print.tidycuminc <- function(x, ...) {
           )}
       }
     )
+
+  if (!is.null(x$cmprsk$Tests)) {
+    cat("\n")
+    cli::cli_li("Tests")
+    df_glance <- glance(x)
+
+    nrow(x$cmprsk$Tests) %>%
+      seq_len() %>%
+      purrr::map(
+        function(i) {
+          df_glance %>%
+            dplyr::select(dplyr::ends_with(paste0("_", i))) %>%
+            dplyr::rename_with(
+              ~stringr::str_replace(., stringr::fixed(paste0("_", i)), "")
+            )
+        }
+      ) %>%
+      dplyr::bind_rows() %>%
+      dplyr::mutate(
+        p.value = gtsummary::style_pvalue(.data$p.value, digits = 2),
+        dplyr::across(where(is.numeric), ~gtsummary::style_sigfig(., digits = 3))
+      ) %>%
+      # add header row
+      {tibble::add_row(
+        .data = .,
+        !!!stats::setNames(as.list(names(.)), names(.)),
+        .before = 0L
+      )} %>%
+      # add cli styling to the header row
+      dplyr::mutate(
+        dplyr::across(
+          where(is.character),
+          ~stringr::str_pad(., side = "right", width = max(nchar(.)) + 3L)),
+        dplyr::across(everything(),
+                      ~ifelse(dplyr::row_number() == 1L,
+                              cli::style_underline(.) %>% cli::style_italic(), .))
+      ) %>%
+      # print results table
+      {purrr::walk(
+        seq_len(nrow(.)),
+        function(.x) .[.x, ] %>% unlist() %>% paste(collapse = "") %>% cat("\n")
+      )}
+  }
 }

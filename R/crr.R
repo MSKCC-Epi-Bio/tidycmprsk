@@ -40,7 +40,7 @@ crr_mold <- function(formula, data) {
   processed
 }
 
-as_numeric_failcode <- function(formula, data, failcode) {
+as_numeric_failcode <- function(formula, data, failcode, keep_all = FALSE) {
   # evaluating LHS of formula --------------------------------------------------
   formula_lhs <-
     tryCatch(
@@ -65,8 +65,13 @@ as_numeric_failcode <- function(formula, data, failcode) {
   }
 
   # checking the failcode argument ---------------------------------------------
-  failcode <- failcode %||% attr(formula_lhs, "states")[1]
-  if (!is.null(failcode) && !failcode %in% attr(formula_lhs, "states")) {
+  all_failues <-
+    seq_len(length(attr(formula_lhs, "states"))) %>%
+    stats::setNames(attr(formula_lhs, "states"))
+  if (isTRUE(keep_all)) return(all_failues)
+
+  failcode <- failcode %||% names(all_failues)[1]
+  if (!is.null(failcode) && !failcode %in% names(all_failues)) {
     stop("Invalid `failcode=` specification.")
   }
   failcode_numeric <- which(attr(formula_lhs, "states") %in% failcode)
@@ -74,7 +79,7 @@ as_numeric_failcode <- function(formula, data, failcode) {
   return(failcode_numeric %>% rlang::set_names(failcode))
 }
 
-new_crr <- function(coefs, coef_names, formula, tidy, original_fit, data, failcode, blueprint) {
+new_crr <- function(coefs, coef_names, formula, tidy, cmprsk, data, failcode, blueprint) {
 
   # function to create an object
 
@@ -106,7 +111,7 @@ new_crr <- function(coefs, coef_names, formula, tidy, original_fit, data, failco
       ) %>%
       purrr::compact(),
     tidy = tidy,
-    original_fit = original_fit,
+    cmprsk = cmprsk,
     model = data,
     blueprint = blueprint,
     class = "tidycrr"
@@ -131,7 +136,7 @@ crr_impl <- function(predictors, outcomes, failcode) {
     coefs = coefs,
     coef_names = coef_names,
     tidy = tidy,
-    original_fit = crr_fit
+    cmprsk = crr_fit
   )
 }
 
@@ -153,7 +158,7 @@ crr_bridge <- function(processed, formula, data, failcode) {
       formula = formula,
       data = data,
       tidy = fit$tidy,
-      original_fit = fit$original_fit,
+      cmprsk = fit$cmprsk,
       failcode = failcode,
       blueprint = processed$blueprint
     )

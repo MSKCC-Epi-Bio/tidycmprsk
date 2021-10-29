@@ -6,11 +6,11 @@ test_that("crr() works", {
 
   expect_equal(
     tidy(crr1),
-    broom::tidy(crr1$original_fit)
+    broom::tidy(crr1$cmprsk)
   )
   expect_equal(
     glance(crr1),
-    broom::glance(crr1$original_fit)
+    broom::glance(crr1$cmprsk)
   )
 
   expect_error(
@@ -72,6 +72,10 @@ test_that("broom methods", {
 
   expect_error(
     augment(crr1, times = c(10, 12)),
+    NA
+  )
+  expect_error(
+    glance(crr1),
     NA
   )
   expect_error(

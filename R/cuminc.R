@@ -23,7 +23,7 @@ cuminc.formula <- function(formula, data, strata, rho = 0, ...) {
 
   # extracting failure level ---------------------------------------------------
   failcode_numeric <-
-    as_numeric_failcode(formula = formula, data = data, failcode = NULL)
+    as_numeric_failcode(formula = formula, data = data, keep_all = TRUE)
 
   # hardhat::mold() doesn't allow for a constant on the RHS,
   # performing check, and re-formulating formula with NULL on RHS if needed
@@ -80,7 +80,7 @@ cuminc_impl <- function(predictors, outcomes, strata, rho) {
     )
 
   list(
-    original_fit = cuminc_fit
+    cmprsk = cuminc_fit
   )
 }
 
@@ -101,21 +101,20 @@ cuminc_bridge <- function(processed, formula, data, strata, rho, failcode) {
       formula = formula,
       data = data,
       failcode = failcode,
-      original_fit = fit$original_fit,
+      cmprsk = fit$cmprsk,
       blueprint = processed$blueprint
     )
 
   output
 }
 
-new_cuminc <- function(formula, data, failcode, blueprint, original_fit) {
+new_cuminc <- function(formula, data, failcode, blueprint, cmprsk) {
   new_cuminc <-
     hardhat::new_model(
       formula = formula,
       data = data,
       failcode = failcode,
-      original_fit = original_fit,
-      model = data,
+      cmprsk = cmprsk,
       blueprint = blueprint,
       class = "tidycuminc"
     )

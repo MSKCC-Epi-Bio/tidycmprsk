@@ -47,7 +47,7 @@ predict.tidycrr <- function(object, times = NULL, probs = NULL, newdata = NULL, 
   # getting predictions on the original model fit ------------------------------
   processed <- crr_mold(object$formula, newdata %||% object$data)
   matrix_pred <-
-    stats::predict(object$original_fit, cov1 = as.matrix(processed$predictors))
+    stats::predict(object$cmprsk, cov1 = as.matrix(processed$predictors))
 
   if (!is.null(times)) return(probs_at_times(matrix_pred, times))
   if (!is.null(probs)) return(times_at_probs(matrix_pred, probs))
