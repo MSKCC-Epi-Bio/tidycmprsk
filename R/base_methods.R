@@ -37,7 +37,7 @@ predict.tidycrr <- function(object, times = NULL, probs = NULL, newdata = NULL, 
   if (is.null(times) + is.null(probs) != 1L) {
     stop("Must specify one and only one of `times=` and `probs=`.", call. = FALSE)
   }
-  if (!is.null(times) && times < 0) {
+  if (!is.null(times) && any(times < 0)) {
     stop("`times=` must be non-negative.", call. = FALSE)
   }
   if (!is.null(probs) && !all(dplyr::between(probs, 0, 1))) {
@@ -65,8 +65,8 @@ times_at_probs <- function(matrix_pred, probs) {
           m <- rbind(matrix_zero, matrix_pred[, c(1L, i + 1L)])
 
           # return NA if the quantiles are all missing OR prob is larger than observed
-          if (all(is.na(m[-1, 2])) || .x > max(m[, 2])) return(NA)
-          if (.x %in% m[, 2]) return(m[m[, 2] %in% .x, 1])
+          if (isTRUE(all(is.na(m[-1, 2])) || .x > max(m[, 2]))) return(NA)
+          if (isTRUE(.x %in% m[, 2])) return(m[m[, 2] %in% .x, 1])
           return(m[which.min(m[, 2] <= .x), 1])
         }
       )
@@ -81,7 +81,7 @@ times_at_probs <- function(matrix_pred, probs) {
 probs_at_times <- function(matrix_pred, times) {
   # defining times for predictions ---------------------------------------------
   all_times <- union(0, matrix_pred[, 1]) %>% sort()
-  if (max(times) > max(all_times)) {
+  if (isTRUE(max(times) > max(all_times))) {
     stringr::str_glue("`times=` cannot be larger than {max(all_times)}") %>%
       stop(call. = FALSE)
   }
@@ -89,7 +89,7 @@ probs_at_times <- function(matrix_pred, times) {
     purrr::map_dbl(
       times,
       function(.x) {
-        if (.x %in% all_times) return(all_times[all_times %in% .x])
+        if (isTRUE(.x %in% all_times)) return(all_times[all_times %in% .x])
         all_times[which.min(all_times <= .x) - 1L]
       }
     )

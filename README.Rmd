@@ -21,9 +21,9 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 The `tidycmprsk` package provides an improved interface for working with the competing risk endpoints.
-The package wraps `cmprsk` package, and exports functions for univariate cumulative incidence estimates with `cuminc()` and competing risk regression with `crr()`.
+The package wraps the `cmprsk` package, and exports functions for univariate cumulative incidence estimates with `cuminc()` and competing risk regression with `crr()`.
 
-The package also exports broom-style tidiers: `tidy()`, `augment()`, and `glance()`.
+The package also includes broom-style tidiers: `tidy()`, `augment()`, and `glance()`.
 
 ## Installation
 
