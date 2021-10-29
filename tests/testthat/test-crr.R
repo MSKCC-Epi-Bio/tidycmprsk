@@ -54,11 +54,11 @@ test_that("base methods", {
     NA
   )
   expect_error(
-    predict(crr1, times = c(0.10, 0.15)),
+    predict(crr1, probs = c(0.10, 0.15)),
     NA
   )
   expect_error(
-    predict(crr1, times = 0.10),
+    predict(crr1, probs = 0.10),
     NA
   )
   expect_error(

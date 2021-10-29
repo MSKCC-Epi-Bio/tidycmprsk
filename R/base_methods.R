@@ -105,7 +105,7 @@ probs_at_times <- function(matrix_pred, times) {
     stats::setNames(all_times)
 
   # extracting risks at specified time -----------------------------------------
-  lst_risk_time[times_obs] %>%
+  lst_risk_time[as.character(times_obs)] %>%
     stats::setNames(paste("time", times))
 }
 
