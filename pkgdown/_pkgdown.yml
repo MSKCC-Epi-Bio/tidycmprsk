@@ -32,10 +32,13 @@ reference:
       - crr
       - cuminc
 
-  - title: broom-like tidiers
+  - title: Broom Tidiers
   - contents:
-      - broom_methods
+      - broom_methods_crr
+      - broom_methods_cuminc
 
-  - title: S3 Methods
+  - title: Other Functions
   - contents:
-      - base_methods
+      - predict.tidycrr
+      - base_methods_crr
+      - base_methods_cuminc

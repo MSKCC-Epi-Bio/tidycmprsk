@@ -31,5 +31,5 @@ tidycrr object
 Competing Risks Regression
 }
 \examples{
-crr(Surv(ttdeath, death_cr) ~ age, trial)
+crr(Surv(ttdeath, death_cr) ~ age + grade, trial)
 }

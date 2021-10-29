@@ -1,18 +1,23 @@
-#' Broom methods for tidycmprsk objects
+#' Broom methods for tidycrr objects
 #'
+#' @inheritParams base_methods_crr
 #' @inheritParams broom::tidy.crr
-#' @inheritParams base_methods
-#' @param x placeholder
-#' @param times vector of numeric time points where risk estimates will be shown.
-#' Default it to use all observed times.
-#' @param ... not used
+#' @inheritParams predict.tidycrr
 #'
-#' @name broom_methods
+#' @name broom_methods_crr
 #' @return a tibble
+#' @examples
+#' crr <- crr(Surv(ttdeath, death_cr) ~ age + grade, trial)
+#'
+#' tidy(crr)
+#'
+#' glance(crr)
+#'
+#' augment(crr, times = 12)
 NULL
 
 # tidy
-#' @rdname broom_methods
+#' @rdname broom_methods_crr
 #' @export
 #' @family tidycrr tidiers
 tidy.tidycrr <- function(x,
@@ -36,14 +41,14 @@ tidy.tidycrr <- function(x,
   df_tidy
 }
 
-#' @rdname broom_methods
+#' @rdname broom_methods_crr
 #' @export
 #' @family tidycrr tidiers
 glance.tidycrr <- function(x, ...) {
   broom::glance(x$cmprsk, ...)
 }
 
-#' @rdname broom_methods
+#' @rdname broom_methods_crr
 #' @export
 #' @family tidycrr tidiers
 augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) {
@@ -58,9 +63,29 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
     tibble::as_tibble()
 }
 
-#' @rdname broom_methods
+#' Broom methods for tidy cuminc objects
+#'
+#' @param x object of class 'tidycuminc'
+#' @inheritParams base_methods_cuminc
+#' @inheritParams broom_methods_cuminc
+#' @inheritParams base_methods_crr
+#' @inheritParams predict.tidycrr
+#' @inheritParams broom::tidy.crr
+#'
+#' @name broom_methods_cuminc
+#' @return a tibble
+#' @examples
+#' cuminc <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
+#'
+#' tidy(cuminc)
+#'
+#' glance(cuminc)
+NULL
+
+
+#' @rdname broom_methods_cuminc
 #' @export
-#' @family tidycrr tidiers
+#' @family cuminc tidiers
 tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,
                             times = NULL, ...) {
   # create df of each outcome level with an ID column as well
@@ -149,9 +174,9 @@ cuminc_matrix_to_df <- function(x, name) {
     dplyr::mutate(time = as.numeric(.data$time))
 }
 
-#' @rdname broom_methods
+#' @rdname broom_methods_cuminc
 #' @export
-#' @family tidycrr tidiers
+#' @family tidycuminc tidiers
 glance.tidycuminc <- function(x, ...) {
   if (is.null(x$cmprsk$Tests)) {
     return(tibble::tibble())

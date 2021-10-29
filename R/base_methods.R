@@ -1,37 +1,16 @@
-#' Methods for tidycmprsk objects
+#' Estimate subdistribution functions for crr objects
 #'
-#' @param x,object,formula a tidycmprsk object
-#' @param times times
-#' @param probs probs
+#' @param times Numeric vector of times to obtain risk estimates at
+#' @param probs Numeric vector of quantiles to obtain estimates at
 #' @param newdata A `base::data.frame()` or `tibble::tibble()` containing all
 #' the original predictors used to create x. Defaults to `NULL`.
-#' @param ... not used
-#' @name base_methods
-NULL
-
-#' @export
-#' @rdname base_methods
-model.matrix.tidycrr <- function(object, ...) {
-  # by default there is no intercept term in F&G's model
-  stats::model.matrix(object$formula, object$model)[, -1, drop = FALSE]
-}
-
-#' @export
-#' @rdname base_methods
-model.frame.tidycrr <- function(formula, ...) {
-  stats::model.frame(formula = formula$formula, data = formula$data)
-}
-
-#' @export
-#' @rdname base_methods
-model.frame.tidycuminc <- function(formula, ...) {
-  stats::model.frame(formula = formula$formula, data = formula$data)
-}
-
-#' Predict
+#' @inheritParams base_methods_crr
 #'
+#' @return named list of prediction estimates
 #' @export
-#' @rdname base_methods
+#' @examples
+#' crr(Surv(ttdeath, death_cr) ~ age, trial) %>%
+#'   predict(times = 12, newdata = trial[1:10, ])
 predict.tidycrr <- function(object, times = NULL, probs = NULL, newdata = NULL, ...) {
   # checking inputs ------------------------------------------------------------
   if (is.null(times) + is.null(probs) != 1L) {
@@ -109,17 +88,58 @@ probs_at_times <- function(matrix_pred, times) {
     stats::setNames(paste("time", times))
 }
 
-#' @export
-#' @rdname base_methods
-terms.tidycrr <- function(x, ...) {
-  stats::terms(x = x$formula, data = x$data)
-}
+
+#' Functions for tidycrr objects
+#'
+#' @param x,object a tidycrr object
+#' @param formula a formula
+#' @param ... not used
+#' @name base_methods_crr
+NULL
 
 #' @export
-#' @rdname base_methods
+#' @rdname base_methods_crr
 coef.tidycrr <- function(object, ...) {
   object$coefs
 }
 
+#' @export
+#' @rdname base_methods_crr
+model.matrix.tidycrr <- function(object, ...) {
+  # by default there is no intercept term in F&G's model
+  stats::model.matrix(object$formula, object$model)[, -1, drop = FALSE]
+}
+
+#' @export
+#' @rdname base_methods_crr
+model.frame.tidycrr <- function(formula, ...) {
+  stats::model.frame(formula = formula$formula, data = formula$data)
+}
+
+#' @export
+#' @rdname base_methods_crr
+terms.tidycrr <- function(x, ...) {
+  stats::terms(x = x$formula, data = x$data)
+}
 
 
+#' Functions for tidycuminc objects
+#'
+#' @param object a tidycuminc object
+#' @param formula a formula
+#' @param ... not used
+#' @name base_methods_cuminc
+NULL
+
+#' @export
+#' @rdname base_methods_cuminc
+model.frame.tidycuminc <- function(formula, ...) {
+  stats::model.frame(formula = formula$formula, data = formula$data)
+}
+
+#' @export
+#' @rdname base_methods_cuminc
+model.matrix.tidycuminc <- function(object, ...) {
+  # by default there is no intercept term in F&G's model
+  stats::model.matrix(object$formula, object$model)[, -1, drop = FALSE]
+}

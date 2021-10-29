@@ -10,7 +10,7 @@
 #' @return tidycrr object
 #' @name crr
 #' @examples
-#' crr(Surv(ttdeath, death_cr) ~ age, trial)
+#' crr(Surv(ttdeath, death_cr) ~ age + grade, trial)
 NULL
 
 # Formula method
