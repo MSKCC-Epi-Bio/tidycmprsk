@@ -23,6 +23,13 @@ crr.formula <- function(formula, data, failcode = NULL, ...) {
     as_numeric_failcode(formula = formula, data = data, failcode = failcode)
 
   # process model variables ----------------------------------------------------
+  processed <- crr_mold(formula, data)
+
+  # building model -------------------------------------------------------------
+  crr_bridge(processed, formula, data, failcode_numeric)
+}
+
+crr_mold <- function(formula, data) {
   processed <-
     hardhat::mold(
       formula, data,
@@ -30,9 +37,7 @@ crr.formula <- function(formula, data, failcode = NULL, ...) {
     )
   #remove intercept
   processed$predictors <- processed$predictors[,-1]
-
-  # building model -------------------------------------------------------------
-  crr_bridge(processed, formula, data, failcode_numeric)
+  processed
 }
 
 as_numeric_failcode <- function(formula, data, failcode) {
