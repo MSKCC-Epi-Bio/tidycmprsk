@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/MSKCC-Epi-Bio/tidycmprsk/workflows/R-CMD-check/badge.svg)](https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge.svg)](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk?branch=main)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/tidycmprsk)](https://cran.r-project.org/package=tidycmprsk)
 <!-- badges: end -->
 
 The `tidycmprsk` package provides an improved interface for working with
