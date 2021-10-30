@@ -165,6 +165,11 @@ Defaults to 0.95, which corresponds to a 95 percent confidence interval.</p></td
 <p>The confidence intervals in <code><a href='https://generics.r-lib.org/reference/tidy.html'>tidy()</a></code> use the recommended method in
 <em>Competing Risks: A Practical Perspective</em> by Melania Pintilie.</p>
 <p><code>  x^exp(-z * se / (x * log(x))), x^exp(z * se / (x * log(x)))</code></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other <code><a href='cuminc.html'>cuminc()</a></code> functions: 
+<code><a href='autoplot.tidycuminc.html'>autoplot.tidycuminc</a>()</code>,
+<code><a href='cuminc.html'>cuminc</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>cuminc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cuminc.html'>cuminc</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>trt</span>, <span class='va'>trial</span><span class='op'>)</span>
