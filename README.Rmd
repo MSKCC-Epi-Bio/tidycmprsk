@@ -75,7 +75,7 @@ cuminc
 
 Plot risks using `autoplot()`.
 
-```{r}
+```{r fig.asp = .45}
 autoplot(cuminc, outcomes = "death from cancer", conf.int = TRUE)
 ```
 
