@@ -36,3 +36,9 @@ Competing Risks Regression
 \examples{
 crr(Surv(ttdeath, death_cr) ~ age + grade, trial)
 }
+\seealso{
+Other \code{crr()} functions: 
+\code{\link{broom_methods_crr}},
+\code{\link{predict.tidycrr}()}
+}
+\concept{\code{crr()} functions}

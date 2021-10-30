@@ -7,6 +7,8 @@
 #' @inheritParams tidy.tidycuminc
 #' @param ... not used
 #'
+#' @return a ggplot object
+#' @family `cuminc()` functions
 #' @export
 #' @examples
 #' # Example 1 ----------------------------------

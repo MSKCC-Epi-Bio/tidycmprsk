@@ -28,3 +28,9 @@ Estimate subdistribution functions for crr objects
 crr(Surv(ttdeath, death_cr) ~ age, trial) \%>\%
   predict(times = 12, newdata = trial[1:10, ])
 }
+\seealso{
+Other \code{crr()} functions: 
+\code{\link{broom_methods_crr}},
+\code{\link{crr}()}
+}
+\concept{\code{crr()} functions}

@@ -6,6 +6,7 @@
 #'
 #' @name broom_methods_crr
 #' @return a tibble
+#' @family `crr()` functions
 #' @examples
 #' crr <- crr(Surv(ttdeath, death_cr) ~ age + grade, trial)
 #'
@@ -74,6 +75,7 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #'
 #' @name broom_methods_cuminc
 #' @return a tibble
+#' @family `cuminc()` functions
 #'
 #' @section `tidy()` confidence intervals:
 #'

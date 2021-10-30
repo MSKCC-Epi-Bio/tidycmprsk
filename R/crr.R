@@ -11,6 +11,7 @@
 #' @param ... passed to methods
 #'
 #' @return tidycrr object
+#' @family `crr()` functions
 #' @name crr
 #' @examples
 #' crr(Surv(ttdeath, death_cr) ~ age + grade, trial)

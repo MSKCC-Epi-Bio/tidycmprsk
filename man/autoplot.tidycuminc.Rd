@@ -26,6 +26,9 @@ Defaults to 0.95, which corresponds to a 95 percent confidence interval.}
 
 \item{...}{not used}
 }
+\value{
+a ggplot object
+}
 \description{
 Function uses the result from \code{tidy(object)} to create figure.
 }
@@ -42,3 +45,9 @@ cuminc(Surv(ttdeath, death_cr) ~ 1, trial) \%>\%
     y = "Risk of Death"
   )
 }
+\seealso{
+Other \code{cuminc()} functions: 
+\code{\link{broom_methods_cuminc}},
+\code{\link{cuminc}()}
+}
+\concept{\code{cuminc()} functions}

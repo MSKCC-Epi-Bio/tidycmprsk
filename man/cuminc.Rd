@@ -45,3 +45,9 @@ cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
 # calculate risk by treatment group ----------
 cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
 }
+\seealso{
+Other \code{cuminc()} functions: 
+\code{\link{autoplot.tidycuminc}()},
+\code{\link{broom_methods_cuminc}}
+}
+\concept{\code{cuminc()} functions}
