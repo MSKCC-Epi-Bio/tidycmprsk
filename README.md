@@ -61,8 +61,7 @@ tbl <-
 ## Cumulative Incidence
 
 ``` r
-cuminc <- cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
-cuminc
+cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
 #> 
 #> -- cuminc() --------------------------------------------------------------------
 #> * Failure type "death from cancer"
@@ -82,7 +81,8 @@ cuminc
 Plot risks using `autoplot()`.
 
 ``` r
-autoplot(cuminc, outcomes = "death from cancer", conf.int = TRUE)
+cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
+  autoplot(outcomes = "death from cancer", conf.int = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />

@@ -69,14 +69,14 @@ if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
 ## Cumulative Incidence
 
 ```{r}
-cuminc <- cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
-cuminc
+cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
 ```
 
 Plot risks using `autoplot()`.
 
 ```{r fig.asp = .45}
-autoplot(cuminc, outcomes = "death from cancer", conf.int = TRUE)
+cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
+  autoplot(outcomes = "death from cancer", conf.int = TRUE)
 ```
 
 ## Contributing
