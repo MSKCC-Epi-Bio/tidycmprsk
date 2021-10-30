@@ -9,6 +9,15 @@ test_that("cuminc() works", {
     NA
   )
 
+  expect_equal(
+    names(cuminc1$failcode),
+    c("death from cancer", "death other causes")
+  )
+  expect_equal(
+    names(cuminc2$failcode),
+    c("death from cancer", "death other causes")
+  )
+
   # test base methods
   expect_equal(
     model.frame(cuminc1),
