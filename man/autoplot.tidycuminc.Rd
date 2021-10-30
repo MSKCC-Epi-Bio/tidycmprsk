@@ -2,7 +2,7 @@
 % Please edit documentation in R/autoplot.R
 \name{autoplot.tidycuminc}
 \alias{autoplot.tidycuminc}
-\title{Plot cuminc Estimates}
+\title{Plot Cumulative Incidence Estimates}
 \usage{
 \method{autoplot}{tidycuminc}(
   object,

@@ -1,4 +1,4 @@
-#' Plot cuminc Estimates
+#' Plot Cumulative Incidence Estimates
 #'
 #' Function uses the result from `tidy(object)` to create figure.
 #'

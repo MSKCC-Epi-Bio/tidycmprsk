@@ -20,7 +20,7 @@ The event status variable must be a factor, with the first level indicating
 \item{data}{data frame}
 
 \item{failcode}{Indicates event of interest. If \verb{failcode=} is \code{NULL},
-the first listed competing event will be used as the event of interest.
+the first competing event will be used as the event of interest.
 Default is \code{NULL}.}
 
 \item{...}{passed to methods}

@@ -6,7 +6,7 @@
 #' 'censor' and subsequent levels the competing risks.
 #' @param data data frame
 #' @param failcode Indicates event of interest. If `failcode=` is `NULL`,
-#' the first listed competing event will be used as the event of interest.
+#' the first competing event will be used as the event of interest.
 #' Default is `NULL`.
 #' @param ... passed to methods
 #'

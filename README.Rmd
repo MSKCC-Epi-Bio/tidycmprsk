@@ -69,5 +69,23 @@ if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
 ## Cumulative Incidence
 
 ```{r}
-cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
+cuminc <- cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
+cuminc
 ```
+
+Plot risks using `autoplot()`.
+
+```{r}
+autoplot(cuminc, outcomes = "death from cancer", conf.int = TRUE)
+```
+
+## Contributing
+
+Please note that the {tidycmprsk} project is released with a [Contributor Code of Conduct](https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms. Thank you to all contributors!  
+`r usethis::use_tidy_thanks("mskcc-epi-bio/tidycmprsk", from = "2018-01-01") %>% {glue::glue("[&#x0040;{.}](https://github.com/{.})")} %>% glue::glue_collapse(sep = ", ", last = ", and ")`
+
+#### Limitations
+
+The `tidycmprsk` package implements most features (and more) available in `cmprsk`.
+However, the time interaction features available in `cmprsk::crr()` have not yet been made available in `tidycmprsk`.

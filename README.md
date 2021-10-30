@@ -11,12 +11,12 @@ coverage](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge
 <!-- badges: end -->
 
 The `tidycmprsk` package provides an improved interface for working with
-the competing risk endpoints. The package wraps `cmprsk` package, and
-exports functions for univariate cumulative incidence estimates with
+the competing risk endpoints. The package wraps the `cmprsk` package,
+and exports functions for univariate cumulative incidence estimates with
 `cuminc()` and competing risk regression with `crr()`.
 
-The package also exports broom-style tidiers: `tidy()`, `augment()`, and
-`glance()`.
+The package also includes broom-style tidiers: `tidy()`, `augment()`,
+and `glance()`.
 
 ## Installation
 
@@ -61,7 +61,8 @@ tbl <-
 ## Cumulative Incidence
 
 ``` r
-cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
+cuminc <- cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
+cuminc
 #> 
 #> -- cuminc() --------------------------------------------------------------------
 #> * Failure type "death from cancer"
@@ -77,3 +78,27 @@ cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
 #> 15.0   0.090      0.020        
 #> 20.0   0.205      0.029
 ```
+
+Plot risks using `autoplot()`.
+
+``` r
+autoplot(cuminc, outcomes = "death from cancer", conf.int = TRUE)
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+## Contributing
+
+Please note that the {tidycmprsk} project is released with a
+[Contributor Code of
+Conduct](https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms. Thank
+you to all contributors!  
+[@ddsjoberg](https://github.com/ddsjoberg), and
+[@tengfei-emory](https://github.com/tengfei-emory)
+
+#### Limitations
+
+The `tidycmprsk` package implements most features (and more) available
+in `cmprsk`. However, the time interaction features available in
+`cmprsk::crr()` have not yet been made available in `tidycmprsk`.
