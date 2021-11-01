@@ -1,5 +1,7 @@
 #' Broom methods for tidycrr objects
 #'
+#' @param exponentiate Logical indicating whether or not to exponentiate the
+#' coefficient estimates. Defaults to `FALSE`.
 #' @inheritParams base_methods_crr
 #' @inheritParams broom::tidy.crr
 #' @inheritParams predict.tidycrr

@@ -3,7 +3,8 @@
 #' Function uses the result from `tidy(object)` to create figure.
 #'
 #' @param object object of class 'cuminc'
-#' @param outcomes character vector of outcomes to include in plot
+#' @param outcomes character vector of outcomes to include in plot. Default
+#' is to include all competing events.
 #' @inheritParams tidy.tidycuminc
 #' @param ... not used
 #'

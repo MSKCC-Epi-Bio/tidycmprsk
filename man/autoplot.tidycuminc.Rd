@@ -15,7 +15,8 @@
 \arguments{
 \item{object}{object of class 'cuminc'}
 
-\item{outcomes}{character vector of outcomes to include in plot}
+\item{outcomes}{character vector of outcomes to include in plot. Default
+is to include all competing events.}
 
 \item{conf.int}{Logical indicating whether or not to include a confidence
 interval in the tidied output. Defaults to \code{FALSE}.}
