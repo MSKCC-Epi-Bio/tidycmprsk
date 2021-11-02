@@ -159,12 +159,14 @@ the original predictors used to create x. Defaults to <code>NULL</code>.</p></td
 <code><a href='crr.html'>crr</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='crr.html'>crr</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>age</span>, <span class='va'>trial</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>times <span class='op'>=</span> <span class='fl'>12</span>, newdata <span class='op'>=</span> <span class='va'>trial</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 11 cases omitted due to missing values</div><div class='output co'>#&gt; $`time 12`
-#&gt;  [1] 0.04130071 0.03813431 0.04322411         NA 0.04842348 0.04523496
-#&gt;  [7] 0.04472385 0.04347061 0.04322411 0.04396773
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='crr.html'>crr</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>age</span>, <span class='va'>trial</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span>times <span class='op'>=</span> <span class='fl'>12</span>, newdata <span class='op'>=</span> <span class='va'>trial</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 cases omitted due to missing values</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $`time 12`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 0.04130071 0.03813431 0.04322411         NA 0.04842348 0.04523496</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] 0.04472385 0.04347061 0.04322411 0.04396773</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

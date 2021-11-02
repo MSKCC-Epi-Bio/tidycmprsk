@@ -181,35 +181,39 @@ the original predictors used to create x. Defaults to <code>NULL</code>.</p></td
 <code><a href='predict.tidycrr.html'>predict.tidycrr</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>crr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='crr.html'>crr</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>age</span> <span class='op'>+</span> <span class='va'>grade</span>, <span class='va'>trial</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 11 cases omitted due to missing values</div><div class='input'>
-<span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>crr</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 × 5</span>
-#&gt;   term     estimate std.error statistic p.value
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> age       0.005<span style='text-decoration: underline;'>88</span>   0.009<span style='text-decoration: underline;'>87</span>     0.596    0.55
-#&gt; <span style='color: #BCBCBC;'>2</span> gradeII   0.060<span style='text-decoration: underline;'>1</span>    0.361       0.166    0.87
-#&gt; <span style='color: #BCBCBC;'>3</span> gradeIII  0.431     0.324       1.33     0.18</div><div class='input'>
-<span class='fu'><a href='https://generics.r-lib.org/reference/glance.html'>glance</a></span><span class='op'>(</span><span class='va'>crr</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 × 5</span>
-#&gt;   converged logLik  nobs    df statistic
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> TRUE       -<span style='color: #BB0000;'>264.</span>   189     3      2.34</div><div class='input'>
-<span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>crr</span>, times <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 200 × 10</span>
-#&gt;    trt      age marker stage grade response death death_cr     ttdeath `time 12`
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'> 1</span> Drug A    23  0.16  T1    II           0     0 censor          24      0.036<span style='text-decoration: underline;'>8</span>
-#&gt; <span style='color: #BCBCBC;'> 2</span> Drug B     9  1.11  T2    I            1     0 censor          24      0.032<span style='text-decoration: underline;'>0</span>
-#&gt; <span style='color: #BCBCBC;'> 3</span> Drug A    31  0.277 T1    II           0     0 censor          24      0.038<span style='text-decoration: underline;'>6</span>
-#&gt; <span style='color: #BCBCBC;'> 4</span> Drug A    <span style='color: #BB0000;'>NA</span>  2.07  T3    III          1     1 death other…    17.6   <span style='color: #BB0000;'>NA</span>     
-#&gt; <span style='color: #BCBCBC;'> 5</span> Drug A    51  2.77  T4    III          1     1 death other…    16.4    0.062<span style='text-decoration: underline;'>1</span>
-#&gt; <span style='color: #BCBCBC;'> 6</span> Drug B    39  0.613 T4    I            0     1 death from …    15.6    0.038<span style='text-decoration: underline;'>1</span>
-#&gt; <span style='color: #BCBCBC;'> 7</span> Drug A    37  0.354 T1    II           0     0 censor          24      0.039<span style='text-decoration: underline;'>9</span>
-#&gt; <span style='color: #BCBCBC;'> 8</span> Drug A    32  1.74  T1    I            0     1 death other…    18.4    0.036<span style='text-decoration: underline;'>6</span>
-#&gt; <span style='color: #BCBCBC;'> 9</span> Drug A    31  0.144 T1    II           0     0 censor          24      0.038<span style='text-decoration: underline;'>6</span>
-#&gt; <span style='color: #BCBCBC;'>10</span> Drug B    34  0.205 T3    I            0     1 death from …    10.5    0.037<span style='text-decoration: underline;'>0</span>
-#&gt; <span style='color: #949494;'># … with 190 more rows</span></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>crr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='crr.html'>crr</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>age</span> <span class='op'>+</span> <span class='va'>grade</span>, <span class='va'>trial</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 cases omitted due to missing values</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>crr</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 3 × 5</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   term     estimate std.error statistic p.value</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> age       0.005<span style='text-decoration: underline;'>88</span>   0.009<span style='text-decoration: underline;'>87</span>     0.596    0.55</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> gradeII   0.060<span style='text-decoration: underline;'>1</span>    0.361       0.166    0.87</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> gradeIII  0.431     0.324       1.33     0.18</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://generics.r-lib.org/reference/glance.html'>glance</a></span><span class='op'>(</span><span class='va'>crr</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 1 × 5</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   converged logLik  nobs    df statistic</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> TRUE       -<span style='color: #BB0000;'>264.</span>   189     3      2.34</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://generics.r-lib.org/reference/augment.html'>augment</a></span><span class='op'>(</span><span class='va'>crr</span>, times <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 200 × 10</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    trt      age marker stage grade response death death_cr     ttdeath `time 12`</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> Drug A    23  0.16  T1    II           0     0 censor          24      0.036<span style='text-decoration: underline;'>8</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> Drug B     9  1.11  T2    I            1     0 censor          24      0.032<span style='text-decoration: underline;'>0</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> Drug A    31  0.277 T1    II           0     0 censor          24      0.038<span style='text-decoration: underline;'>6</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> Drug A    <span style='color: #BB0000;'>NA</span>  2.07  T3    III          1     1 death other…    17.6   <span style='color: #BB0000;'>NA</span>     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> Drug A    51  2.77  T4    III          1     1 death other…    16.4    0.062<span style='text-decoration: underline;'>1</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> Drug B    39  0.613 T4    I            0     1 death from …    15.6    0.038<span style='text-decoration: underline;'>1</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> Drug A    37  0.354 T1    II           0     0 censor          24      0.039<span style='text-decoration: underline;'>9</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> Drug A    32  1.74  T1    I            0     1 death other…    18.4    0.036<span style='text-decoration: underline;'>6</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> Drug A    31  0.144 T1    II           0     0 censor          24      0.038<span style='text-decoration: underline;'>6</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> Drug B    34  0.205 T3    I            0     1 death from …    10.5    0.037<span style='text-decoration: underline;'>0</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 190 more rows</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -170,41 +170,57 @@ stratified on this variable.  (all data in 1 stratum, if missing)</p></td>
 <code><a href='broom_methods_cuminc.html'>broom_methods_cuminc</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># calculate risk for entire cohort -----------</span>
-<span class='fu'>cuminc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='fl'>1</span>, <span class='va'>trial</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>cuminc()</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>• Failure type <span style='color: #0000BB;'>"death from cancer"</span></span></div><div class='output co'>#&gt; <span style='font-style: italic; text-decoration: underline;'>time   estimate   std.error   </span> 
-#&gt; 5.00   0.000      0.000        
-#&gt; 10.0   0.030      0.012        
-#&gt; 15.0   0.120      0.023        
-#&gt; 20.0   0.215      0.029        
-#&gt; </div><div class='output co'>#&gt; <span class='message'>• Failure type <span style='color: #0000BB;'>"death other causes"</span></span></div><div class='output co'>#&gt; <span style='font-style: italic; text-decoration: underline;'>time   estimate   std.error   </span> 
-#&gt; 5.00   0.005      0.005        
-#&gt; 10.0   0.025      0.011        
-#&gt; 15.0   0.090      0.020        
-#&gt; 20.0   0.205      0.029        </div><div class='input'>
-<span class='co'># calculate risk by treatment group ----------</span>
-<span class='fu'>cuminc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>trt</span>, <span class='va'>trial</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>cuminc()</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'>• Failure type <span style='color: #0000BB;'>"death from cancer"</span></span></div><div class='output co'>#&gt; <span style='font-style: italic; text-decoration: underline;'>strata   time   estimate   std.error   </span> 
-#&gt; Drug A   5.00   0.000      0.000        
-#&gt; Drug A   10.0   0.020      0.014        
-#&gt; Drug A   15.0   0.071      0.026        
-#&gt; Drug A   20.0   0.173      0.039        
-#&gt; Drug B   5.00   0.000      0.000        
-#&gt; Drug B   10.0   0.039      0.019        
-#&gt; Drug B   15.0   0.167      0.037        
-#&gt; Drug B   20.0   0.255      0.043        
-#&gt; </div><div class='output co'>#&gt; <span class='message'>• Failure type <span style='color: #0000BB;'>"death other causes"</span></span></div><div class='output co'>#&gt; <span style='font-style: italic; text-decoration: underline;'>strata   time   estimate   std.error   </span> 
-#&gt; Drug A   5.00   0.010      0.010        
-#&gt; Drug A   10.0   0.020      0.014        
-#&gt; Drug A   15.0   0.082      0.028        
-#&gt; Drug A   20.0   0.204      0.041        
-#&gt; Drug B   5.00   0.000      0.000        
-#&gt; Drug B   10.0   0.029      0.017        
-#&gt; Drug B   15.0   0.098      0.030        
-#&gt; Drug B   20.0   0.206      0.040        
-#&gt; </div><div class='output co'>#&gt; <span class='message'>• Tests</span></div><div class='output co'>#&gt; <span style='font-style: italic; text-decoration: underline;'>outcome              statistic   df     p.value   </span> 
-#&gt; death from cancer    1.99        1.00   0.16       
-#&gt; death other causes   0.089       1.00   0.77       </div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># calculate risk for entire cohort -----------</span></span>
+<span class='r-in'><span class='fu'>cuminc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='fl'>1</span>, <span class='va'>trial</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>cuminc()</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────────────────</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> • Failure type <span style='color: #0000BB;'>"death from cancer"</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-style: italic; text-decoration: underline;'>time   estimate   std.error   </span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.00   0.000      0.000        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10.0   0.030      0.012        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15.0   0.120      0.023        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20.0   0.215      0.029        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> • Failure type <span style='color: #0000BB;'>"death other causes"</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-style: italic; text-decoration: underline;'>time   estimate   std.error   </span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5.00   0.005      0.005        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 10.0   0.025      0.011        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 15.0   0.090      0.020        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 20.0   0.205      0.029        </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># calculate risk by treatment group ----------</span></span>
+<span class='r-in'><span class='fu'>cuminc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>trt</span>, <span class='va'>trial</span><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>cuminc()</span> <span style='color: #00BBBB;'>────────────────────────────────────────────────────────────────────</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> • Failure type <span style='color: #0000BB;'>"death from cancer"</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-style: italic; text-decoration: underline;'>strata   time   estimate   std.error   </span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug A   5.00   0.000      0.000        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug A   10.0   0.020      0.014        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug A   15.0   0.071      0.026        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug A   20.0   0.173      0.039        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug B   5.00   0.000      0.000        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug B   10.0   0.039      0.019        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug B   15.0   0.167      0.037        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug B   20.0   0.255      0.043        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> • Failure type <span style='color: #0000BB;'>"death other causes"</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-style: italic; text-decoration: underline;'>strata   time   estimate   std.error   </span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug A   5.00   0.010      0.010        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug A   10.0   0.020      0.014        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug A   15.0   0.082      0.028        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug A   20.0   0.204      0.041        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug B   5.00   0.000      0.000        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug B   10.0   0.029      0.017        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug B   15.0   0.098      0.030        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Drug B   20.0   0.206      0.040        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> • Tests</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-style: italic; text-decoration: underline;'>outcome              statistic   df     p.value   </span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> death from cancer    1.99        1.00   0.16       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> death other causes   0.089       1.00   0.77       </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

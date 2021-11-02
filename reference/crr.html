@@ -167,12 +167,18 @@ Default is <code>NULL</code>.</p></td>
 <code><a href='predict.tidycrr.html'>predict.tidycrr</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>crr</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>age</span> <span class='op'>+</span> <span class='va'>grade</span>, <span class='va'>trial</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 11 cases omitted due to missing values</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>crr()</span> <span style='color: #00BBBB;'>───────────────────────────────────────────────────────────────────────</span></span></div><div class='output co'>#&gt; <span class='message'>• Call <span style='color: #00BB00;'>Surv(ttdeath, death_cr) ~ age + grade</span></span></div><div class='output co'>#&gt; <span class='message'>• Failure type of interest <span style='color: #0000BB;'>"death from cancer"</span></span></div><div class='output co'>#&gt; 
-#&gt; <span style='font-style: italic; text-decoration: underline;'>Variable   HR     SE      95% CI       p-value   </span> 
-#&gt; <span style='font-weight: bold;'>age        </span>1.01   0.010   0.99, 1.03   0.55       
-#&gt; <span style='font-weight: bold;'>gradeII    </span>1.06   0.361   0.52, 2.16   0.87       
-#&gt; <span style='font-weight: bold;'>gradeIII   </span>1.54   0.324   0.82, 2.90   0.18       </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>crr</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>age</span> <span class='op'>+</span> <span class='va'>grade</span>, <span class='va'>trial</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 cases omitted due to missing values</span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> <span style='color: #00BBBB;'>──</span> <span style='font-weight: bold;'>crr()</span> <span style='color: #00BBBB;'>───────────────────────────────────────────────────────────────────────</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> • Call <span style='color: #00BB00;'>Surv(ttdeath, death_cr) ~ age + grade</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> • Failure type of interest <span style='color: #0000BB;'>"death from cancer"</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-style: italic; text-decoration: underline;'>Variable   HR     SE      95% CI       p-value   </span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>age        </span>1.01   0.010   0.99, 1.03   0.55       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>gradeII    </span>1.06   0.361   0.52, 2.16   0.87       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='font-weight: bold;'>gradeIII   </span>1.54   0.324   0.82, 2.90   0.18       </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
