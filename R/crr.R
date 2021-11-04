@@ -105,7 +105,7 @@ new_crr <- function(coefs, coef_names, formula, tidy, cmprsk, data, failcode, bl
     data = data,
     failcode = failcode,
     xlevels =
-      stats::model.frame(formula, data = data)[, -1] %>%
+      stats::model.frame(formula, data = data)[, -1, drop = FALSE] %>%
       purrr::map(
         function(.x) {
           if (inherits(.x, "factor")) return(levels(.x))
