@@ -4,6 +4,7 @@
 #' @param formula formula with `Surv()` on LHS and covariates on RHS.
 #' The event status variable must be a factor, with the first level indicating
 #' 'censor' and subsequent levels the competing risks.
+#' @param recipe recipe object. Must be prepared by `prep()` before input.
 #' @param data data frame
 #' @param failcode Indicates event of interest. If `failcode=` is `NULL`,
 #' the first competing event will be used as the event of interest.
@@ -15,12 +16,35 @@
 #' @name crr
 #' @examples
 #' crr(Surv(ttdeath, death_cr) ~ age + grade, trial)
+#'
+#' trial$survobj <- Surv(trial$ttdeath, trial$death_cr)
+#' rec <- recipe(survobj ~ age + grade, trial) %>% prep()
+#' crr(rec, trial)
 NULL
 
 # Formula method
 #' @rdname crr
 #' @export
 crr.formula <- function(formula, data, failcode = NULL, ...) {
+
+  # checking inputs and assigning the numeric failcode -------------------------
+  failcode_numeric <-
+    as_numeric_failcode(formula = formula, data = data, failcode = failcode)
+
+  # process model variables ----------------------------------------------------
+  processed <- crr_mold(formula, data)
+
+  # building model -------------------------------------------------------------
+  crr_bridge(processed, formula, data, failcode_numeric)
+}
+
+# Recipe method
+#' @rdname crr
+#' @export
+crr.recipe <- function(recipe, data, failcode = NULL, ...) {
+
+  # transform recipe as formula ------------------------------------------------
+  formula <- formula(recipe)
 
   # checking inputs and assigning the numeric failcode -------------------------
   failcode_numeric <-

@@ -25,3 +25,7 @@ broom::glance
 #' @export
 #' @importFrom broom augment
 broom::augment
+
+# recipes ----------------------------------------------------------------------
+#' @export
+#' @importFrom recipes recipe

@@ -3,10 +3,13 @@
 \name{crr}
 \alias{crr}
 \alias{crr.formula}
+\alias{crr.recipe}
 \alias{crr.default}
 \title{Competing Risks Regression}
 \usage{
 \method{crr}{formula}(formula, data, failcode = NULL, ...)
+
+\method{crr}{recipe}(recipe, data, failcode = NULL, ...)
 
 crr(x, ...)
 
@@ -25,6 +28,8 @@ Default is \code{NULL}.}
 
 \item{...}{passed to methods}
 
+\item{recipe}{recipe object. Must be prepared by \code{prep()} before input.}
+
 \item{x}{input object}
 }
 \value{
@@ -35,6 +40,10 @@ Competing Risks Regression
 }
 \examples{
 crr(Surv(ttdeath, death_cr) ~ age + grade, trial)
+
+trial$survobj <- Surv(trial$ttdeath, trial$death_cr)
+rec <- recipe(survobj ~ age + grade, trial) \%>\% prep()
+crr(rec, trial)
 }
 \seealso{
 Other \code{crr()} functions: 
