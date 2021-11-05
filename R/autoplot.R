@@ -5,8 +5,19 @@
 #' @param object object of class 'cuminc'
 #' @param outcomes character vector of outcomes to include in plot. Default
 #' is to include all competing events.
+#' @param aes List of arguments that will be added or replace the existing
+#' arguments in `ggplot2::aes()`. Details below.
 #' @inheritParams tidy.tidycuminc
 #' @param ... not used
+#'
+#' @section aesthetics:
+#' The `aes=` argument accepts a named list of arguments that will be added to
+#' or replace existing arguments in the `ggplot2::aes()` call.
+#' The tibble used to create the figure is the output from `tidy()`.
+#' The default call to `ggplot2::aes()` includes, at most, the following:
+#' `ggplot2::aes(x = time, y = estimate, colour = strata, fill = strata, linetype = outcome, ymin = conf.low, ymax = conf.high`
+#' Not all arguments appear in every plot, however.
+#'
 #'
 #' @return a ggplot object
 #' @family `cuminc()` functions
@@ -25,20 +36,15 @@
 #'   )
 
 autoplot.tidycuminc <- function(object, outcomes = names(object$failcode),
-                                conf.int = FALSE, conf.level = 0.95, ...) {
+                                conf.int = FALSE, conf.level = 0.95,
+                                aes = NULL, ...) {
   # checking inputs ------------------------------------------------------------
   outcomes <- match.arg(outcomes, names(object$failcode), several.ok = TRUE)
 
   # tidying --------------------------------------------------------------------
   df_tidy <-
     tidy(object, conf.int = conf.int, conf.level = conf.level) %>%
-    dplyr::filter(.data$outcome %in% .env$outcomes) %>%
-    # adding time = 0 into the data set
-    dplyr::bind_rows(
-      dplyr::select(., dplyr::any_of(c("outcome", "strata", "time", "estimate"))) %>%
-        dplyr::mutate(dplyr::across(c(.data$time, .data$estimate), ~0)) %>%
-        dplyr::distinct()
-    )
+    dplyr::filter(.data$outcome %in% .env$outcomes)
 
   # construct ggplot call ------------------------------------------------------
   # aes()
@@ -49,6 +55,9 @@ autoplot.tidycuminc <- function(object, outcomes = names(object$failcode),
     aes_args <- c(aes_args, list(linetype = expr(.data$outcome)))
   if (isTRUE(conf.int))
     aes_args <- c(aes_args, list(ymin = expr(.data$conf.low), ymax = expr(.data$conf.high)))
+
+  aes <- as.list(rlang::enexpr(aes))[-1]
+  aes_args <- aes_args %>% purrr::list_modify(!!!aes)
 
   # ggplot call
   gg <-

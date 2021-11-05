@@ -116,7 +116,7 @@ tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,
   # will calculate risk estimates at all observed followup times ---------------
   times <-
     times %||%
-    stats::model.frame(x$formula, data = x$data)[[1]][, 1] %>%
+    union(0, stats::model.frame(x$formula, data = x$data)[[1]][, 1]) %>%
     unique() %>%
     sort()
 
