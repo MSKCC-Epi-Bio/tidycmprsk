@@ -126,6 +126,7 @@
   outcomes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>$</span><span class='va'>failcode</span><span class='op'>)</span>,
   conf.int <span class='op'>=</span> <span class='cn'>FALSE</span>,
   conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  aes <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -153,6 +154,11 @@ if <code>conf.int = TRUE</code>. Must be strictly greater than 0 and less than 1
 Defaults to 0.95, which corresponds to a 95 percent confidence interval.</p></td>
     </tr>
     <tr>
+      <th>aes</th>
+      <td><p>List of arguments that will be added or replace the existing
+arguments in <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>ggplot2::aes()</a></code>. Details below.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>not used</p></td>
     </tr>
@@ -161,6 +167,16 @@ Defaults to 0.95, which corresponds to a 95 percent confidence interval.</p></td
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a ggplot object</p>
+    <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>aesthetics</h2>
+
+    
+
+<p>The <code>aes=</code> argument accepts a named list of arguments that will be added to
+or replace existing arguments in the <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>ggplot2::aes()</a></code> call.
+The tibble used to create the figure is the output from <code><a href='https://generics.r-lib.org/reference/tidy.html'>tidy()</a></code>.
+The default call to <code><a href='https://ggplot2.tidyverse.org/reference/aes.html'>ggplot2::aes()</a></code> includes, at most, the following:
+<code>ggplot2::aes(x = time, y = estimate, colour = strata, fill = strata, linetype = outcome, ymin = conf.low, ymax = conf.high</code>
+Not all arguments appear in every plot, however.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other <code><a href='cuminc.html'>cuminc()</a></code> functions: 
