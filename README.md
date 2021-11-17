@@ -7,22 +7,27 @@
 
 [![R-CMD-check](https://github.com/MSKCC-Epi-Bio/tidycmprsk/workflows/R-CMD-check/badge.svg)](https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge.svg)](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk?branch=main)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/tidycmprsk)](https://cran.r-project.org/package=tidycmprsk)
+coverage](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge.svg)](https://app.codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk?branch=main)
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/tidycmprsk)](https://cran.r-project.org/package=tidycmprsk) -->
 <!-- badges: end -->
 
-The `tidycmprsk` package provides an improved interface for working with
-the competing risk endpoints. The package wraps the `cmprsk` package,
-and exports functions for univariate cumulative incidence estimates with
-`cuminc()` and competing risk regression with `crr()`.
+The `tidycmprsk` package provides an intuitive interface for working
+with the competing risk endpoints. The package wraps the `cmprsk`
+package, and exports functions for univariate cumulative incidence
+estimates with `cuminc()` and competing risk regression with `crr()`.
 
 The package also includes broom-style tidiers: `tidy()`, `augment()`,
 and `glance()`.
 
 ## Installation
 
-You can install the dev version of `tidycmprsk` from GitHub
+You can install {tidycmprsk} with the following code.
+
+``` r
+install.packages("tidycmprsk")
+```
+
+Install the development version of {tidycmprsk} with:
 
 ``` r
 # install.packages("devtools")
@@ -31,8 +36,8 @@ devtools::install_github("MSKCC-Epi-Bio/tidycmprsk")
 
 ## Competing Risk Regression
 
-Fit a Fine and Gray model for the example data `trial` with covariates
-`age` and `trt`.
+Fit a Fine and Gray competing risks regression model using the the
+example data, `trial`.
 
 ``` r
 library(tidycmprsk)
@@ -96,7 +101,8 @@ Please note that the {tidycmprsk} project is released with a
 Conduct](https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms. Thank
 you to all contributors!  
-[@ddsjoberg](https://github.com/ddsjoberg), and
+[@ddsjoberg](https://github.com/ddsjoberg),
+[@karissawhiting](https://github.com/karissawhiting), and
 [@tengfei-emory](https://github.com/tengfei-emory)
 
 #### Limitations

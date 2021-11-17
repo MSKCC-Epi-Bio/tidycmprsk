@@ -6,13 +6,13 @@
 \alias{tidycmprsk-package}
 \title{tidycmprsk: Tidy Implementation of Competing Risks Regression}
 \description{
-Provides an improved interface for working with the competing risk endpoints. The package wraps the 'cmprsk' package, and exports functions for univariate cumulative incidence estimates and competing risk regression.
+Provides an intuitive interface for working with the competing risk endpoints. The package wraps the 'cmprsk' package, and exports functions for univariate cumulative incidence estimates and competing risk regression.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://mskcc-epi-bio.github.io/tidycmprsk}
-  \item Report bugs at \url{https://mskcc-epi-bio.github.io/tidycmprsk/issues}
+  \item \url{https://mskcc-epi-bio.github.io/tidycmprsk/}
+  \item Report bugs at \url{https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/}
 }
 
 }
