@@ -23,6 +23,20 @@
 
 \item{x, object}{a tidycrr object}
 }
+\value{
+coef vector, model matrix, model frame, terms object
+}
 \description{
 Functions for tidycrr objects
+}
+\examples{
+mod <- crr(Surv(ttdeath, death_cr) ~ age + grade, trial)
+
+coef(mod)
+
+model.matrix(mod) \%>\% head()
+
+model.frame(mod) \%>\% head()
+
+terms(mod)
 }

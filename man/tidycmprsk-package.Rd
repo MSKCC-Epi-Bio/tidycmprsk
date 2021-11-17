@@ -4,9 +4,9 @@
 \name{tidycmprsk-package}
 \alias{tidycmprsk}
 \alias{tidycmprsk-package}
-\title{tidycmprsk: Tidy Implementation of Competing Risks Regression}
+\title{tidycmprsk: Competing Risks Estimation}
 \description{
-Provides an intuitive interface for working with the competing risk endpoints. The package wraps the 'cmprsk' package, and exports functions for univariate cumulative incidence estimates and competing risk regression.
+Provides an intuitive interface for working with the competing risk endpoints. The package wraps the 'cmprsk' package, and exports functions for univariate cumulative incidence estimates and competing risk regression. Methods follow those introduced in Fine and Gray (1999) <doi:10.1002/sim.7501>.
 }
 \seealso{
 Useful links:
@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Daniel D. Sjoberg \email{danield.sjoberg@gmail.com} (\href{https://orcid.org/0000-0003-0862-2018}{ORCID})
+\strong{Maintainer}: Daniel D. Sjoberg \email{danield.sjoberg@gmail.com} (\href{https://orcid.org/0000-0003-0862-2018}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{

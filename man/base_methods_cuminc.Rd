@@ -17,6 +17,16 @@
 
 \item{object}{a tidycuminc object}
 }
+\value{
+a model frame, or model matrix
+}
 \description{
 Functions for tidycuminc objects
+}
+\examples{
+fit <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
+
+model.matrix(fit) \%>\% head()
+
+model.frame(fit) \%>\% head()
 }

@@ -95,7 +95,19 @@ probs_at_times <- function(matrix_pred, times) {
 #' @param x,object a tidycrr object
 #' @param formula a formula
 #' @param ... not used
+#'
+#' @return coef vector, model matrix, model frame, terms object
 #' @name base_methods_crr
+#' @examples
+#' mod <- crr(Surv(ttdeath, death_cr) ~ age + grade, trial)
+#'
+#' coef(mod)
+#'
+#' model.matrix(mod) %>% head()
+#'
+#' model.frame(mod) %>% head()
+#'
+#' terms(mod)
 NULL
 
 #' @export
@@ -129,7 +141,15 @@ terms.tidycrr <- function(x, ...) {
 #' @param object a tidycuminc object
 #' @param formula a formula
 #' @param ... not used
+#'
+#' @return a model frame, or model matrix
 #' @name base_methods_cuminc
+#' @examples
+#' fit <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
+#'
+#' model.matrix(fit) %>% head()
+#'
+#' model.frame(fit) %>% head()
 NULL
 
 #' @export

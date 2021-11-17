@@ -1,16 +1,17 @@
 Package: tidycmprsk
-Title: Tidy Implementation of Competing Risks Regression
+Title: Competing Risks Estimation
 Version: 0.0.0.9000
 Authors@R: c(
-    person(c("Daniel", "D."), "Sjoberg", , "danield.sjoberg@gmail.com", role = c("aut", "cre"),
+    person(c("Daniel", "D."), "Sjoberg", , "danield.sjoberg@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0003-0862-2018")),
     person("Teng", "Fei", role = "aut",
            comment = c(ORCID = "0000-0001-7888-1715"))
   )
-Description: Provides an intuitive interface for working with the competing
-    risk endpoints. The package wraps the 'cmprsk' package, and exports
-    functions for univariate cumulative incidence estimates and competing
-    risk regression.
+Description: Provides an intuitive interface for working with the
+    competing risk endpoints. The package wraps the 'cmprsk' package, and
+    exports functions for univariate cumulative incidence estimates and
+    competing risk regression. Methods follow those introduced in Fine and
+    Gray (1999) <doi:10.1002/sim.7501>.
 License: AGPL (>= 3)
 URL: https://mskcc-epi-bio.github.io/tidycmprsk/
 BugReports: https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/
