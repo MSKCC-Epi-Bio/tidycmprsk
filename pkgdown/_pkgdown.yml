@@ -3,9 +3,9 @@ url: https://mskcc-epi-bio.github.io/tidycmprsk
 template:
   params:
     bootswatch: flatly
-# development:
-#   mode: auto
-#   version_label: default
+development:
+  mode: auto
+  version_label: default
 
 authors:
   Daniel D. Sjoberg:
@@ -46,3 +46,7 @@ reference:
       - predict.tidycrr
       - base_methods_crr
       - base_methods_cuminc
+
+  - title: Data
+  - contents:
+      - trial
