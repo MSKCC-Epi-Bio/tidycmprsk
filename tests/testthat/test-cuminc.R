@@ -1,12 +1,32 @@
 test_that("cuminc() works", {
+  cmprsk_cuminc1 <-
+    cmprsk::cuminc(
+      ftime = trial$ttdeath,
+      fstatus = as.numeric(trial$death_cr) - 1L
+    )
+  cmprsk_cuminc2 <-
+    cmprsk::cuminc(
+      ftime = trial$ttdeath,
+      fstatus = as.numeric(trial$death_cr) - 1L,
+      group = trial$trt
+    )
+
   expect_error(
     cuminc1 <- cuminc(Surv(ttdeath, death_cr) ~ 1, trial),
     NA
+  )
+  expect_equal(
+    cuminc1$cmprsk,
+    cmprsk_cuminc1
   )
 
   expect_error(
     cuminc2 <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial),
     NA
+  )
+  expect_equal(
+    cuminc2$cmprsk,
+    cmprsk_cuminc2
   )
 
   expect_equal(
