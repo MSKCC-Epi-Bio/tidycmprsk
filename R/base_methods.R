@@ -120,7 +120,7 @@ coef.tidycrr <- function(object, ...) {
 #' @rdname base_methods_crr
 model.matrix.tidycrr <- function(object, ...) {
   # by default there is no intercept term in F&G's model
-  stats::model.matrix(object$formula, object$model)[, -1, drop = FALSE]
+  stats::model.matrix(object$formula, object$data)[, -1, drop = FALSE]
 }
 
 #' @export
@@ -162,5 +162,5 @@ model.frame.tidycuminc <- function(formula, ...) {
 #' @rdname base_methods_cuminc
 model.matrix.tidycuminc <- function(object, ...) {
   # by default there is no intercept term in F&G's model
-  stats::model.matrix(object$formula, object$model)[, -1, drop = FALSE]
+  stats::model.matrix(object$formula, object$data)[, -1, drop = FALSE]
 }

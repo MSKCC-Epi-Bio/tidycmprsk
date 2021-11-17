@@ -58,6 +58,16 @@ test_that("base methods", {
     print(cuminc2),
     NA
   )
+
+  expect_error(
+    model.matrix(cuminc2),
+    NA
+  )
+
+  expect_error(
+    model.frame(cuminc2),
+    NA
+  )
 })
 
 test_that("broom methods", {

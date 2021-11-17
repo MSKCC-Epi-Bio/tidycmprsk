@@ -119,7 +119,6 @@ new_crr <- function(coefs, coef_names, formula, tidy, cmprsk, data, failcode, bl
       purrr::compact(),
     tidy = tidy,
     cmprsk = cmprsk,
-    model = data,
     blueprint = blueprint,
     class = "tidycrr"
   )
