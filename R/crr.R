@@ -63,7 +63,10 @@ as_numeric_failcode <- function(formula, data, failcode, keep_all = FALSE) {
       !identical(attr(formula_lhs, "type"), "mright")) {
     paste(
       "The LHS of the formula must be of class 'Surv' and type 'mright'.",
-      "Please review syntax in the help file."
+      "Please review syntax in the help file.",
+      "The status variable must be a factor, where the first level indicates",
+      "the observation was censored, and subsequent levels are the",
+      "competing events."
     ) %>%
       stop(call. = FALSE)
   }
