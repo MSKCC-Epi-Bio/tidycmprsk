@@ -151,7 +151,13 @@
     <pre class="examples"><span class='r-in'><span class='va'>fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cuminc.html'>cuminc</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>trt</span>, <span class='va'>trial</span><span class='op'>)</span></span>
 <span class='r-in'></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span></span>
-<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in Surv(ttdeath, death_cr):</span> object 'ttdeath' not found</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   trtDrug B</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1         0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2         1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3         0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4         0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5         0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6         1</span>
 <span class='r-in'></span>
 <span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></span><span class='op'>(</span><span class='va'>fit</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span class='r-out co'><span class='r-pr'>#&gt;</span>    Surv(ttdeath, death_cr)    trt</span>
