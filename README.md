@@ -55,7 +55,7 @@ crr_mod
 #> trtDrug B   1.52   0.279   0.88, 2.62   0.13
 ```
 
-The `tidycmprsk` plays will with other packages, such as `gtsummary`.
+The `tidycmprsk` plays well with other packages, such as `gtsummary`.
 
 ``` r
 tbl <- 

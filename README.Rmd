@@ -52,7 +52,7 @@ crr_mod <- crr(Surv(ttdeath, death_cr) ~ age + trt, trial)
 crr_mod
 ```
 
-The `tidycmprsk` plays will with other packages, such as `gtsummary`.
+The `tidycmprsk` plays well with other packages, such as `gtsummary`.
 
 ```{r gtsummary, message = FALSE}
 tbl <- 
