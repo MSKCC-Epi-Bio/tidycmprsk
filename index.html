@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Tidy Implementation of Competing Risks Regression">
-<meta property="og:description" content="Provides an improved interface for working with the competing
+<meta property="og:description" content="Provides an intuitive interface for working with the competing
     risk endpoints. The package wraps the cmprsk package, and exports
     functions for univariate cumulative incidence estimates and competing
     risk regression.">
@@ -77,22 +77,25 @@
 <a href="#tidycmprsk" class="anchor"></a>tidycmprsk</h1></div>
 <!-- badges: start -->
 
-<p>The <code>tidycmprsk</code> package provides an improved interface for working with the competing risk endpoints. The package wraps the <code>cmprsk</code> package, and exports functions for univariate cumulative incidence estimates with <code><a href="reference/cuminc.html">cuminc()</a></code> and competing risk regression with <code><a href="reference/crr.html">crr()</a></code>.</p>
+<p>The <code>tidycmprsk</code> package provides an intuitive interface for working with the competing risk endpoints. The package wraps the <code>cmprsk</code> package, and exports functions for univariate cumulative incidence estimates with <code><a href="reference/cuminc.html">cuminc()</a></code> and competing risk regression with <code><a href="reference/crr.html">crr()</a></code>.</p>
 <p>The package also includes broom-style tidiers: <code><a href="https://generics.r-lib.org/reference/tidy.html">tidy()</a></code>, <code><a href="https://generics.r-lib.org/reference/augment.html">augment()</a></code>, and <code><a href="https://generics.r-lib.org/reference/glance.html">glance()</a></code>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the dev version of <code>tidycmprsk</code> from GitHub</p>
+<p>You can install {tidycmprsk} with the following code.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidycmprsk"</span><span class="op">)</span></code></pre></div>
+<p>Install the development version of {tidycmprsk} with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"MSKCC-Epi-Bio/tidycmprsk"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="competing-risk-regression" class="section level2">
 <h2 class="hasAnchor">
 <a href="#competing-risk-regression" class="anchor"></a>Competing Risk Regression</h2>
-<p>Fit a Fine and Gray model for the example data <code>trial</code> with covariates <code>age</code> and <code>trt</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mskcc-epi-bio.github.io/tidycmprsk">tidycmprsk</a></span><span class="op">)</span>
+<p>Fit a Fine and Gray competing risks regression model using the the example data, <code>trial</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mskcc-epi-bio.github.io/tidycmprsk/">tidycmprsk</a></span><span class="op">)</span>
 
 <span class="va">crr_mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/crr.html">crr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span>
 <span class="co">#&gt; 11 cases omitted due to missing values</span>
@@ -106,7 +109,7 @@
 <span class="co">#&gt; age         1.01   0.010   0.99, 1.03   0.56       </span>
 <span class="co">#&gt; trtDrug B   1.52   0.279   0.88, 2.62   0.13</span></code></pre></div>
 <p>The <code>tidycmprsk</code> plays will with other packages, such as <code>gtsummary</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tbl</span> <span class="op">&lt;-</span> 
   <span class="va">crr_mod</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="http://www.danieldsjoberg.com/gtsummary//reference/tbl_regression.html">tbl_regression</a></span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -115,7 +118,7 @@
 <div id="cumulative-incidence" class="section level2">
 <h2 class="hasAnchor">
 <a href="#cumulative-incidence" class="anchor"></a>Cumulative Incidence</h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">trial</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; -- cuminc() --------------------------------------------------------------------</span>
@@ -132,7 +135,7 @@
 <span class="co">#&gt; 15.0   0.090      0.020        </span>
 <span class="co">#&gt; 20.0   0.205      0.029</span></code></pre></div>
 <p>Plot risks using <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span>outcomes <span class="op">=</span> <span class="st">"death from cancer"</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
@@ -140,7 +143,7 @@
 <div id="contributing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contributing" class="anchor"></a>Contributing</h2>
-<p>Please note that the {tidycmprsk} project is released with a <a href="https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms. Thank you to all contributors!<br><a href="https://github.com/ddsjoberg">@ddsjoberg</a>, and <a href="https://github.com/tengfei-emory">@tengfei-emory</a></p>
+<p>Please note that the {tidycmprsk} project is released with a <a href="https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms. Thank you to all contributors!<br><a href="https://github.com/ddsjoberg">@ddsjoberg</a>, <a href="https://github.com/karissawhiting">@karissawhiting</a>, and <a href="https://github.com/tengfei-emory">@tengfei-emory</a></p>
 <div id="limitations" class="section level4">
 <h4 class="hasAnchor">
 <a href="#limitations" class="anchor"></a>Limitations</h4>
@@ -154,7 +157,9 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Report a bug at <br><a href="https://mskcc-epi-bio.github.io/tidycmprsk/issues">https://​mskcc-epi-bio.github.io/​tidycmprsk/​issues</a>
+<li>Browse source code at <br><a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/">https://​github.com/​MSKCC-Epi-Bio/​tidycmprsk/​</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/">https://​github.com/​MSKCC-Epi-Bio/​tidycmprsk/​issues/​</a>
 </li>
 </ul>
 </div>
@@ -169,6 +174,7 @@
 <h2>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
 <div class="developers">
@@ -185,8 +191,7 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions"><img src="https://github.com/MSKCC-Epi-Bio/tidycmprsk/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk?branch=main"><img src="https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://cran.r-project.org/package=tidycmprsk"><img src="https://www.r-pkg.org/badges/version/tidycmprsk" alt="CRAN status"></a></li>
+<li><a href="https://app.codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk?branch=main"><img src="https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
