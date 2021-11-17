@@ -20,7 +20,7 @@
 #'
 #'
 #' @return a ggplot object
-#' @family `cuminc()` functions
+#' @family cuminc() functions
 #' @export
 #' @examples
 #' # Example 1 ----------------------------------

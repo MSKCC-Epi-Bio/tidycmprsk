@@ -5,7 +5,7 @@
 #' @param x input object
 #'
 #' @return tidycuminc object
-#' @family `cuminc()` functions
+#' @family cuminc() functions
 #' @name cuminc
 #' @examples
 #' # calculate risk for entire cohort -----------

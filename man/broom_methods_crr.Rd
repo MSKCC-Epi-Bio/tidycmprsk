@@ -51,9 +51,9 @@ glance(crr)
 augment(crr, times = 12)
 }
 \seealso{
-Other \code{crr()} functions: 
+Other crr() functions: 
 \code{\link{crr}()},
 \code{\link{predict.tidycrr}()}
 }
-\concept{\code{crr()} functions}
+\concept{crr() functions}
 \concept{tidycrr tidiers}

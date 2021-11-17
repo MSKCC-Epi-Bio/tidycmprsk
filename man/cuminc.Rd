@@ -46,8 +46,8 @@ cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
 cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
 }
 \seealso{
-Other \code{cuminc()} functions: 
+Other cuminc() functions: 
 \code{\link{autoplot.tidycuminc}()},
 \code{\link{broom_methods_cuminc}}
 }
-\concept{\code{cuminc()} functions}
+\concept{cuminc() functions}

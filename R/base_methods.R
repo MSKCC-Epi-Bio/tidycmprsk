@@ -7,7 +7,7 @@
 #' @inheritParams base_methods_crr
 #'
 #' @return named list of prediction estimates
-#' @family `crr()` functions
+#' @family crr() functions
 #' @export
 #' @examples
 #' crr(Surv(ttdeath, death_cr) ~ age, trial) %>%

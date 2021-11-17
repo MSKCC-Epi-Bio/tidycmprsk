@@ -61,8 +61,8 @@ cuminc(Surv(ttdeath, death_cr) ~ 1, trial) \%>\%
   )
 }
 \seealso{
-Other \code{cuminc()} functions: 
+Other cuminc() functions: 
 \code{\link{broom_methods_cuminc}},
 \code{\link{cuminc}()}
 }
-\concept{\code{cuminc()} functions}
+\concept{cuminc() functions}

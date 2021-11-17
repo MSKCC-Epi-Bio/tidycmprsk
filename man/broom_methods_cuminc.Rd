@@ -47,10 +47,10 @@ tidy(cuminc)
 glance(cuminc)
 }
 \seealso{
-Other \code{cuminc()} functions: 
+Other cuminc() functions: 
 \code{\link{autoplot.tidycuminc}()},
 \code{\link{cuminc}()}
 }
-\concept{\code{cuminc()} functions}
 \concept{cuminc tidiers}
+\concept{cuminc() functions}
 \concept{tidycuminc tidiers}
