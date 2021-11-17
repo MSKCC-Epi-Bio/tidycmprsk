@@ -149,7 +149,56 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>coef vector, model matrix, model frame, terms object</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='crr.html'>crr</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span><span class='op'>(</span><span class='va'>ttdeath</span>, <span class='va'>death_cr</span><span class='op'>)</span> <span class='op'>~</span> <span class='va'>age</span> <span class='op'>+</span> <span class='va'>grade</span>, <span class='va'>trial</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 11 cases omitted due to missing values</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         age     gradeII    gradeIII </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 0.005883633 0.060098918 0.430659453 </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   age gradeII gradeIII</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1  23       1        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2   9       0        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3  31       1        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5  51       0        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  39       0        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7  37       1        0</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/model.frame.html'>model.frame</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    Surv(ttdeath, death_cr) age grade</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                   24.00+  23    II</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                   24.00+   9     I</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                   24.00+  31    II</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 16.43:death other causes  51   III</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6  15.64:death from cancer  39     I</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 7                   24.00+  37    II</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/terms.html'>terms</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Surv(ttdeath, death_cr) ~ age + grade</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"variables")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> list(Surv(ttdeath, death_cr), age, grade)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"factors")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                         age grade</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Surv(ttdeath, death_cr)   0     0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age                       1     0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> grade                     0     1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"term.labels")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "age"   "grade"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"order")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"intercept")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"response")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,".Environment")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x560c2adb0860&gt;</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
