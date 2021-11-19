@@ -14,24 +14,38 @@ print.tidycrr <- function(x, ...) {
   cat("\n")
 
   x$tidy %>%
-    dplyr::mutate(
-      dplyr::across(c(.data$estimate, .data$conf.low, .data$conf.high), exp),
-      dplyr::across(c(where(is.numeric), -.data$std.error, -.data$p.value),
-                    ~gtsummary::style_ratio(., digits = 2)),
-      std.error = gtsummary::style_sigfig(.data$std.error, digits = 3),
-      p.value = gtsummary::style_pvalue(.data$p.value, digits = 2),
-      conf.int = paste(.data$conf.low, .data$conf.high, sep = ", "),
-      dplyr::across(where(is.character), ~dplyr::if_else(is.na(.), "", .))
+    # adding the HR with CI to data frame
+    dplyr::bind_cols(
+      dplyr::select(., .data$estimate, .data$conf.low, .data$conf.high) %>%
+        dplyr::mutate(
+          dplyr::across(
+            c(.data$estimate, .data$conf.low, .data$conf.high),
+            ~gtsummary::style_ratio(exp(.), digits = 2)
+          ),
+          exp_estimate = .data$estimate,
+          conf.int = paste(.data$conf.low, .data$conf.high, sep = ", ")
+        ) %>%
+        dplyr::select(.data$exp_estimate, .data$conf.int)
     ) %>%
-    select(-.data$statistic, -.data$conf.low, -.data$conf.high) %>%
+    # formatting coef and p-value
+    dplyr::mutate(
+      dplyr::across(c(.data$estimate, .data$std.error),
+                    purrr::partial(gtsummary::style_sigfig, digits = 3)),
+      p.value = gtsummary::style_pvalue(.data$p.value, digits = 2)
+    ) %>%
+    dplyr::select(.data$term, .data$estimate, .data$std.error,
+                  .data$exp_estimate, .data$conf.int, .data$p.value) %>%
+    # adding header row
     tibble::add_row(
       term = "Variable",
-      estimate = "HR",
+      estimate = "Coef",
       std.error = "SE",
+      exp_estimate = "HR",
       conf.int = "95% CI",
       p.value = "p-value",
       .before = 1
     ) %>%
+    # styling the values that will be printed
     dplyr::mutate(
       dplyr::across(
         where(is.character),
@@ -42,7 +56,6 @@ print.tidycrr <- function(x, ...) {
       term =
         ifelse(dplyr::row_number() > 1L, cli::style_bold(.data$term), .data$term)
     ) %>%
-    dplyr::relocate(.data$conf.int, .before = .data$p.value) %>%
     {purrr::walk(
       seq_len(nrow(.)),
       function(.x) .[.x, ] %>% unlist() %>% paste(collapse = "") %>% cat("\n")
