@@ -30,5 +30,7 @@ jobs:
         run: Rscript -e 'rmarkdown::render("README.Rmd")'
       - name: Commit results
         run: |
+          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git commit README.md -m 'Re-build README.Rmd' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
