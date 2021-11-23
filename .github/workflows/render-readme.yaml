@@ -8,7 +8,7 @@ on:
 name: Render README
 
 jobs:
-  pkgdown:
+  README:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
