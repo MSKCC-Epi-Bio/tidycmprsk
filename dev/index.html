@@ -107,9 +107,9 @@
 <span class="co">#&gt; * Call Surv(ttdeath, death_cr) ~ age + trt</span>
 <span class="co">#&gt; * Failure type of interest "death from cancer"</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Variable    HR     SE      95% CI       p-value    </span>
-<span class="co">#&gt; age         1.01   0.010   0.99, 1.03   0.56       </span>
-<span class="co">#&gt; trtDrug B   1.52   0.279   0.88, 2.62   0.13</span></code></pre></div>
+<span class="co">#&gt; Variable    Coef    SE      HR     95% CI       p-value    </span>
+<span class="co">#&gt; age         0.006   0.010   1.01   0.99, 1.03   0.56       </span>
+<span class="co">#&gt; trtDrug B   0.417   0.279   1.52   0.88, 2.62   0.13</span></code></pre></div>
 <p>The <code>tidycmprsk</code> plays well with other packages, such as <code>gtsummary</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tbl</span> <span class="op">&lt;-</span> 
