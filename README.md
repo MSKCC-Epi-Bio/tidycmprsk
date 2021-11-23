@@ -50,9 +50,9 @@ crr_mod
 #> * Call Surv(ttdeath, death_cr) ~ age + trt
 #> * Failure type of interest "death from cancer"
 #> 
-#> Variable    HR     SE      95% CI       p-value    
-#> age         1.01   0.010   0.99, 1.03   0.56       
-#> trtDrug B   1.52   0.279   0.88, 2.62   0.13
+#> Variable    Coef    SE      HR     95% CI       p-value    
+#> age         0.006   0.010   1.01   0.99, 1.03   0.56       
+#> trtDrug B   0.417   0.279   1.52   0.88, 2.62   0.13
 ```
 
 The `tidycmprsk` plays well with other packages, such as `gtsummary`.
