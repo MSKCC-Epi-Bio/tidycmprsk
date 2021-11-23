@@ -47,9 +47,9 @@ crr_mod <- crr(Surv(ttdeath, death_cr) ~ age + trt, trial)
 #> 11 cases omitted due to missing values
 crr_mod
 #> 
-#> -- crr() -----------------------------------------------------------------------
-#> * Call Surv(ttdeath, death_cr) ~ age + trt
-#> * Failure type of interest "death from cancer"
+#> ── crr() ───────────────────────────────────────────────────────────────────────
+#> • Call Surv(ttdeath, death_cr) ~ age + trt
+#> • Failure type of interest "death from cancer"
 #> 
 #> Variable    Coef    SE      HR     95% CI       p-value    
 #> age         0.006   0.010   1.01   0.99, 1.03   0.56       
@@ -71,14 +71,14 @@ tbl <-
 ``` r
 cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
 #> 
-#> -- cuminc() --------------------------------------------------------------------
-#> * Failure type "death from cancer"
+#> ── cuminc() ────────────────────────────────────────────────────────────────────
+#> • Failure type "death from cancer"
 #> time   estimate   std.error    
 #> 5.00   0.000      0.000        
 #> 10.0   0.030      0.012        
 #> 15.0   0.120      0.023        
 #> 20.0   0.215      0.029
-#> * Failure type "death other causes"
+#> • Failure type "death other causes"
 #> time   estimate   std.error    
 #> 5.00   0.005      0.005        
 #> 10.0   0.025      0.011        
@@ -101,7 +101,7 @@ Please note that the {tidycmprsk} project is released with a
 [Contributor Code of
 Conduct](https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms. Thank
-you to all contributors!  
+you to all contributors\!  
 [@ddsjoberg](https://github.com/ddsjoberg),
 [@karissawhiting](https://github.com/karissawhiting), and
 [@tengfei-emory](https://github.com/tengfei-emory)
