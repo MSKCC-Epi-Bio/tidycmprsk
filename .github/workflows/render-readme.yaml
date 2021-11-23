@@ -23,7 +23,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
-          extra-packages: pkgdown, webshot
+          extra-packages: pkgdown, webshot, usethis
           needs: website
 
       - name: Render README
