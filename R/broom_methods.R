@@ -169,8 +169,104 @@ tidy.tidycuminc <- function(x, conf.int = FALSE, conf.level = 0.95,
       )
   }
 
-  # return tidied tibble of results
+  # adding the number at risk --------------------------------------------------
+  data_no_na <- tidyr::drop_na(x$data, !!!rlang::syms(all.vars(x$formula)))
+  df_Surv <-
+    rlang::f_lhs(x$formula) %>%
+    rlang::eval_tidy(data = data_no_na) %>%
+    unclass() %>%
+    tibble::as_tibble()
+
+  if ("strata" %in% names(df_tidy)) {
+    df_Surv <-
+      df_Surv %>%
+      dplyr::mutate(
+        strata =
+          hardhat::mold(
+            x$formula, data_no_na,
+            blueprint = hardhat::default_formula_blueprint(indicators = "none")
+          ) %>%
+          purrr::pluck("predictors") %>%
+          interaction() %>%
+          as.character()
+      )
+  }
+
+  df_tidy <-
+    df_tidy %>%
+    add_n.risk(df_Surv)
+
+  # return tidied tibble of results --------------------------------------------
   df_tidy
+}
+
+add_n.risk <- function(df_tidy, data) {
+  data <-
+    data %>%
+    dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "time"))))
+
+  df_n_risk <-
+    data %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of("strata"))) %>%
+    dplyr::mutate(
+      n.risk = dplyr::n() - cumsum(.data$status != 0)
+    ) %>%
+    dplyr::select(dplyr::any_of(c("strata", "time", "n.risk"))) %>%
+    dplyr::ungroup() %>%
+    dplyr::distinct()
+
+  df_n_event <-
+    data %>%
+    dplyr::filter(.data$status != 0) %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "status")))) %>%
+    dplyr::mutate(
+      n.event = dplyr::row_number()
+    ) %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "time")))) %>%
+    dplyr::mutate(
+      n.event = max(.data$n.event)
+    ) %>%
+    dplyr::ungroup() %>%
+    dplyr::distinct()
+
+  df_n_censor <-
+    data %>%
+    dplyr::filter(.data$status == 0) %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata")))) %>%
+    dplyr::mutate(
+      n.censor = dplyr::row_number()
+    ) %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "time")))) %>%
+    dplyr::mutate(
+      n.censor = max(.data$n.censor)
+    ) %>%
+    dplyr::select(-.data$status) %>%
+    dplyr::ungroup() %>%
+    dplyr::distinct()
+
+  df_time_zero <-
+    data %>%
+    dplyr::select(dplyr::any_of(c("strata", "status"))) %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata")))) %>%
+    dplyr::mutate(
+      time = 0,
+      n.event = 0,
+      n.risk = dplyr::n(),
+      n.censor = 0
+    ) %>%
+    dplyr::filter(.data$status != 0) %>%
+    dplyr::distinct() %>%
+    dplyr::ungroup()
+
+  list(df_n_risk, df_n_event, df_n_censor) %>%
+    purrr::reduce(
+      ~suppressMessages(dplyr::full_join(.x, .y))
+    ) %>%
+    dplyr::bind_rows(df_time_zero) %>%
+    tidyr::complete(!!!rlang::syms(intersect(c("strata", "status", "time"), names(.)))) %>%
+    dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "time")))) %>%
+    tidyr::fill(.data$n.risk, .data$n.event, .data$n.censor, .direction = "down") %>%
+    dplyr::filter(!is.na(status))
 }
 
 cuminc_matrix_to_df <- function(x, name) {
