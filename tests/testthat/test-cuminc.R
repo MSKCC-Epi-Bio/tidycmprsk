@@ -71,6 +71,7 @@ test_that("base methods", {
 })
 
 test_that("broom methods", {
+  cuminc1 <- cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
   cuminc2 <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
 
   expect_error(
@@ -78,13 +79,64 @@ test_that("broom methods", {
     NA
   )
   expect_error(
-    tidy(cuminc2),
+    cuminc_tidy <- tidy(cuminc2),
     NA
   )
+  expect_equal(
+    cuminc_tidy,
+    cuminc2$tidy
+  )
+
+  # all estimates fall within CI
+  expect_true(
+    cuminc_tidy %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(
+        check =
+          dplyr::between(estimate, conf.low, conf.high) |
+          (estimate == 0 & is.na(conf.low) & is.na(conf.high))
+      ) %>%
+      dplyr::pull(check) %>%
+      all()
+  )
+
+  # when estimate is zero, the other estimates fall in line with that
+  expect_true(
+    cuminc_tidy %>%
+      dplyr::filter(estimate == 0) %>%
+      dplyr::mutate(
+        check =
+          estimate == 0 & std.error == 0 &
+          is.na(conf.low) & is.na(conf.high) &
+          n.event == 0 & n.censor == 0
+      ) %>%
+      dplyr::pull(check) %>%
+      all()
+  )
+
   expect_error(
-    tidy(cuminc2, conf.int = TRUE),
+    cuminc_tidy2 <- tidy(cuminc2, conf.int = FALSE, times = c(0, 12)),
     NA
   )
+
+  expect_error(
+    cuminc_tidy1 <- tidy(cuminc1, conf.int = FALSE, times = c(0, 12)),
+    NA
+  )
+  expect_equal(
+    cuminc_tidy1$n.censor,
+    rep_len(0L, 4)
+  )
+  expect_equal(
+    cuminc_tidy1$n.event,
+    c(0L, 28L, 0L, 54L)
+  )
+  expect_equal(
+    cuminc_tidy1$n.risk,
+    c(200L, 177L, 200L, 177L)
+  )
+
+
 
 })
 

@@ -79,6 +79,24 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #' @return a tibble
 #' @family cuminc() functions
 #'
+#' @section `tidy()` data frame:
+#'
+#' The returned `tidy()` data frame returns the following columns:
+#'
+#'  ```{r, echo = FALSE}
+#' tibble::tribble(
+#'   ~`**Column Name**`, ~`**Description**`,
+#'   "`outcome`", "Competing Event Outcome",
+#'   "`time`", "Numeric follow-up time",
+#'   "`estimate`", "Risk estimate",
+#'   "`std.error`", "Standard Error",
+#'   "`n.risk`", "Number at risk at the specified time",
+#'   "`n.event`", "Cumulative number of events at specified time",
+#'   "`n.censor`", "Cumulative number of censored observations"
+#' ) %>%
+#' knitr::kable()
+#' ```
+#'
 #' @section `tidy()` confidence intervals:
 #'
 #' The confidence intervals in `tidy()` use the recommended method in
@@ -98,12 +116,18 @@ NULL
 #' @rdname broom_methods_cuminc
 #' @export
 #' @family cuminc tidiers
-tidy.tidycuminc <- function(x, conf.int = TRUE, conf.level = 0.95,
-                            times = NULL, ...) {
+tidy.tidycuminc <- function(x, times = NULL,
+                            conf.int = TRUE, conf.level = 0.95, ...) {
   # check inputs ---------------------------------------------------------------
   if (!is.numeric(conf.level)  || !dplyr::between(conf.level, 0, 1)) {
     stop("`conf.level=` must be between 0 and 1")
   }
+
+  # if user requested the default tidier, return the version in x$tidy ---------
+  if (is.null(times) && isTRUE(conf.int) && identical(conf.level, 0.95)) {
+    return(x$tidy)
+  }
+
   times <- times %||% unique(x$tidy$time) %>% sort()
   if (!is.null(times) && any(times < 0 | times > max(x$tidy$time))) {
     stringr::str_glue(
@@ -111,11 +135,6 @@ tidy.tidycuminc <- function(x, conf.int = TRUE, conf.level = 0.95,
       "have been omitted.") %>%
       message()
     times <- times[times >= 0 | times <= max(x$tidy$time)]
-  }
-
-  # if user requested the default tidier, return the version in x$tidy ---------
-  if (is.null(times) && isTRUE(conf.int) && identical(conf.level, 0.95)) {
-    return(x$tidy)
   }
 
   # if user requested default tidier without CI, return w/o CI -----------------
@@ -134,9 +153,11 @@ tidy.tidycuminc <- function(x, conf.int = TRUE, conf.level = 0.95,
         purrr::cross_df(),
       by = intersect(c("outcome", "strata", "time"), names(.))
     ) %>%
-    dplyr::arrange(dplyr::across(dplyr::any_of(c("outcome", "strata", "time")))) %>%
+    dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "outcome", "time")))) %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "outcome")))) %>%
     tidyr::fill(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high,
                 .data$n.risk, .data$n.event, .data$n.censor) %>%
+    dplyr::ungroup() %>%
     dplyr::filter(.data$time %in% .env$times)
 
   # delete/update CI if needed -------------------------------------------------
@@ -328,9 +349,11 @@ add_n_stats <- function(df_tidy, x) {
       by = intersect(c("outcome", "strata", "time"), names(df_time_zero))
     ) %>%
     dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "outcome", "time")))) %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "outcome")))) %>%
     tidyr::fill(.data$n.risk, .data$estimate, .data$std.error,
                 .data$conf.low, .data$conf.high,
                 .data$n.event, .data$n.censor, .direction = "down") %>%
+    dplyr::ungroup() %>%
     dplyr::filter(!is.na(.data$outcome)) %>%
     dplyr::distinct()
 }
