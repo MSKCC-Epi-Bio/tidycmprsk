@@ -70,8 +70,9 @@ print.tidycuminc <- function(x, ...) {
   cli::cli_h1("cuminc()")
 
   # selecting times to report
-  times <- stats::model.frame(x$formula, data = x$data)[[1]][, 1]
-  times <- pretty(times) %>% purrr::discard(~ .x <= 0 | .x > max(times, na.rm = TRUE))
+  times <-
+    pretty(x$tidy$time) %>%
+    purrr::discard(~ .x <= 0 | .x > max(x$tidy$time, na.rm = TRUE))
 
   # getting summaries at specified timepoints
   df_tidy <- tidy(x, times = times)

@@ -6,7 +6,7 @@
 \alias{glance.tidycuminc}
 \title{Broom methods for tidy cuminc objects}
 \usage{
-\method{tidy}{tidycuminc}(x, conf.int = FALSE, conf.level = 0.95, times = NULL, ...)
+\method{tidy}{tidycuminc}(x, conf.int = TRUE, conf.level = 0.95, times = NULL, ...)
 
 \method{glance}{tidycuminc}(x, ...)
 }
