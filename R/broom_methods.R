@@ -291,6 +291,7 @@ add_n_stats <- function(df_tidy, x) {
   df_n_event <-
     df_Surv %>%
     dplyr::filter(.data$status != 0) %>%
+    dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "time", "status"))))%>%
     dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "status")))) %>%
     dplyr::mutate(
       n.event = dplyr::row_number()
