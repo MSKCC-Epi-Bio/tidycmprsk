@@ -129,7 +129,7 @@ test_that("broom methods", {
   )
   expect_equal(
     cuminc_tidy1$n.event,
-    c(0L, 28L, 0L, 54L)
+    c(0L, 12L, 0L, 11L)
   )
   expect_equal(
     cuminc_tidy1$n.risk,
