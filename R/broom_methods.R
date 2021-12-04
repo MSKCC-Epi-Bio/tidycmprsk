@@ -278,7 +278,11 @@ add_n_stats <- function(df_tidy, x) {
     dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "time", "status"))))%>%
     dplyr::group_by(dplyr::across(dplyr::any_of("strata"))) %>%
     dplyr::mutate(
-      n.risk = dplyr::n() - cumsum(.data$status != 0)
+
+      ### Could you please clarify if the risk set contains subjects alive prior
+      ### to the time of interest?
+
+      n.risk = dplyr::n() - cumsum(.data$status != 0) #+ (.data$status != 0)
     ) %>%
     dplyr::select(dplyr::any_of(c("strata", "time", "n.risk"))) %>%
     dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "time")))) %>%
@@ -309,6 +313,7 @@ add_n_stats <- function(df_tidy, x) {
   df_n_censor <-
     df_Surv %>%
     dplyr::filter(.data$status == 0) %>%
+    dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "time"))))%>%
     dplyr::group_by(dplyr::across(dplyr::any_of(c("strata")))) %>%
     dplyr::mutate(
       n.censor = dplyr::row_number()
