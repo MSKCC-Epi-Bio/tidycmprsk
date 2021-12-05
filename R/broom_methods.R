@@ -322,9 +322,9 @@ add_n_stats <- function(df_tidy, x) {
     dplyr::mutate(
       n.censor = max(.data$n.censor)
     ) %>%
-    dplyr::slice(rep(1:n(), each = length(x$failcode))) %>%
+    dplyr::slice(rep(1:dplyr::n(), each = length(x$failcode))) %>%
     dplyr::mutate(
-      status = rep(1:length(x$failcode),each = n()/length(x$failcode))
+      status = rep(1:length(x$failcode),each = dplyr::n()/length(x$failcode))
     ) %>%
     dplyr::mutate(
       outcome =
