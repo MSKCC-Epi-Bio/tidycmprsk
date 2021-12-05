@@ -368,8 +368,6 @@ add_n_stats <- function(df_tidy, x) {
   full_mat$time <- round(full_mat$time,8)
   df_tidy$time <- round(df_tidy$time,8)
 
-  # output_mat <- merge(df_tidy,full_mat,all=TRUE)
-
   list(df_tidy, full_mat) %>%
     purrr::reduce(
       ~suppressMessages(dplyr::full_join(.x, .y))
