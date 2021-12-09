@@ -354,23 +354,7 @@ add_n_stats <- function(df_tidy, x) {
     dplyr::distinct() %>%
     dplyr::ungroup()
 
-
-  # some attempt to merge matrices more effectively (not successful yet)
-
-  # event_mat <- merge(df_tidy,df_n_event)
-  censor_mat <- merge(df_n_event,df_n_censor,all=TRUE)
-  full_mat <- merge(censor_mat,df_n_risk,all=TRUE)
-  full_mat <- merge(full_mat,df_time_zero,all=TRUE)
-  full_mat <- full_mat %>%
-    tidyr::fill(n.censor)
-
-  # standardize decimal points of time between df_tidy and other tables.
-  full_mat$time <- round(full_mat$time,8)
-  df_tidy$time <- round(df_tidy$time,8)
-
-  output_mat <- merge(df_tidy,full_mat,all=TRUE)
-
-  list(df_tidy, full_mat) %>%
+  list(df_tidy, df_n_risk, df_n_event, df_n_censor) %>%
     purrr::reduce(
       ~suppressMessages(dplyr::full_join(.x, .y))
     ) %>%
