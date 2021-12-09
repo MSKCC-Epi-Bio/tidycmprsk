@@ -194,7 +194,7 @@ first_cuminc_tidy <- function(x) {
     x$cmprsk %>%
     cmprsk::timepoints(times = times) %>%
     purrr::pluck("est") %>%
-    cuminc_matrix_to_df(name = "estimate")
+    cuminc_matrix_to_df(name = "estimate", times = times)
 
   # convert variances into tibble ----------------------------------------------
   df_se <-
@@ -202,7 +202,7 @@ first_cuminc_tidy <- function(x) {
     cmprsk::timepoints(times = times) %>%
     purrr::pluck("var") %>%
     sqrt() %>%
-    cuminc_matrix_to_df(name = "std.error")
+    cuminc_matrix_to_df(name = "std.error", times = times)
 
   # combine estimates and variances into single tibble -------------------------
   df_tidy <-
@@ -388,8 +388,9 @@ add_n_stats <- function(df_tidy, x) {
     dplyr::distinct()
 }
 
-cuminc_matrix_to_df <- function(x, name) {
-  as.data.frame(x) %>%
+cuminc_matrix_to_df <- function(x, name, times) {
+  df <-
+    as.data.frame(x) %>%
     tibble::rownames_to_column() %>%
     tibble::as_tibble() %>%
     dplyr::mutate(
@@ -400,10 +401,24 @@ cuminc_matrix_to_df <- function(x, name) {
     dplyr::select(-.data$rowname) %>%
     tidyr::pivot_longer(
       cols = -c(.data$strata, .data$outcome_id),
-      names_to = "time",
+      names_to = "time_chr",
       values_to = name
     ) %>%
-    dplyr::mutate(time = as.numeric(.data$time))
+    dplyr::group_by(.data$strata, .data$outcome_id) %>%
+    dplyr::mutate(time = times, .after = .data$time_chr) %>%
+    dplyr::ungroup()
+
+  # checking for issues mapping the numeric times back onto the estimates
+  if (any(is.na(df$time)) || any(is.na(df$time_chr)) ||
+      max(abs(df$time - as.numeric(df$time_chr))) > 10e-5) {
+    paste("There was an error mapping observed times to cumulative",
+          "incidence estimates. Please report this bug at",
+          "'https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues'") %>%
+      stringr::str_wrap() %>%
+      stop(call. = FALSE)
+  }
+
+  df %>% dplyr::select(-.data$time_chr)
 }
 
 #' @rdname broom_methods_cuminc
