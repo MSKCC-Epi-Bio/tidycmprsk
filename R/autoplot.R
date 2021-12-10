@@ -15,7 +15,7 @@
 #' or replace existing arguments in the `ggplot2::aes()` call.
 #' The tibble used to create the figure is the output from `tidy()`.
 #' The default call to `ggplot2::aes()` includes, at most, the following:
-#' `ggplot2::aes(x = time, y = estimate, colour = strata, fill = strata, linetype = outcome, ymin = conf.low, ymax = conf.high`
+#' `ggplot2::aes(x = time, y = estimate, colour = strata, fill = strata, linetype = outcome, ymin = conf.low, ymax = conf.high)`
 #' Not all arguments appear in every plot, however.
 #'
 #'

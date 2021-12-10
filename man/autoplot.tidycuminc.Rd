@@ -43,7 +43,7 @@ The \verb{aes=} argument accepts a named list of arguments that will be added to
 or replace existing arguments in the \code{ggplot2::aes()} call.
 The tibble used to create the figure is the output from \code{tidy()}.
 The default call to \code{ggplot2::aes()} includes, at most, the following:
-\verb{ggplot2::aes(x = time, y = estimate, colour = strata, fill = strata, linetype = outcome, ymin = conf.low, ymax = conf.high}
+\code{ggplot2::aes(x = time, y = estimate, colour = strata, fill = strata, linetype = outcome, ymin = conf.low, ymax = conf.high)}
 Not all arguments appear in every plot, however.
 }
 
