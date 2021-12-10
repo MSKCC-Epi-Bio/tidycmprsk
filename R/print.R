@@ -96,9 +96,11 @@ print.tidycuminc <- function(x, ...) {
             dplyr::across(where(is.numeric),
                           ~gtsummary::style_sigfig(., digits = 3)),
             # NA will be shown as "NA" in output
-            dplyr::across(where(is.character), ~tidyr::replace_na(., "NA"))
+            dplyr::across(where(is.character), ~tidyr::replace_na(., "NA")),
+            `95% CI` = paste(.data$conf.low, .data$conf.high, sep = ", "),
+            .after = .data$std.error
           ) %>%
-          dplyr::select(-.data$outcome) %>%
+          dplyr::select(-.data$outcome, -.data$conf.low, -.data$conf.high) %>%
           # add header row
           {tibble::add_row(
             .data = .,
