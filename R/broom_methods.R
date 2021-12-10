@@ -269,71 +269,6 @@ add_n_stats <- function(df_tidy, x) {
       )
   }
 
-  df_Surv <-
-    df_Surv %>%
-    dplyr::filter(stats::complete.cases(.))
-
-  df_n_risk <-
-    df_Surv %>%
-    dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "time", "status"))))%>%
-    dplyr::group_by(dplyr::across(dplyr::any_of("strata"))) %>%
-    dplyr::mutate(
-
-      ### Could you please clarify if the risk set contains subjects alive prior
-      ### to the time of interest?
-
-      n.risk = dplyr::n() - cumsum(.data$status != 0) - cumsum(.data$status == 0) #+ (.data$status != 0)
-    ) %>%
-    dplyr::select(dplyr::any_of(c("strata", "time", "n.risk"))) %>%
-    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "time")))) %>%
-    dplyr::mutate(
-      n.risk = min(.data$n.risk)
-    ) %>%
-    dplyr::ungroup() %>%
-    dplyr::distinct()
-
-  df_n_event <-
-    df_Surv %>%
-    dplyr::filter(.data$status != 0) %>%
-    dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "time", "status"))))%>%
-    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "status")))) %>%
-    dplyr::mutate(
-      n.event = dplyr::row_number()
-    ) %>%
-    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "time")))) %>%
-    dplyr::mutate(
-      n.event = max(.data$n.event),
-      outcome =
-        dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode))))
-    ) %>%
-    dplyr::select(-.data$status) %>%
-    dplyr::ungroup() %>%
-    dplyr::distinct()
-
-  df_n_censor <-
-    df_Surv %>%
-    dplyr::filter(.data$status == 0) %>%
-    dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "time"))))%>%
-    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata")))) %>%
-    dplyr::mutate(
-      n.censor = dplyr::row_number()
-    ) %>%
-    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "time")))) %>%
-    dplyr::mutate(
-      n.censor = max(.data$n.censor)
-    ) %>%
-    dplyr::slice(rep(1:n(), each = length(x$failcode))) %>%
-    dplyr::mutate(
-      status = rep(1:length(x$failcode),each = n()/length(x$failcode))
-    ) %>%
-    dplyr::mutate(
-      outcome =
-        dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode))))
-    ) %>%
-    dplyr::select(-.data$status) %>%
-    dplyr::ungroup() %>%
-    dplyr::distinct()
-
   df_time_zero <-
     df_Surv %>%
     dplyr::select(dplyr::any_of(c("strata", "status"))) %>%
@@ -354,15 +289,70 @@ add_n_stats <- function(df_tidy, x) {
     dplyr::distinct() %>%
     dplyr::ungroup()
 
-  list(df_tidy, df_n_risk, df_n_event, df_n_censor) %>%
-    purrr::reduce(
-      ~suppressMessages(dplyr::full_join(.x, .y))
+  df_Surv <-
+    df_Surv %>%
+    dplyr::filter(stats::complete.cases(.)) %>%
+    dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "time", "status")))) %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata")))) %>%
+    dplyr::mutate(n.risk = dplyr::n() - dplyr::row_number() + 1,
+                  n.event = as.numeric(.data$status != 0),
+                  n.censor = as.numeric(.data$status == 0)) %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "time")))) %>%
+    dplyr::mutate(
+      outcome = ifelse( .data$status != 0,
+                        dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))),
+                        "censored"
+      )
     ) %>%
-    dplyr::rows_update(
-      df_time_zero,
-      by = intersect(c("outcome", "strata", "time"), names(df_time_zero))
+    dplyr::select(-.data$status) %>%
+    dplyr::ungroup() %>%
+    dplyr::distinct()
+
+  df_n_censor <-
+    df_Surv %>%
+    dplyr::filter(.data$outcome == "censored") %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "time")))) %>%
+    dplyr::slice(rep(1:dplyr::n(), each = length(x$failcode))) %>%
+    dplyr::mutate(
+      status = rep(1:length(x$failcode), dplyr::n()/length(x$failcode))
     ) %>%
+    dplyr::mutate(
+      outcome =
+        dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode))))
+    ) %>%
+    dplyr::select(-.data$status) %>%
+    dplyr::ungroup() %>%
+    dplyr::distinct()
+
+  df_Surv <- df_Surv %>%
+    dplyr::filter(.data$outcome != "censored") %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "outcome", "time")))) %>%
+    dplyr::slice(rep(1:dplyr::n(), each = length(x$failcode))) %>%
+    dplyr::mutate(
+      status = rep(1:length(x$failcode), dplyr::n()/length(x$failcode)),
+      outcome2 =
+        dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))),
+      n.event = as.numeric(.data$outcome == .data$outcome2),
+      outcome = outcome2
+    ) %>%
+    dplyr::select(-.data$status, -.data$outcome2)
+
+  df_Surv <- merge(df_Surv,df_n_censor,all = TRUE)
+  df_Surv <- merge(df_Surv,df_time_zero,all = TRUE)
+  df_Surv <- df_Surv %>%
     dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "outcome", "time")))) %>%
+    dplyr::mutate(
+      ties = ifelse(.data$time == dplyr::lag(.data$time,default = -1),1,0)
+    )
+
+  if ("strata" %in% names(df_tidy)){
+    output <- merge(df_tidy,df_Surv,by=c("time","outcome","strata"),all.y=TRUE)
+  }else{
+    output <- merge(df_tidy,df_Surv,by=c("time","outcome"),all.y=TRUE)
+  }
+
+  output %>%
+    dplyr::arrange(dplyr::across(dplyr::any_of(c("strata", "outcome", "time", "n.risk")))) %>%
     dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "outcome")))) %>%
     tidyr::fill(.data$n.risk, .data$estimate, .data$std.error,
                 .data$conf.low, .data$conf.high,
@@ -370,6 +360,7 @@ add_n_stats <- function(df_tidy, x) {
     dplyr::ungroup() %>%
     dplyr::filter(!is.na(.data$outcome)) %>%
     dplyr::distinct()
+
 }
 
 cuminc_matrix_to_df <- function(x, name, times) {
