@@ -122,7 +122,7 @@ test_that("broom methods", {
         tidy_survfit2_cancer %>% dplyr::select(strata, time),
         by = c("strata", "time")
       ) %>%
-      dplyr::select(strata, time, n.risk, n.event, n.censor),
+      dplyr::select(strata, time, n.risk, n.event),
     tidy_survfit2_cancer %>%
       dplyr::inner_join(
         cuminc2_tidy %>%
@@ -130,8 +130,8 @@ test_that("broom methods", {
           dplyr::mutate(strata = paste0("trt=", strata)) %>%
           dplyr::select(strata, time),
         by = c("strata", "time")
-      )%>%
-      dplyr::select(strata, time, n.risk, n.event, n.censor)
+      ) %>%
+      dplyr::select(strata, time, n.risk, n.event)
   )
   expect_equal(
     cuminc2_tidy %>%
@@ -141,7 +141,7 @@ test_that("broom methods", {
         tidy_survfit2_cancer %>% dplyr::select(strata, time),
         by = c("strata", "time")
       ) %>%
-      dplyr::select(strata, time, n.risk, n.event, n.censor),
+      dplyr::select(strata, time, n.risk, n.event),
     tidy_survfit2_cancer %>%
       dplyr::inner_join(
         cuminc2_tidy %>%
@@ -150,7 +150,7 @@ test_that("broom methods", {
           dplyr::select(strata, time),
         by = c("strata", "time")
       )%>%
-      dplyr::select(strata, time, n.risk, n.event, n.censor)
+      dplyr::select(strata, time, n.risk, n.event)
   )
 
 
@@ -163,7 +163,7 @@ test_that("broom methods", {
         tidy_survfit1_cancer %>% dplyr::select(time),
         by = c("time")
       ) %>%
-      dplyr::select(time, n.risk, n.event, n.censor),
+      dplyr::select(time, n.risk, n.event),
     tidy_survfit1_cancer %>%
       dplyr::inner_join(
         cuminc2_tidy %>%
@@ -171,7 +171,7 @@ test_that("broom methods", {
           dplyr::select(time),
         by = c("time")
       )%>%
-      dplyr::select(time, n.risk, n.event, n.censor)
+      dplyr::select(time, n.risk, n.event)
   )
   expect_equal(
     cuminc1_tidy %>%
@@ -180,7 +180,7 @@ test_that("broom methods", {
         tidy_survfit1_cancer %>% dplyr::select(time),
         by = c("time")
       ) %>%
-      dplyr::select(time, n.risk, n.event, n.censor),
+      dplyr::select(time, n.risk, n.event),
     tidy_survfit1_cancer %>%
       dplyr::inner_join(
         cuminc1_tidy %>%
@@ -188,7 +188,7 @@ test_that("broom methods", {
           dplyr::select(time),
         by = c("time")
       )%>%
-      dplyr::select(time, n.risk, n.event, n.censor)
+      dplyr::select(time, n.risk, n.event)
   )
 
   # all estimates fall within CI
