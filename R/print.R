@@ -89,7 +89,14 @@ print.tidycuminc <- function(x, ...) {
           dplyr::filter(.data$outcome %in% .env$outcome) %>%
           # round all stats
           dplyr::mutate(
-            dplyr::across(where(is.numeric), ~gtsummary::style_sigfig(., digits = 3))
+            # round whole numbers to nearest integer
+            dplyr::across(gtsummary::any_of(c("n.risk", "n.event", "n.censor")),
+                          gtsummary::style_number),
+            # round all other stats to 3 sig figs
+            dplyr::across(where(is.numeric),
+                          ~gtsummary::style_sigfig(., digits = 3)),
+            # NA will be shown as "NA" in output
+            dplyr::across(where(is.character), ~tidyr::replace_na(., "NA"))
           ) %>%
           dplyr::select(-.data$outcome) %>%
           # add header row
