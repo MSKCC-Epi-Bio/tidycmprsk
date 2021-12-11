@@ -40,8 +40,8 @@ The returned \code{tidy()} data frame returns the following columns:\tabular{ll}
    \code{estimate} \tab Risk estimate \cr
    \code{std.error} \tab Standard Error \cr
    \code{n.risk} \tab Number at risk at the specified time \cr
-   \code{n.event} \tab Cumulative number of events at specified time \cr
-   \code{n.censor} \tab Cumulative number of censored observations \cr
+   \code{n.event} \tab Number of events at specified time \cr
+   \code{n.censor} \tab Number of censored observations at specified time \cr
 }
 }
 

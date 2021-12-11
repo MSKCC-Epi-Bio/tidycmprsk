@@ -91,8 +91,8 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #'   "`estimate`", "Risk estimate",
 #'   "`std.error`", "Standard Error",
 #'   "`n.risk`", "Number at risk at the specified time",
-#'   "`n.event`", "Cumulative number of events at specified time",
-#'   "`n.censor`", "Cumulative number of censored observations"
+#'   "`n.event`", "Number of events at specified time",
+#'   "`n.censor`", "Number of censored observations at specified time"
 #' ) %>%
 #' knitr::kable()
 #' ```
