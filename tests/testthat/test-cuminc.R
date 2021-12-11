@@ -114,81 +114,43 @@ test_that("broom methods", {
 
   # checking n.risk, n.event, and n.censor for a stratified estimate
   # checking tidycmprsk numbers against `survfit() %>% tidy()`
-  expect_equal(
+  survfit_check2 <-
     cuminc2_tidy %>%
-      dplyr::filter(outcome %in% "death from cancer") %>%
-      dplyr::mutate(strata = paste0("trt=", strata)) %>%
-      dplyr::inner_join(
-        tidy_survfit2_cancer %>% dplyr::select(strata, time),
-        by = c("strata", "time")
-      ) %>%
-      dplyr::select(strata, time, n.risk, n.event),
-    tidy_survfit2_cancer %>%
-      dplyr::inner_join(
-        cuminc2_tidy %>%
-          dplyr::filter(outcome %in% "death from cancer") %>%
-          dplyr::mutate(strata = paste0("trt=", strata)) %>%
-          dplyr::select(strata, time),
-        by = c("strata", "time")
-      ) %>%
-      dplyr::select(strata, time, n.risk, n.event)
-  )
-  expect_equal(
-    cuminc2_tidy %>%
-      dplyr::filter(outcome %in% "death other causes") %>%
-      dplyr::mutate(strata = paste0("trt=", strata)) %>%
-      dplyr::inner_join(
-        tidy_survfit2_cancer %>% dplyr::select(strata, time),
-        by = c("strata", "time")
-      ) %>%
-      dplyr::select(strata, time, n.risk, n.event),
-    tidy_survfit2_cancer %>%
-      dplyr::inner_join(
-        cuminc2_tidy %>%
-          dplyr::filter(outcome %in% "death other causes") %>%
-          dplyr::mutate(strata = paste0("trt=", strata)) %>%
-          dplyr::select(strata, time),
-        by = c("strata", "time")
-      )%>%
-      dplyr::select(strata, time, n.risk, n.event)
-  )
+    dplyr::mutate(strata = paste0("trt=", strata)) %>%
+    dplyr::select(strata, time, n.risk, n.event) %>%
+    dplyr::inner_join(
+      tidy_survfit2_cancer %>%
+        dplyr::select(strata, time, n.risk, n.event),
+      by = c("strata", "time")
+    )
 
+  expect_equal(
+    survfit_check2$n.risk.x,
+    survfit_check2$n.risk.y
+  )
+  expect_equal(
+    survfit_check2$n.event.x,
+    survfit_check2$n.event.y
+  )
 
   # checking n.risk, n.event, and n.censor for an  unstratified estimate
   # checking tidycmprsk numbers against `survfit() %>% tidy()`
-  expect_equal(
+  survfit_check1 <-
     cuminc1_tidy %>%
-      dplyr::filter(outcome %in% "death from cancer") %>%
-      dplyr::inner_join(
-        tidy_survfit1_cancer %>% dplyr::select(time),
-        by = c("time")
-      ) %>%
-      dplyr::select(time, n.risk, n.event),
-    tidy_survfit1_cancer %>%
-      dplyr::inner_join(
-        cuminc2_tidy %>%
-          dplyr::filter(outcome %in% "death from cancer") %>%
-          dplyr::select(time),
-        by = c("time")
-      )%>%
-      dplyr::select(time, n.risk, n.event)
+    dplyr::select(time, n.risk, n.event) %>%
+    dplyr::inner_join(
+      tidy_survfit1_cancer %>%
+        dplyr::select(time, n.risk, n.event),
+      by = c("time")
+    )
+
+  expect_equal(
+    survfit_check1$n.risk.x,
+    survfit_check1$n.risk.y
   )
   expect_equal(
-    cuminc1_tidy %>%
-      dplyr::filter(outcome %in% "death other causes") %>%
-      dplyr::inner_join(
-        tidy_survfit1_cancer %>% dplyr::select(time),
-        by = c("time")
-      ) %>%
-      dplyr::select(time, n.risk, n.event),
-    tidy_survfit1_cancer %>%
-      dplyr::inner_join(
-        cuminc1_tidy %>%
-          dplyr::filter(outcome %in% "death other causes") %>%
-          dplyr::select(time),
-        by = c("time")
-      )%>%
-      dplyr::select(time, n.risk, n.event)
+    survfit_check1$n.event.x,
+    survfit_check1$n.event.y
   )
 
   # all estimates fall within CI
@@ -231,13 +193,5 @@ test_that("broom methods", {
     cuminc_tidy1$n.censor,
     rep_len(0L, 4)
   )
-  # expect_equal(
-  #   cuminc_tidy1$n.event,
-  #   c(0L, 12L, 0L, 11L)
-  # )
-  # expect_equal(
-  #   cuminc_tidy1$n.risk,
-  #   c(200L, 177L, 200L, 177L)
-  # )
 
 })
