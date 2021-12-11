@@ -117,7 +117,7 @@ test_that("broom methods", {
   survfit_check2 <-
     cuminc2_tidy %>%
     dplyr::mutate(strata = paste0("trt=", strata)) %>%
-    dplyr::select(strata, time, n.risk, n.event) %>%
+    dplyr::select(outcome, strata, time, n.risk, n.event) %>%
     dplyr::inner_join(
       tidy_survfit2_cancer %>%
         dplyr::select(strata, time, n.risk, n.event),
