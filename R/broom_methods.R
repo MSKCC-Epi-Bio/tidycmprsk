@@ -345,6 +345,21 @@ add_n_stats <- function(df_tidy, x) {
       ties = ifelse(.data$time == dplyr::lag(.data$time,default = -1),1,0)
     )
 
+  df_Surv$keep = 1
+  for (ii in 1:nrow(df_Surv)){
+
+    if (df_Surv$ties[ii] == 1){
+      df_Surv$n.event[ii] = df_Surv$n.event[ii] + df_Surv$n.event[ii-1]
+      df_Surv$n.censor[ii] = df_Surv$n.censor[ii] + df_Surv$n.censor[ii-1]
+      df_Surv$keep[ii-1] = 0
+    }
+
+  }
+
+  df_Surv <- df_Surv %>%
+    dplyr::filter(.data$keep == 1) %>%
+    dplyr::select(-.data$ties,-.data$keep)
+
   if ("strata" %in% names(df_tidy)){
     output <- merge(df_tidy,df_Surv,by=c("time","outcome","strata"),all.y=TRUE)
   }else{
