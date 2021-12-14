@@ -1,6 +1,7 @@
 #' @keywords internal
 #' @importFrom rlang .data .env expr
-#' @importFrom dplyr select everything
+#' @importFrom dplyr select everything mutate filter any_of group_by arrange
+#'   across
 #' @importFrom purrr %||%
 #' @importFrom ggplot2 ggplot aes geom_step geom_ribbon
 "_PACKAGE"

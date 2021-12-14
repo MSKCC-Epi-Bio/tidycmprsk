@@ -119,6 +119,6 @@ new_cuminc <- function(formula, data, failcode, blueprint, cmprsk) {
     )
   new_cuminc <-
     new_cuminc %>%
-    purrr::list_modify(tidy = tidy(new_cuminc, conf.int = TRUE))
+    purrr::list_modify(tidy = first_cuminc_tidy(new_cuminc))
   new_cuminc
 }

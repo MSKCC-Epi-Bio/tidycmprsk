@@ -6,12 +6,14 @@
 \alias{glance.tidycuminc}
 \title{Broom methods for tidy cuminc objects}
 \usage{
-\method{tidy}{tidycuminc}(x, conf.int = FALSE, conf.level = 0.95, times = NULL, ...)
+\method{tidy}{tidycuminc}(x, times = NULL, conf.int = TRUE, conf.level = 0.95, ...)
 
 \method{glance}{tidycuminc}(x, ...)
 }
 \arguments{
 \item{x}{object of class 'tidycuminc'}
+
+\item{times}{Numeric vector of times to obtain risk estimates at}
 
 \item{conf.int}{Logical indicating whether or not to include a confidence
 interval in the tidied output. Defaults to \code{FALSE}.}
@@ -19,8 +21,6 @@ interval in the tidied output. Defaults to \code{FALSE}.}
 \item{conf.level}{The confidence level to use for the confidence interval
 if \code{conf.int = TRUE}. Must be strictly greater than 0 and less than 1.
 Defaults to 0.95, which corresponds to a 95 percent confidence interval.}
-
-\item{times}{Numeric vector of times to obtain risk estimates at}
 
 \item{...}{not used}
 }
@@ -30,6 +30,21 @@ a tibble
 \description{
 Broom methods for tidy cuminc objects
 }
+\section{\code{tidy()} data frame}{
+
+
+The returned \code{tidy()} data frame returns the following columns:\tabular{ll}{
+   \strong{Column Name} \tab \strong{Description} \cr
+   \code{outcome} \tab Competing Event Outcome \cr
+   \code{time} \tab Numeric follow-up time \cr
+   \code{estimate} \tab Risk estimate \cr
+   \code{std.error} \tab Standard Error \cr
+   \code{n.risk} \tab Number at risk at the specified time \cr
+   \code{n.event} \tab Number of events at specified time \cr
+   \code{n.censor} \tab Number of censored observations at specified time \cr
+}
+}
+
 \section{\code{tidy()} confidence intervals}{
 
 
