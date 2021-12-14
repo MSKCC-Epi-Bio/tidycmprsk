@@ -95,6 +95,16 @@ test_that("broom methods", {
     survival::survfit(Surv(ttdeath, death_cr != "censor") ~ trt, trial) %>%
     broom::tidy()
 
+  expect_false(
+    identical(
+      cuminc1 %>% tidy(times = c(12, 24)),
+      cuminc1 %>% tidy(times = c(12, 24), conf.level = 0.90)
+    )
+  )
+  expect_true(
+    !any(c("conf.low", "conf.high") %in%
+           names(cuminc1 %>% tidy(times = c(12, 24), conf.int = FALSE)))
+  )
 
   expect_error(
     glance(cuminc2),
