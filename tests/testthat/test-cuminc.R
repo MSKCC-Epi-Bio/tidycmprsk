@@ -116,6 +116,7 @@ test_that("broom methods", {
   # checking tidycmprsk numbers against `survfit() %>% tidy()`
   survfit_check2 <-
     cuminc2_tidy %>%
+    dplyr::filter(outcome == "death from cancer" ) %>%
     dplyr::mutate(strata = paste0("trt=", strata)) %>%
     dplyr::select(outcome, strata, time, n.risk, n.event) %>%
     dplyr::inner_join(
@@ -137,6 +138,7 @@ test_that("broom methods", {
   # checking tidycmprsk numbers against `survfit() %>% tidy()`
   survfit_check1 <-
     cuminc1_tidy %>%
+    dplyr::filter(outcome == "death from cancer" ) %>%
     dplyr::select(time, n.risk, n.event) %>%
     dplyr::inner_join(
       tidy_survfit1_cancer %>%
