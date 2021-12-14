@@ -129,12 +129,9 @@ tidy.tidycuminc <- function(x, times = NULL,
   }
 
   times <- times %||% unique(x$tidy$time) %>% sort()
-  if (!is.null(times) && any(times < 0 | times > max(x$tidy$time))) {
-    stringr::str_glue(
-      "`times=` must be in [0, {max(x$tidy$time)}]. Values outside this range",
-      "have been omitted.") %>%
-      message()
-    times <- times[times >= 0 | times <= max(x$tidy$time)]
+  if (!is.null(times) && any(times < 0)) {
+    message("`times=` cannot be negative. Negative values have been omitted.")
+    times <- times[times >= 0]
   }
 
   # if user requested default tidier without CI, return w/o CI -----------------
@@ -155,8 +152,23 @@ tidy.tidycuminc <- function(x, times = NULL,
     ) %>%
     arrange(across(any_of(c("strata", "outcome", "time")))) %>%
     group_by(across(any_of(c("strata", "outcome")))) %>%
+    # replace unobserved timepoints with 0 counts for events and censored
+    mutate(
+      across(c(.data$n.event, .data$n.censor), ~tidyr::replace_na(., 0L)),
+      ..max_time.. = max(.data$time[!is.na(.data$estimate)])
+    ) %>%
+    # fill down the estimates
     tidyr::fill(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high,
-                .data$n.risk, .data$n.event, .data$n.censor) %>%
+                .data$n.risk, .direction = "down") %>%
+    # correcting values larger than largest observed timepoint
+    mutate(
+      across(
+        c(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high),
+        ~ifelse(.data$time > .data$..max_time.., NA, .)
+      ),
+      n.risk = ifelse(.data$time > .data$..max_time.., 0L, .data$n.risk)
+    ) %>%
+    select(-.data$..max_time..) %>%
     dplyr::ungroup() %>%
     filter(.data$time %in% .env$times)
 
@@ -275,9 +287,9 @@ add_n_stats <- function(df_tidy, x) {
     group_by(across(any_of(c("strata")))) %>%
     mutate(
       time = 0,
-      n.event = 0,
+      n.event = 0L,
       n.risk = dplyr::n(),
-      n.censor = 0,
+      n.censor = 0L,
       outcome =
         dplyr::recode(
           .data$status,
@@ -294,9 +306,9 @@ add_n_stats <- function(df_tidy, x) {
     filter(stats::complete.cases(.)) %>%
     arrange(across(any_of(c("strata", "time", "status")))) %>%
     group_by(across(any_of(c("strata")))) %>%
-    mutate(n.risk = dplyr::n() - dplyr::row_number() + 1,
-                  n.event = as.numeric(.data$status != 0),
-                  n.censor = as.numeric(.data$status == 0)) %>%
+    mutate(n.risk = dplyr::n() - dplyr::row_number() + 1L,
+                  n.event = as.integer(.data$status != 0),
+                  n.censor = as.integer(.data$status == 0)) %>%
     group_by(across(any_of(c("strata", "time")))) %>%
     mutate(
       outcome = ifelse( .data$status != 0,
@@ -332,7 +344,7 @@ add_n_stats <- function(df_tidy, x) {
       status = rep(1:length(x$failcode), dplyr::n()/length(x$failcode)),
       outcome2 =
         dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))),
-      n.event = as.numeric(.data$outcome == .data$outcome2),
+      n.event = as.integer(.data$outcome == .data$outcome2),
       outcome = .data$outcome2
     ) %>%
     select(-.data$status, -.data$outcome2)
