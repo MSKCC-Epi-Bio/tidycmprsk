@@ -1,3 +1,5 @@
+library(dplyr)
+
 test_that("cuminc() works", {
   cmprsk_cuminc1 <-
     cmprsk::cuminc(
@@ -86,6 +88,14 @@ test_that("broom methods", {
     survival::survfit(Surv(ttdeath, death_cr == "death from cancer") ~ trt, trial) %>%
     broom::tidy()
 
+  tidy_survfit1_cancer_censor <-
+    survival::survfit(Surv(ttdeath, death_cr != "censor") ~ 1, trial) %>%
+    broom::tidy()
+  tidy_survfit2_cancer_censor <-
+    survival::survfit(Surv(ttdeath, death_cr != "censor") ~ trt, trial) %>%
+    broom::tidy()
+
+
   expect_error(
     glance(cuminc2),
     NA
@@ -124,7 +134,34 @@ test_that("broom methods", {
         select(strata, time, n.risk, n.event),
       by = c("strata", "time")
     )
+  survfit_censor_check2 <-
+    cuminc2_tidy %>%
+    filter(outcome == "death from cancer" ) %>%
+    mutate(strata = paste0("trt=", strata)) %>%
+    select(outcome, strata, time, n.censor) %>%
+    dplyr::inner_join(
+      tidy_survfit2_cancer_censor %>%
+        select(strata, time, n.censor),
+      by = c("strata", "time")
+    )
+  survfit_censor_check1 <-
+    cuminc1_tidy %>%
+    filter(outcome == "death from cancer" ) %>%
+    select(outcome, time, n.censor) %>%
+    dplyr::inner_join(
+      tidy_survfit1_cancer_censor %>%
+        select(time, n.censor),
+      by = c("time")
+    )
 
+  expect_equal(
+    survfit_censor_check2$n.censor.x,
+    survfit_censor_check2$n.censor.y
+  )
+  expect_equal(
+    survfit_censor_check1$n.censor.x,
+    survfit_censor_check1$n.censor.y
+  )
   expect_equal(
     survfit_check2$n.risk.x,
     survfit_check2$n.risk.y
@@ -194,6 +231,43 @@ test_that("broom methods", {
   expect_equal(
     cuminc_tidy1$n.censor,
     rep_len(0L, 4)
+  )
+
+  # testing tidy with problematic times
+  expect_message(
+    tidy_cuminc1_time <- cuminc1 %>% tidy(times = c(-1, 0, 150))
+  )
+  expect_equal(
+    tidy_cuminc1_time$time,
+    c(0, 150, 0, 150)
+  )
+  expect_equal(
+    tidy_cuminc1_time$estimate,
+    c(0, NA, 0, NA)
+  )
+  expect_equal(
+    tidy_cuminc1_time$std.error,
+    c(0, NA, 0, NA)
+  )
+  expect_equal(
+    tidy_cuminc1_time$conf.low,
+    c(NA_real_, NA_real_, NA_real_, NA_real_)
+  )
+  expect_equal(
+    tidy_cuminc1_time$conf.high,
+    c(NA_real_, NA_real_, NA_real_, NA_real_)
+  )
+  expect_equal(
+    tidy_cuminc1_time$n.risk,
+    c(200L, 0L, 200L, 0L)
+  )
+  expect_equal(
+    tidy_cuminc1_time$n.event,
+    c(0L, 0L, 0L, 0L)
+  )
+  expect_equal(
+    tidy_cuminc1_time$n.censor,
+    c(0L, 0L, 0L, 0L)
   )
 
 })
