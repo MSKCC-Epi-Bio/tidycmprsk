@@ -80,7 +80,7 @@ probs_at_times <- function(matrix_pred, times) {
     purrr::map(seq_len(length(all_times) - 1L), ~matrix_pred[.x, -1]) %>%
     stats::setNames(all_times[-1]) %>%
     dplyr::bind_cols() %>%
-    dplyr::mutate(`0` = 0, .before = 1) %>%
+    mutate(`0` = 0, .before = 1) %>%
     as.list() %>%
     stats::setNames(all_times)
 

@@ -116,12 +116,12 @@ test_that("broom methods", {
   # checking tidycmprsk numbers against `survfit() %>% tidy()`
   survfit_check2 <-
     cuminc2_tidy %>%
-    dplyr::filter(outcome == "death from cancer" ) %>%
-    dplyr::mutate(strata = paste0("trt=", strata)) %>%
-    dplyr::select(outcome, strata, time, n.risk, n.event) %>%
+    filter(outcome == "death from cancer" ) %>%
+    mutate(strata = paste0("trt=", strata)) %>%
+    select(outcome, strata, time, n.risk, n.event) %>%
     dplyr::inner_join(
       tidy_survfit2_cancer %>%
-        dplyr::select(strata, time, n.risk, n.event),
+        select(strata, time, n.risk, n.event),
       by = c("strata", "time")
     )
 
@@ -138,11 +138,11 @@ test_that("broom methods", {
   # checking tidycmprsk numbers against `survfit() %>% tidy()`
   survfit_check1 <-
     cuminc1_tidy %>%
-    dplyr::filter(outcome == "death from cancer" ) %>%
-    dplyr::select(time, n.risk, n.event) %>%
+    filter(outcome == "death from cancer" ) %>%
+    select(time, n.risk, n.event) %>%
     dplyr::inner_join(
       tidy_survfit1_cancer %>%
-        dplyr::select(time, n.risk, n.event),
+        select(time, n.risk, n.event),
       by = c("time")
     )
 
@@ -159,7 +159,7 @@ test_that("broom methods", {
   expect_true(
     cuminc2_tidy %>%
       dplyr::rowwise() %>%
-      dplyr::mutate(
+      mutate(
         check =
           dplyr::between(estimate, conf.low, conf.high) |
           (estimate == 0 & is.na(conf.low) & is.na(conf.high))
@@ -171,8 +171,8 @@ test_that("broom methods", {
   # when estimate is zero, the other estimates fall in line with that
   expect_true(
     cuminc2_tidy %>%
-      dplyr::filter(estimate == 0) %>%
-      dplyr::mutate(
+      filter(estimate == 0) %>%
+      mutate(
         check =
           estimate == 0 & std.error == 0 &
           is.na(conf.low) & is.na(conf.high) &

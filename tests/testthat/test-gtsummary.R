@@ -49,7 +49,7 @@ test_that("gtsummary tables work with crr() output", {
   )
   expect_equal(
     contr_treatment$table_body %>%
-      dplyr::filter(reference_row) %>%
+      filter(reference_row) %>%
       dplyr::pull(label),
     "T3",
     ignore_attr = TRUE

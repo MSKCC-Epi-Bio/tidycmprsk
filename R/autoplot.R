@@ -44,7 +44,7 @@ autoplot.tidycuminc <- function(object, outcomes = names(object$failcode),
   # tidying --------------------------------------------------------------------
   df_tidy <-
     tidy(object, conf.int = conf.int, conf.level = conf.level) %>%
-    dplyr::filter(.data$outcome %in% .env$outcomes)
+    filter(.data$outcome %in% .env$outcomes)
 
   # construct ggplot call ------------------------------------------------------
   # aes()

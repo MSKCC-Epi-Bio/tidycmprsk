@@ -4,7 +4,7 @@
 set.seed(1123)
 trial <-
   gtsummary::trial %>%
-  dplyr::mutate(
+  mutate(
     death_cr = dplyr::case_when(
       death == 0 ~ "censor",
       stats::runif(dplyr::n()) < 0.5 ~ "death from cancer",
