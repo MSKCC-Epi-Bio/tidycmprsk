@@ -159,7 +159,7 @@ tidy.tidycuminc <- function(x, times = NULL,
     ) %>%
     # fill down the estimates
     tidyr::fill(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high,
-                .data$n.risk, .direction = "down") %>%
+                .data$n.risk, .data$cumulative.event, .data$cumulative.censor, .direction = "down") %>%
     # correcting values larger than largest observed timepoint
     mutate(
       across(
@@ -372,6 +372,14 @@ add_n_stats <- function(df_tidy, x) {
     filter(.data$keep == 1) %>%
     select(-.data$ties,-.data$keep)
 
+  df_Surv <- df_Surv %>%
+    group_by(across(any_of(c("strata", "outcome")))) %>%
+    arrange(across(any_of(c("strata", "outcome","time")))) %>%
+    mutate(
+      cumulative.event = as.integer(cumsum(.data$n.event)),
+      cumulative.censor = as.integer(cumsum(.data$n.censor))
+    )
+
   if ("strata" %in% names(df_tidy)){
     output <- merge(df_tidy,df_Surv,by=c("time","outcome","strata"),all.y=TRUE)
   }else{
@@ -383,7 +391,8 @@ add_n_stats <- function(df_tidy, x) {
     group_by(across(any_of(c("strata", "outcome")))) %>%
     tidyr::fill(.data$n.risk, .data$estimate, .data$std.error,
                 .data$conf.low, .data$conf.high,
-                .data$n.event, .data$n.censor, .direction = "down") %>%
+                .data$n.event, .data$n.censor, .data$cumulative.event,
+                .data$cumulative.censor, .direction = "down") %>%
     dplyr::ungroup() %>%
     filter(!is.na(.data$outcome)) %>%
     dplyr::distinct()
