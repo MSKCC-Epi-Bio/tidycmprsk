@@ -11,10 +11,11 @@
 \method{print}{tidycuminc}(x, ...)
 }
 \arguments{
-\item{x}{tidycrr obejct}
+\item{x}{tidycrr object}
 
 \item{...}{not used}
 }
 \description{
 Print crr object
 }
+\keyword{internal}

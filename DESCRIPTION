@@ -32,6 +32,7 @@ Imports:
     tibble (>= 3.1.6),
     tidyr (>= 1.1.4)
 Suggests: 
+    spelling,
     covr (>= 3.5.1),
     knitr (>= 1.36),
     testthat (>= 3.1.0)
@@ -40,3 +41,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Language: en-US

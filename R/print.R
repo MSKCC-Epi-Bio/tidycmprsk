@@ -1,8 +1,9 @@
 #' Print crr object
 #'
-#' @param x tidycrr obejct
+#' @param x tidycrr object
 #' @param ... not used
 #' @name print
+#' @keywords internal
 NULL
 
 #' @rdname print
