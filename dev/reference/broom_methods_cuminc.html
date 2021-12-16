@@ -99,8 +99,10 @@ Defaults to 0.95, which corresponds to a 95 percent confidence interval.</p></dd
 
 <p>The confidence intervals for cumulative incidence estimates use the recommended method in
 <em>Competing Risks: A Practical Perspective</em> by Melania Pintilie.</p>
-<p>$$x^{exp(±z * se / (x * log(x)))},$$</p>
-<p>where \(x\) is the cumulative incidence estimate, \(se\) is the standard error estimate, and \(z = 1.96\) is the 97.5th percentile of the standard normal distribution.</p>
+<p>$$x^{exp(±z * se / (x * log(x)))}$$</p>
+<p>where \(x\) is the cumulative incidence estimate, \(se\) is the
+standard error estimate, and \(z\) is the z-score associated with the
+confidence level of the interval, e.g. \(z = 1.96\) for a 95% CI.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
