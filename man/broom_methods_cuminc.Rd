@@ -42,16 +42,20 @@ The returned \code{tidy()} data frame returns the following columns:\tabular{ll}
    \code{n.risk} \tab Number at risk at the specified time \cr
    \code{n.event} \tab Number of events at specified time \cr
    \code{n.censor} \tab Number of censored observations at specified time \cr
+   \code{cumulative.event} \tab Cumulative number of events at specified time \cr
+   \code{cumulative.censor} \tab Cumulative number of censored observations at specified time \cr
 }
 }
 
-\section{\code{tidy()} confidence intervals}{
+\section{Confidence intervals}{
 
 
-The confidence intervals in \code{tidy()} use the recommended method in
+The confidence intervals for cumulative incidence estimates use the recommended method in
 \emph{Competing Risks: A Practical Perspective} by Melania Pintilie.
 
-\verb{  x^exp(-z * se / (x * log(x))), x^exp(z * se / (x * log(x)))}
+\deqn{x^{exp(±z * se / (x * log(x)))},}
+
+where \eqn{x} is the cumulative incidence estimate, \eqn{se} is the standard error estimate, and \eqn{z = 1.96} is the 97.5th percentile of the standard normal distribution.
 }
 
 \examples{
