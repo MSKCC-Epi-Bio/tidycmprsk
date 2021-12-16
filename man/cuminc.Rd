@@ -38,6 +38,16 @@ tidycuminc object
 \description{
 Competing Risks Cumulative Incidence
 }
+\section{confidence intervals}{
+
+
+The confidence intervals for cumulative incidence estimates use the recommended method in
+\emph{Competing Risks: A Practical Perspective} by Melania Pintilie.
+
+\deqn{x^exp(±z * se / (x * log(x)))}
+
+}
+
 \examples{
 # calculate risk for entire cohort -----------
 cuminc(Surv(ttdeath, death_cr) ~ 1, trial)

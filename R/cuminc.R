@@ -4,6 +4,13 @@
 #' @inheritParams cmprsk::cuminc
 #' @param x input object
 #'
+#' @section confidence intervals:
+#'
+#' The confidence intervals for cumulative incidence estimates use the recommended method in
+#' *Competing Risks: A Practical Perspective* by Melania Pintilie.
+#'
+#' \deqn{x^exp(±z * se / (x * log(x)))}
+#'
 #' @return tidycuminc object
 #' @family cuminc() functions
 #' @name cuminc

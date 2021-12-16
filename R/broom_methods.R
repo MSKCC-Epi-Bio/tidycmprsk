@@ -92,17 +92,14 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #'   "`std.error`", "Standard Error",
 #'   "`n.risk`", "Number at risk at the specified time",
 #'   "`n.event`", "Number of events at specified time",
-#'   "`n.censor`", "Number of censored observations at specified time"
+#'   "`n.censor`", "Number of censored observations at specified time",
+#'   "`cumulative.event`", "Cumulative number of events at specified time",
+#'   "`cumulative.censor`", "Cumulative number of censored observations at specified time"
 #' ) %>%
 #' knitr::kable()
 #' ```
 #'
-#' @section `tidy()` confidence intervals:
-#'
-#' The confidence intervals in `tidy()` use the recommended method in
-#' *Competing Risks: A Practical Perspective* by Melania Pintilie.
-#'
-#' `   x^exp(-z * se / (x * log(x))), x^exp(z * se / (x * log(x))) `
+#' @inheritSection cuminc confidence intervals
 #'
 #' @examples
 #' cuminc <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
