@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9002</span>
       </span>
     </div>
 
@@ -89,6 +89,16 @@ stratified on this variable.  (all data in 1 stratum, if missing)</p></dd>
     <div id="value">
     <h2>Value</h2>
     <p>tidycuminc object</p>
+    </div>
+    <div id="confidence-intervals">
+    <h2>Confidence intervals</h2>
+    
+
+
+<p>The confidence intervals for cumulative incidence estimates use the recommended method in
+<em>Competing Risks: A Practical Perspective</em> by Melania Pintilie.</p>
+<p>$$x^{exp(±z * se / (x * log(x)))},$$</p>
+<p>where \(x\) is the cumulative incidence estimate, \(se\) is the standard error estimate, and \(z = 1.96\) is the 97.5th percentile of the standard normal distribution.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>

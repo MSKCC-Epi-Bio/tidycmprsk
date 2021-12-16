@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9002</span>
       </span>
     </div>
 
@@ -91,15 +91,16 @@ Defaults to 0.95, which corresponds to a 95 percent confidence interval.</p></dd
     
 
 
-<p>The returned <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> data frame returns the following columns:</p><table class="table table"><tr><td><strong>Column Name</strong></td><td><strong>Description</strong></td></tr><tr><td><code>outcome</code></td><td>Competing Event Outcome</td></tr><tr><td><code>time</code></td><td>Numeric follow-up time</td></tr><tr><td><code>estimate</code></td><td>Risk estimate</td></tr><tr><td><code>std.error</code></td><td>Standard Error</td></tr><tr><td><code>n.risk</code></td><td>Number at risk at the specified time</td></tr><tr><td><code>n.event</code></td><td>Number of events at specified time</td></tr><tr><td><code>n.censor</code></td><td>Number of censored observations at specified time</td></tr></table></div>
-    <div id="tidy-confidence-intervals">
-    <h2><code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> confidence intervals</h2>
+<p>The returned <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> data frame returns the following columns:</p><table class="table table"><tr><td><strong>Column Name</strong></td><td><strong>Description</strong></td></tr><tr><td><code>outcome</code></td><td>Competing Event Outcome</td></tr><tr><td><code>time</code></td><td>Numeric follow-up time</td></tr><tr><td><code>estimate</code></td><td>Risk estimate</td></tr><tr><td><code>std.error</code></td><td>Standard Error</td></tr><tr><td><code>n.risk</code></td><td>Number at risk at the specified time</td></tr><tr><td><code>n.event</code></td><td>Number of events at specified time</td></tr><tr><td><code>n.censor</code></td><td>Number of censored observations at specified time</td></tr><tr><td><code>cumulative.event</code></td><td>Cumulative number of events at specified time</td></tr><tr><td><code>cumulative.censor</code></td><td>Cumulative number of censored observations at specified time</td></tr></table></div>
+    <div id="confidence-intervals">
+    <h2>Confidence intervals</h2>
     
 
 
-<p>The confidence intervals in <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> use the recommended method in
+<p>The confidence intervals for cumulative incidence estimates use the recommended method in
 <em>Competing Risks: A Practical Perspective</em> by Melania Pintilie.</p>
-<p><code>  x^exp(-z * se / (x * log(x))), x^exp(z * se / (x * log(x)))</code></p>
+<p>$$x^{exp(±z * se / (x * log(x)))},$$</p>
+<p>where \(x\) is the cumulative incidence estimate, \(se\) is the standard error estimate, and \(z = 1.96\) is the 97.5th percentile of the standard normal distribution.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
