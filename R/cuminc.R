@@ -4,12 +4,14 @@
 #' @inheritParams cmprsk::cuminc
 #' @param x input object
 #'
-#' @section confidence intervals:
+#' @section Confidence intervals:
 #'
 #' The confidence intervals for cumulative incidence estimates use the recommended method in
 #' *Competing Risks: A Practical Perspective* by Melania Pintilie.
 #'
-#' \deqn{x^exp(±z * se / (x * log(x)))}
+#' \deqn{x^exp(±z * se / (x * log(x))),}
+#'
+#' where x is the cumulative incidence estimate and z = 1.96 is the 97.5th percentile of the standard normal distribution.
 #'
 #' @return tidycuminc object
 #' @family cuminc() functions

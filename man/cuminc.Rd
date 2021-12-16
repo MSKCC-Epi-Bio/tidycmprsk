@@ -38,14 +38,15 @@ tidycuminc object
 \description{
 Competing Risks Cumulative Incidence
 }
-\section{confidence intervals}{
+\section{Confidence intervals}{
 
 
 The confidence intervals for cumulative incidence estimates use the recommended method in
 \emph{Competing Risks: A Practical Perspective} by Melania Pintilie.
 
-\deqn{x^exp(±z * se / (x * log(x)))}
+\deqn{x^exp(±z * se / (x * log(x))),}
 
+where x is the cumulative incidence estimate and z = 1.96 is the 97.5th percentile of the standard normal distribution.
 }
 
 \examples{

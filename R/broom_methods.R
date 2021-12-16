@@ -99,7 +99,7 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #' knitr::kable()
 #' ```
 #'
-#' @inheritSection cuminc confidence intervals
+#' @inheritSection cuminc Confidence intervals
 #'
 #' @examples
 #' cuminc <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
