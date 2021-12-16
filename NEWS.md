@@ -6,6 +6,10 @@
 
 * Update the `crr()` and `cuminc()` print methods for more clarity.
 
+* Update documentations for `cuminc()` method with an explicit formula for the confidence interval.
+
+* Returning the cumulative number of events and the cumulative number of censored observations in `tidy.tidycuminc()`.
+
 # tidycmprsk 0.1.0
 
 * Initial Release.
