@@ -53,9 +53,11 @@ The returned \code{tidy()} data frame returns the following columns:\tabular{ll}
 The confidence intervals for cumulative incidence estimates use the recommended method in
 \emph{Competing Risks: A Practical Perspective} by Melania Pintilie.
 
-\deqn{x^{exp(±z * se / (x * log(x)))},}
+\deqn{x^{exp(±z * se / (x * log(x)))}}
 
-where \eqn{x} is the cumulative incidence estimate, \eqn{se} is the standard error estimate, and \eqn{z = 1.96} is the 97.5th percentile of the standard normal distribution.
+where \eqn{x} is the cumulative incidence estimate, \eqn{se} is the
+standard error estimate, and \eqn{z} is the z-score associated with the
+confidence level of the interval, e.g. \eqn{z = 1.96} for a 95\% CI.
 }
 
 \examples{
