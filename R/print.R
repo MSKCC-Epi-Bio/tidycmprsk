@@ -88,12 +88,12 @@ print.tidycuminc <- function(x, ...) {
         df_tidy %>%
           # filter on the outcome of interest
           filter(.data$outcome %in% .env$outcome) %>%
-          select(-.data$n.event, -.data$n.censor) %>%
+          select(dplyr::all_of(c("outcome", "time", "n.risk", "estimate", "std.error",
+                          "conf.low", "conf.high"))) %>%
           # round all stats
           mutate(
             # round whole numbers to nearest integer
-            across(gtsummary::any_of(c("n.risk","cumulative.event","cumulative.censor")),
-                          gtsummary::style_number),
+            across(gtsummary::any_of(c("n.risk")), gtsummary::style_number),
             # round all other stats to 3 sig figs
             across(where(is.numeric),
                           ~gtsummary::style_sigfig(., digits = 3)),
