@@ -47,9 +47,9 @@ crr_mod <- crr(Surv(ttdeath, death_cr) ~ age + trt, trial)
 #> 11 cases omitted due to missing values
 crr_mod
 #> 
-#> ── crr() ───────────────────────────────────────────────────────────────────────
-#> • Call Surv(ttdeath, death_cr) ~ age + trt
-#> • Failure type of interest "death from cancer"
+#> -- crr() -----------------------------------------------------------------------
+#> * Call Surv(ttdeath, death_cr) ~ age + trt
+#> * Failure type of interest "death from cancer"
 #> 
 #> Variable    Coef    SE      HR     95% CI       p-value    
 #> age         0.006   0.010   1.01   0.99, 1.03   0.56       
@@ -71,19 +71,19 @@ tbl <-
 ``` r
 cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
 #> 
-#> ── cuminc() ────────────────────────────────────────────────────────────────────
-#> • Failure type "death from cancer"
-#> time   estimate   std.error   95% CI         n.risk   cumulative.event   cumulative.censor    
-#> 5.00   0.000      0.000       NA, NA         200      0                  0                    
-#> 10.0   0.030      0.012       0.012, 0.061   190      6                  0                    
-#> 15.0   0.120      0.023       0.079, 0.169   159      24                 0                    
-#> 20.0   0.215      0.029       0.161, 0.274   117      43                 0
-#> • Failure type "death other causes"
-#> time   estimate   std.error   95% CI         n.risk   cumulative.event   cumulative.censor    
-#> 5.00   0.005      0.005       0.000, 0.026   200      1                  0                    
-#> 10.0   0.025      0.011       0.009, 0.054   190      5                  0                    
-#> 15.0   0.090      0.020       0.055, 0.135   159      18                 0                    
-#> 20.0   0.205      0.029       0.152, 0.264   117      41                 0
+#> -- cuminc() --------------------------------------------------------------------
+#> * Failure type "death from cancer"
+#> time   n.risk   estimate   std.error   95% CI          
+#> 5.00   200      0.000      0.000       NA, NA          
+#> 10.0   190      0.030      0.012       0.012, 0.061    
+#> 15.0   159      0.120      0.023       0.079, 0.169    
+#> 20.0   117      0.215      0.029       0.161, 0.274
+#> * Failure type "death other causes"
+#> time   n.risk   estimate   std.error   95% CI          
+#> 5.00   200      0.005      0.005       0.000, 0.026    
+#> 10.0   190      0.025      0.011       0.009, 0.054    
+#> 15.0   159      0.090      0.020       0.055, 0.135    
+#> 20.0   117      0.205      0.029       0.152, 0.264
 ```
 
 Plot risks using `autoplot()`.
@@ -101,7 +101,7 @@ Please note that the {tidycmprsk} project is released with a
 [Contributor Code of
 Conduct](https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms. Thank
-you to all contributors\!  
+you to all contributors!  
 [@ddsjoberg](https://github.com/ddsjoberg),
 [@karissawhiting](https://github.com/karissawhiting), and
 [@tengfei-emory](https://github.com/tengfei-emory)
