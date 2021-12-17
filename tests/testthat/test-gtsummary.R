@@ -22,7 +22,7 @@ test_that("gtsummary tables work with crr() output", {
 
   trial_contr <-
     trial
-  contrasts(trial_contr$grade) <-  contr.sum(3)
+  contrasts(trial_contr$grade) <- contr.sum(3)
   contrasts(trial_contr$stage) <-
     contr.treatment(attr(trial_contr$stage, "levels"), 3)
 

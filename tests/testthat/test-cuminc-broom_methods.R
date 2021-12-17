@@ -29,7 +29,7 @@ test_that("broom methods", {
   )
   expect_true(
     !any(c("conf.low", "conf.high") %in%
-           names(cuminc1 %>% tidy(times = c(12, 24), conf.int = FALSE)))
+      names(cuminc1 %>% tidy(times = c(12, 24), conf.int = FALSE)))
   )
 
   expect_error(
@@ -62,7 +62,7 @@ test_that("broom methods", {
   # checking tidycmprsk numbers against `survfit() %>% tidy()`
   survfit_check2 <-
     cuminc2_tidy %>%
-    filter(outcome == "death from cancer" ) %>%
+    filter(outcome == "death from cancer") %>%
     mutate(strata = paste0("trt=", strata)) %>%
     select(outcome, strata, time, n.risk, n.event) %>%
     dplyr::inner_join(
@@ -72,7 +72,7 @@ test_that("broom methods", {
     )
   survfit_censor_check2 <-
     cuminc2_tidy %>%
-    filter(outcome == "death from cancer" ) %>%
+    filter(outcome == "death from cancer") %>%
     mutate(strata = paste0("trt=", strata)) %>%
     select(outcome, strata, time, n.censor) %>%
     dplyr::inner_join(
@@ -82,7 +82,7 @@ test_that("broom methods", {
     )
   survfit_censor_check1 <-
     cuminc1_tidy %>%
-    filter(outcome == "death from cancer" ) %>%
+    filter(outcome == "death from cancer") %>%
     select(outcome, time, n.censor) %>%
     dplyr::inner_join(
       tidy_survfit1_cancer_censor %>%
@@ -111,7 +111,7 @@ test_that("broom methods", {
   # checking tidycmprsk numbers against `survfit() %>% tidy()`
   survfit_check1 <-
     cuminc1_tidy %>%
-    filter(outcome == "death from cancer" ) %>%
+    filter(outcome == "death from cancer") %>%
     select(time, n.risk, n.event) %>%
     dplyr::inner_join(
       tidy_survfit1_cancer %>%
@@ -135,7 +135,7 @@ test_that("broom methods", {
       mutate(
         check =
           dplyr::between(estimate, conf.low, conf.high) |
-          (estimate == 0 & is.na(conf.low) & is.na(conf.high))
+            (estimate == 0 & is.na(conf.low) & is.na(conf.high))
       ) %>%
       dplyr::pull(check) %>%
       all()
@@ -148,8 +148,8 @@ test_that("broom methods", {
       mutate(
         check =
           estimate == 0 & std.error == 0 &
-          is.na(conf.low) & is.na(conf.high) &
-          n.event == 0 & n.censor == 0
+            is.na(conf.low) & is.na(conf.high) &
+            n.event == 0 & n.censor == 0
       ) %>%
       dplyr::pull(check) %>%
       all()
@@ -205,5 +205,4 @@ test_that("broom methods", {
     tidy_cuminc1_time$n.censor,
     c(0L, 0L, 0L, 0L)
   )
-
 })

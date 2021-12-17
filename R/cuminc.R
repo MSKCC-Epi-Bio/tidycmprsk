@@ -44,8 +44,7 @@ cuminc.formula <- function(formula, data, strata, rho = 0, ...) {
         formula, data,
         blueprint = hardhat::default_formula_blueprint(intercept = TRUE)
       )
-  }
-  else {
+  } else {
     # instead of using dummy variables, try to keep covariates "as is".
     processed <-
       hardhat::mold(
