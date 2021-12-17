@@ -117,18 +117,18 @@ confidence level of the interval, e.g. \(z = 1.96\) for a 95% CI.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">cuminc()</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────────</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Failure type <span style="color: #0000BB;">"death from cancer"</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">time   estimate   std.error   95% CI         n.risk   cumulative.event   cumulative.censor   </span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   0.000      0.000       NA, NA         200      0                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   0.030      0.012       0.012, 0.061   190      6                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   0.120      0.023       0.079, 0.169   159      24                 0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   0.215      0.029       0.161, 0.274   117      43                 0                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">time   n.risk   estimate   std.error   95% CI         </span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   200      0.000      0.000       NA, NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   190      0.030      0.012       0.012, 0.061    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   159      0.120      0.023       0.079, 0.169    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   117      0.215      0.029       0.161, 0.274    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Failure type <span style="color: #0000BB;">"death other causes"</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">time   estimate   std.error   95% CI         n.risk   cumulative.event   cumulative.censor   </span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   0.005      0.005       0.000, 0.026   200      1                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   0.025      0.011       0.009, 0.054   190      5                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   0.090      0.020       0.055, 0.135   159      18                 0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   0.205      0.029       0.152, 0.264   117      41                 0                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">time   n.risk   estimate   std.error   95% CI         </span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   200      0.005      0.005       0.000, 0.026    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   190      0.025      0.011       0.009, 0.054    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   159      0.090      0.020       0.055, 0.135    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   117      0.205      0.029       0.152, 0.264    </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># calculate risk by treatment group ----------</span></span>
 <span class="r-in"><span class="fu">cuminc</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span></span>
@@ -136,26 +136,26 @@ confidence level of the interval, e.g. \(z = 1.96\) for a 95% CI.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">cuminc()</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────────</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Failure type <span style="color: #0000BB;">"death from cancer"</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">time   strata   estimate   std.error   95% CI         n.risk   cumulative.event   cumulative.censor   </span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   Drug A   0.000      0.000       NA, NA         98       0                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   Drug A   0.020      0.014       0.004, 0.065   95       2                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   Drug A   0.071      0.026       0.031, 0.134   84       7                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   Drug A   0.173      0.039       0.106, 0.255   62       17                 0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   Drug B   0.000      0.000       NA, NA         102      0                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   Drug B   0.039      0.019       0.013, 0.090   96       4                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   Drug B   0.167      0.037       0.102, 0.246   76       17                 0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   Drug B   0.255      0.043       0.175, 0.343   56       26                 0                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">time   n.risk   estimate   std.error   95% CI         </span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   98       0.000      0.000       NA, NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   95       0.020      0.014       0.004, 0.065    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   84       0.071      0.026       0.031, 0.134    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   62       0.173      0.039       0.106, 0.255    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   102      0.000      0.000       NA, NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   96       0.039      0.019       0.013, 0.090    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   76       0.167      0.037       0.102, 0.246    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   56       0.255      0.043       0.175, 0.343    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Failure type <span style="color: #0000BB;">"death other causes"</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">time   strata   estimate   std.error   95% CI         n.risk   cumulative.event   cumulative.censor   </span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   Drug A   0.010      0.010       0.001, 0.050   98       1                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   Drug A   0.020      0.014       0.004, 0.065   95       2                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   Drug A   0.082      0.028       0.038, 0.147   84       8                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   Drug A   0.204      0.041       0.131, 0.289   62       20                 0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   Drug B   0.000      0.000       NA, NA         102      0                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   Drug B   0.029      0.017       0.008, 0.077   96       3                  0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   Drug B   0.098      0.030       0.050, 0.165   76       10                 0                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   Drug B   0.206      0.040       0.133, 0.289   56       21                 0                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">time   n.risk   estimate   std.error   95% CI         </span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   98       0.010      0.010       0.001, 0.050    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   95       0.020      0.014       0.004, 0.065    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   84       0.082      0.028       0.038, 0.147    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   62       0.204      0.041       0.131, 0.289    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   102      0.000      0.000       NA, NA          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   96       0.029      0.017       0.008, 0.077    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   76       0.098      0.030       0.050, 0.165    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   56       0.206      0.040       0.133, 0.289    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Tests</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">outcome              statistic   df     p.value   </span> </span>
