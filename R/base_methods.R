@@ -29,8 +29,12 @@ predict.tidycrr <- function(object, times = NULL, probs = NULL, newdata = NULL, 
   matrix_pred <-
     stats::predict(object$cmprsk, cov1 = as.matrix(processed$predictors))
 
-  if (!is.null(times)) return(probs_at_times(matrix_pred, times))
-  if (!is.null(probs)) return(times_at_probs(matrix_pred, probs))
+  if (!is.null(times)) {
+    return(probs_at_times(matrix_pred, times))
+  }
+  if (!is.null(probs)) {
+    return(times_at_probs(matrix_pred, probs))
+  }
 }
 
 times_at_probs <- function(matrix_pred, probs) {
@@ -38,15 +42,19 @@ times_at_probs <- function(matrix_pred, probs) {
   lst_time_risk <-
     purrr::map(
       probs,
-      ~purrr::map_dbl(
+      ~ purrr::map_dbl(
         seq_len(ncol(matrix_pred) - 1L),
         function(i) {
           # adding 0 to the matrix, keeping only the time column, and col of interest
           m <- rbind(matrix_zero, matrix_pred[, c(1L, i + 1L)])
 
           # return NA if the quantiles are all missing OR prob is larger than observed
-          if (isTRUE(all(is.na(m[-1, 2])) || .x > max(m[, 2]))) return(NA)
-          if (isTRUE(.x %in% m[, 2])) return(m[m[, 2] %in% .x, 1])
+          if (isTRUE(all(is.na(m[-1, 2])) || .x > max(m[, 2]))) {
+            return(NA)
+          }
+          if (isTRUE(.x %in% m[, 2])) {
+            return(m[m[, 2] %in% .x, 1])
+          }
           return(m[which.min(m[, 2] <= .x), 1])
         }
       )
@@ -69,7 +77,9 @@ probs_at_times <- function(matrix_pred, times) {
     purrr::map_dbl(
       times,
       function(.x) {
-        if (isTRUE(.x %in% all_times)) return(all_times[all_times %in% .x])
+        if (isTRUE(.x %in% all_times)) {
+          return(all_times[all_times %in% .x])
+        }
         all_times[which.min(all_times <= .x) - 1L]
       }
     )
@@ -77,7 +87,7 @@ probs_at_times <- function(matrix_pred, times) {
   # named list of the risks, the names are the times,
   # the values are the estimates of risk at the covar levels
   lst_risk_time <-
-    purrr::map(seq_len(length(all_times) - 1L), ~matrix_pred[.x, -1]) %>%
+    purrr::map(seq_len(length(all_times) - 1L), ~ matrix_pred[.x, -1]) %>%
     stats::setNames(all_times[-1]) %>%
     dplyr::bind_cols() %>%
     mutate(`0` = 0, .before = 1) %>%

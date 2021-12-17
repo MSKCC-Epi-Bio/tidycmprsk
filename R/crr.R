@@ -39,8 +39,8 @@ crr_mold <- function(formula, data) {
       formula, data,
       blueprint = hardhat::default_formula_blueprint(intercept = TRUE)
     )
-  #remove intercept
-  processed$predictors <- processed$predictors[,-1]
+  # remove intercept
+  processed$predictors <- processed$predictors[, -1]
   processed
 }
 
@@ -60,7 +60,7 @@ as_numeric_failcode <- function(formula, data, failcode, keep_all = FALSE) {
 
   # checking type of LHS -------------------------------------------------------
   if (!inherits(formula_lhs, "Surv") ||
-      !identical(attr(formula_lhs, "type"), "mright")) {
+    !identical(attr(formula_lhs, "type"), "mright")) {
     paste(
       "The LHS of the formula must be of class 'Surv' and type 'mright'.",
       "Please review syntax in the help file.",
@@ -75,7 +75,9 @@ as_numeric_failcode <- function(formula, data, failcode, keep_all = FALSE) {
   all_failues <-
     seq_len(length(attr(formula_lhs, "states"))) %>%
     stats::setNames(attr(formula_lhs, "states"))
-  if (isTRUE(keep_all)) return(all_failues)
+  if (isTRUE(keep_all)) {
+    return(all_failues)
+  }
 
   failcode <- failcode %||% names(all_failues)[1]
   if (!is.null(failcode) && !failcode %in% names(all_failues)) {
@@ -109,14 +111,18 @@ new_crr <- function(coefs, coef_names, formula, tidy, cmprsk, data, failcode, bl
     failcode = failcode,
     xlevels =
       stats::model.frame(formula, data = data)[, -1, drop = FALSE] %>%
-      purrr::map(
-        function(.x) {
-          if (inherits(.x, "factor")) return(levels(.x))
-          if (inherits(.x, "character")) return(unique(.x) %>% sort())
-          return(NULL)
-        }
-      ) %>%
-      purrr::compact(),
+        purrr::map(
+          function(.x) {
+            if (inherits(.x, "factor")) {
+              return(levels(.x))
+            }
+            if (inherits(.x, "character")) {
+              return(unique(.x) %>% sort())
+            }
+            return(NULL)
+          }
+        ) %>%
+        purrr::compact(),
     tidy = tidy,
     cmprsk = cmprsk,
     blueprint = blueprint,
@@ -128,10 +134,12 @@ crr_impl <- function(predictors, outcomes, failcode) {
 
   # function to run crr and summarize with tidy (implementation)
   crr_fit <-
-    cmprsk::crr(ftime = outcomes[, 1],
-                fstatus = outcomes[, 2],
-                cov1 = predictors,
-                failcode = failcode)
+    cmprsk::crr(
+      ftime = outcomes[, 1],
+      fstatus = outcomes[, 2],
+      cov1 = predictors,
+      failcode = failcode
+    )
 
   tidy <- broom::tidy(crr_fit, conf.int = TRUE)
 
