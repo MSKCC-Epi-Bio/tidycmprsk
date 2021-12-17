@@ -52,4 +52,3 @@ test_that("cuminc() works", {
     ignore_attr = TRUE
   )
 })
-

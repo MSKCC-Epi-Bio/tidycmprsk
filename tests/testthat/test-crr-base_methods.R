@@ -44,6 +44,3 @@ test_that("base methods", {
   expect_error(predict(crr1, probs = -20))
   expect_error(predict(crr1))
 })
-
-
-
