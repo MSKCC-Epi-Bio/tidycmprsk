@@ -6,7 +6,7 @@
 \alias{cuminc.default}
 \title{Competing Risks Cumulative Incidence}
 \usage{
-\method{cuminc}{formula}(formula, data, strata, rho = 0, ...)
+\method{cuminc}{formula}(formula, data, strata, rho = 0, conf.level = 0.95, ...)
 
 cuminc(x, ...)
 
@@ -27,6 +27,8 @@ stratified on this variable.  (all data in 1 stratum, if missing)
 \item{rho}{
 Power of the weight function used in the tests.
 }
+
+\item{conf.level}{confidence level. Default is 0.95.}
 
 \item{...}{passed to methods}
 

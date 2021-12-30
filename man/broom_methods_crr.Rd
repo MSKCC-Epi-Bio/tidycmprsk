@@ -7,7 +7,7 @@
 \alias{augment.tidycrr}
 \title{Broom methods for tidycrr objects}
 \usage{
-\method{tidy}{tidycrr}(x, exponentiate = FALSE, conf.int = FALSE, conf.level = 0.95, ...)
+\method{tidy}{tidycrr}(x, exponentiate = FALSE, conf.int = FALSE, conf.level = x$conf.level, ...)
 
 \method{glance}{tidycrr}(x, ...)
 
@@ -22,9 +22,8 @@ coefficient estimates. Defaults to \code{FALSE}.}
 \item{conf.int}{Logical indicating whether or not to include a confidence
 interval in the tidied output. Defaults to \code{FALSE}.}
 
-\item{conf.level}{The confidence level to use for the confidence interval
-if \code{conf.int = TRUE}. Must be strictly greater than 0 and less than 1.
-Defaults to 0.95, which corresponds to a 95 percent confidence interval.}
+\item{conf.level}{Level of the confidence interval. Default matches that in
+\code{crr(conf.level=)} (typically, 0.95)}
 
 \item{...}{not used}
 

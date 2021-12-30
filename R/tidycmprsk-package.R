@@ -1,5 +1,5 @@
 #' @keywords internal
-#' @importFrom rlang .data .env expr
+#' @importFrom rlang .data .env := expr
 #' @importFrom dplyr select everything mutate filter any_of group_by arrange
 #'   across
 #' @importFrom purrr %||%

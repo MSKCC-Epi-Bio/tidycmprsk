@@ -6,7 +6,7 @@
 \alias{glance.tidycuminc}
 \title{Broom methods for tidy cuminc objects}
 \usage{
-\method{tidy}{tidycuminc}(x, times = NULL, conf.int = TRUE, conf.level = 0.95, ...)
+\method{tidy}{tidycuminc}(x, times = NULL, conf.int = TRUE, conf.level = x$conf.level, ...)
 
 \method{glance}{tidycuminc}(x, ...)
 }
@@ -18,9 +18,8 @@
 \item{conf.int}{Logical indicating whether or not to include a confidence
 interval in the tidied output. Defaults to \code{FALSE}.}
 
-\item{conf.level}{The confidence level to use for the confidence interval
-if \code{conf.int = TRUE}. Must be strictly greater than 0 and less than 1.
-Defaults to 0.95, which corresponds to a 95 percent confidence interval.}
+\item{conf.level}{Level of the confidence interval. Default matches that in
+\code{cuminc(conf.level=)} (typically, 0.95)}
 
 \item{...}{not used}
 }

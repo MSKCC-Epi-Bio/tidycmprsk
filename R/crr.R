@@ -8,6 +8,7 @@
 #' @param failcode Indicates event of interest. If `failcode=` is `NULL`,
 #' the first competing event will be used as the event of interest.
 #' Default is `NULL`.
+#' @param conf.level confidence level. Default is 0.95.
 #' @param ... passed to methods
 #'
 #' @return tidycrr object
@@ -20,7 +21,7 @@ NULL
 # Formula method
 #' @rdname crr
 #' @export
-crr.formula <- function(formula, data, failcode = NULL, ...) {
+crr.formula <- function(formula, data, failcode = NULL, conf.level = 0.95, ...) {
 
   # checking inputs and assigning the numeric failcode -------------------------
   failcode_numeric <-
@@ -30,7 +31,7 @@ crr.formula <- function(formula, data, failcode = NULL, ...) {
   processed <- crr_mold(formula, data)
 
   # building model -------------------------------------------------------------
-  crr_bridge(processed, formula, data, failcode_numeric)
+  crr_bridge(processed, formula, data, failcode_numeric, conf.level = conf.level)
 }
 
 crr_mold <- function(formula, data) {
@@ -88,7 +89,8 @@ as_numeric_failcode <- function(formula, data, failcode, keep_all = FALSE) {
   return(failcode_numeric %>% rlang::set_names(failcode))
 }
 
-new_crr <- function(coefs, coef_names, formula, tidy, cmprsk, data, failcode, blueprint) {
+new_crr <- function(coefs, coef_names, formula, tidy, cmprsk, data,
+                    failcode, blueprint, conf.level) {
 
   # function to create an object
 
@@ -109,6 +111,7 @@ new_crr <- function(coefs, coef_names, formula, tidy, cmprsk, data, failcode, bl
     formula = formula,
     data = data,
     failcode = failcode,
+    conf.level = conf.level,
     xlevels =
       stats::model.frame(formula, data = data)[, -1, drop = FALSE] %>%
         purrr::map(
@@ -130,7 +133,7 @@ new_crr <- function(coefs, coef_names, formula, tidy, cmprsk, data, failcode, bl
   )
 }
 
-crr_impl <- function(predictors, outcomes, failcode) {
+crr_impl <- function(predictors, outcomes, failcode, conf.level) {
 
   # function to run crr and summarize with tidy (implementation)
   crr_fit <-
@@ -141,7 +144,7 @@ crr_impl <- function(predictors, outcomes, failcode) {
       failcode = failcode
     )
 
-  tidy <- broom::tidy(crr_fit, conf.int = TRUE)
+  tidy <- broom::tidy(crr_fit, conf.int = TRUE, conf.level = conf.level)
 
   coefs <- tidy$estimate
   coef_names <- tidy$term
@@ -154,7 +157,7 @@ crr_impl <- function(predictors, outcomes, failcode) {
   )
 }
 
-crr_bridge <- function(processed, formula, data, failcode) {
+crr_bridge <- function(processed, formula, data, failcode, conf.level) {
 
   # function to connect object and implementation
 
@@ -163,7 +166,7 @@ crr_bridge <- function(processed, formula, data, failcode) {
   predictors <- as.matrix(processed$predictors)
   outcomes <- as.matrix(processed$outcomes[, 1, drop = TRUE])
 
-  fit <- crr_impl(predictors, outcomes, failcode)
+  fit <- crr_impl(predictors, outcomes, failcode, conf.level = conf.level)
 
   output <-
     new_crr(
@@ -174,7 +177,8 @@ crr_bridge <- function(processed, formula, data, failcode) {
       tidy = fit$tidy,
       cmprsk = fit$cmprsk,
       failcode = failcode,
-      blueprint = processed$blueprint
+      blueprint = processed$blueprint,
+      conf.level = conf.level
     )
 
   output

@@ -2,6 +2,8 @@
 #'
 #' @param exponentiate Logical indicating whether or not to exponentiate the
 #' coefficient estimates. Defaults to `FALSE`.
+#' @param conf.level Level of the confidence interval. Default matches that in
+#' `crr(conf.level=)` (typically, 0.95)
 #' @inheritParams base_methods_crr
 #' @inheritParams broom::tidy.crr
 #' @inheritParams predict.tidycrr
@@ -26,7 +28,7 @@ NULL
 tidy.tidycrr <- function(x,
                          exponentiate = FALSE,
                          conf.int = FALSE,
-                         conf.level = 0.95, ...) {
+                         conf.level = x$conf.level, ...) {
   df_tidy <-
     broom::tidy(
       x$cmprsk,
@@ -69,6 +71,8 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #' Broom methods for tidy cuminc objects
 #'
 #' @param x object of class 'tidycuminc'
+#' @param conf.level Level of the confidence interval. Default matches that in
+#' `cuminc(conf.level=)` (typically, 0.95)
 #' @inheritParams base_methods_cuminc
 #' @inheritParams broom_methods_cuminc
 #' @inheritParams base_methods_crr
@@ -114,14 +118,14 @@ NULL
 #' @export
 #' @family cuminc tidiers
 tidy.tidycuminc <- function(x, times = NULL,
-                            conf.int = TRUE, conf.level = 0.95, ...) {
+                            conf.int = TRUE, conf.level = x$conf.level, ...) {
   # check inputs ---------------------------------------------------------------
   if (!is.numeric(conf.level) || !dplyr::between(conf.level, 0, 1)) {
     stop("`conf.level=` must be between 0 and 1")
   }
 
   # if user requested the default tidier, return the version in x$tidy ---------
-  if (is.null(times) && isTRUE(conf.int) && identical(conf.level, 0.95)) {
+  if (is.null(times) && isTRUE(conf.int) && identical(conf.level, x$conf.level)) {
     return(x$tidy)
   }
 
@@ -181,14 +185,14 @@ tidy.tidycuminc <- function(x, times = NULL,
       df_tidy %>%
       select(-.data$conf.low, -.data$conf.high)
   } else if (!identical(conf.level, 0.95)) {
-    df_tidy <- add_conf.int(df_tidy, conf.level)
+    df_tidy <- add_conf.int(df_tidy, conf.level = conf.level)
   }
 
   # return tidied df -----------------------------------------------------------
   df_tidy
 }
 
-first_cuminc_tidy <- function(x) {
+first_cuminc_tidy <- function(x, conf.level) {
   # create df of each outcome level with an ID column as well ------------------
   df_outcomes <-
     rlang::f_lhs(x$formula) %>%
@@ -236,7 +240,7 @@ first_cuminc_tidy <- function(x) {
   }
 
   # add conf.int to tibble -----------------------------------------------------
-  df_tidy <- add_conf.int(df_tidy, conf.level = 0.95)
+  df_tidy <- add_conf.int(df_tidy, conf.level = conf.level)
 
   # adding the number at risk, censored, events --------------------------------
   df_tidy <- add_n_stats(df_tidy, x)

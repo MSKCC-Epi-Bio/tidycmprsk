@@ -1,5 +1,9 @@
 # tidycmprsk (development version)
 
+* Added `crr(conf.level=)` and `cuminc(conf.level=)` arguments. The tidy data frame returned with each of these objects now has confidence limits that match `conf.level=`. (#45)
+
+* The `tidy.ticycrr()` and `tidy.ticycuminc()` `conf.level=` defaults have been updated to `x$conf.level` passed in the original model call.
+
 * Now returning the the number at risk, number of events, and the number of censored observations in `tidy.tidycuminc()`.
 
 * Updated the default value to `tidy.tidycuminc(conf.int = TRUE)` from `FALSE`

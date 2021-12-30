@@ -8,13 +8,15 @@ test_that("crr() works", {
     )
 
   expect_error(
-    crr1 <- crr(Surv(ttdeath, death_cr) ~ age, trial),
+    crr1 <- crr(Surv(ttdeath, death_cr) ~ age, data = trial, conf.level = 0.90),
     NA
   )
 
   expect_equal(
-    tidy(crr1),
-    broom::tidy(crr1$cmprsk)
+    tidy(crr1, conf.int = TRUE) %>%
+      select(all_of(names(.) %>% sort())),
+    broom::tidy(crr1$cmprsk, conf.int = TRUE, conf.level = 0.90) %>%
+      select(all_of(names(.) %>% sort()))
   )
   expect_equal(
     glance(crr1),
