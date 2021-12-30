@@ -2,6 +2,8 @@
 #'
 #' @param exponentiate Logical indicating whether or not to exponentiate the
 #' coefficient estimates. Defaults to `FALSE`.
+#' @param conf.level Level of the confidence interval. Default matches that in
+#' `crr(conf.level=)` (typically, 0.95)
 #' @inheritParams base_methods_crr
 #' @inheritParams broom::tidy.crr
 #' @inheritParams predict.tidycrr
@@ -26,7 +28,7 @@ NULL
 tidy.tidycrr <- function(x,
                          exponentiate = FALSE,
                          conf.int = FALSE,
-                         conf.level = 0.95, ...) {
+                         conf.level = x$conf.level, ...) {
   df_tidy <-
     broom::tidy(
       x$cmprsk,
@@ -69,6 +71,8 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #' Broom methods for tidy cuminc objects
 #'
 #' @param x object of class 'tidycuminc'
+#' @param conf.level Level of the confidence interval. Default matches that in
+#' `cuminc(conf.level=)` (typically, 0.95)
 #' @inheritParams base_methods_cuminc
 #' @inheritParams broom_methods_cuminc
 #' @inheritParams base_methods_crr
