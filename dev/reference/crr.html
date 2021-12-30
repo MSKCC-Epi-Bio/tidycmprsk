@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9003</span>
       </span>
     </div>
 
@@ -60,7 +60,7 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for formula</span>
-<span class="fu">crr</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, failcode <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
+<span class="fu">crr</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, failcode <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="fu">crr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
 
@@ -80,6 +80,8 @@ The event status variable must be a factor, with the first level indicating
 <dd><p>Indicates event of interest. If <code>failcode=</code> is <code>NULL</code>,
 the first competing event will be used as the event of interest.
 Default is <code>NULL</code>.</p></dd>
+<dt>conf.level</dt>
+<dd><p>confidence level. Default is 0.95.</p></dd>
 <dt>...</dt>
 <dd><p>passed to methods</p></dd>
 <dt>x</dt>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9003</span>
       </span>
     </div>
 
@@ -81,9 +81,8 @@ is to include all competing events.</p></dd>
 <dd><p>Logical indicating whether or not to include a confidence
 interval in the tidied output. Defaults to <code>FALSE</code>.</p></dd>
 <dt>conf.level</dt>
-<dd><p>The confidence level to use for the confidence interval
-if <code>conf.int = TRUE</code>. Must be strictly greater than 0 and less than 1.
-Defaults to 0.95, which corresponds to a 95 percent confidence interval.</p></dd>
+<dd><p>Level of the confidence interval. Default matches that in
+<code>cuminc(conf.level=)</code> (typically, 0.95)</p></dd>
 <dt>aes</dt>
 <dd><p>List of arguments that will be added or replace the existing
 arguments in <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes()</a></code>. Details below.</p></dd>
