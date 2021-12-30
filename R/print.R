@@ -46,7 +46,7 @@ print.tidycrr <- function(x, ...) {
       estimate = "Coef",
       std.error = "SE",
       exp_estimate = "HR",
-      conf.int = "95% CI",
+      conf.int = paste0(x$conf.level * 100, "% CI"),
       p.value = "p-value",
       .before = 1
     ) %>%
@@ -119,9 +119,10 @@ print.tidycuminc <- function(x, ...) {
             ),
             # NA will be shown as "NA" in output
             across(where(is.character), ~ tidyr::replace_na(., "NA")),
-            `95% CI` = paste(.data$conf.low, .data$conf.high, sep = ", "),
+            conf.int = paste(.data$conf.low, .data$conf.high, sep = ", "),
             .after = .data$std.error
           ) %>%
+          dplyr::rename("{x$conf.level * 100}% CI" := .data$conf.int) %>%
           select(-.data$outcome, -.data$conf.low, -.data$conf.high) %>%
           # add header row
           {

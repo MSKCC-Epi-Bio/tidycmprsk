@@ -114,14 +114,14 @@ NULL
 #' @export
 #' @family cuminc tidiers
 tidy.tidycuminc <- function(x, times = NULL,
-                            conf.int = TRUE, conf.level = 0.95, ...) {
+                            conf.int = TRUE, conf.level = x$conf.level, ...) {
   # check inputs ---------------------------------------------------------------
   if (!is.numeric(conf.level) || !dplyr::between(conf.level, 0, 1)) {
     stop("`conf.level=` must be between 0 and 1")
   }
 
   # if user requested the default tidier, return the version in x$tidy ---------
-  if (is.null(times) && isTRUE(conf.int) && identical(conf.level, 0.95)) {
+  if (is.null(times) && isTRUE(conf.int) && identical(conf.level, x$conf.level)) {
     return(x$tidy)
   }
 
@@ -181,14 +181,14 @@ tidy.tidycuminc <- function(x, times = NULL,
       df_tidy %>%
       select(-.data$conf.low, -.data$conf.high)
   } else if (!identical(conf.level, 0.95)) {
-    df_tidy <- add_conf.int(df_tidy, conf.level)
+    df_tidy <- add_conf.int(df_tidy, conf.level = conf.level)
   }
 
   # return tidied df -----------------------------------------------------------
   df_tidy
 }
 
-first_cuminc_tidy <- function(x) {
+first_cuminc_tidy <- function(x, conf.level) {
   # create df of each outcome level with an ID column as well ------------------
   df_outcomes <-
     rlang::f_lhs(x$formula) %>%
@@ -236,7 +236,7 @@ first_cuminc_tidy <- function(x) {
   }
 
   # add conf.int to tibble -----------------------------------------------------
-  df_tidy <- add_conf.int(df_tidy, conf.level = 0.95)
+  df_tidy <- add_conf.int(df_tidy, conf.level = conf.level)
 
   # adding the number at risk, censored, events --------------------------------
   df_tidy <- add_n_stats(df_tidy, x)
