@@ -126,7 +126,7 @@ tidy.tidycuminc <- function(x, times = NULL,
 
   # if user requested the default tidier, return the version in x$tidy ---------
   if (is.null(times) && isTRUE(conf.int) && identical(conf.level, x$conf.level)) {
-    return(x_tidy)
+    return(x$tidy)
   }
 
   times <- times %||% unique(x$tidy$time) %>% sort()
