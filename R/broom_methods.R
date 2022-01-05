@@ -320,7 +320,7 @@ add_n_stats <- function(df_tidy, x) {
     arrange(across(any_of(c("strata", "time", "status")))) %>%
     group_by(across(any_of(c("strata")))) %>%
     mutate(
-      n.risk = dplyr::n() - dplyr::row_number() + 1L,
+      n.risk = dplyr::n() - dplyr::row_number() + 0L,
       n.event = as.integer(.data$status != 0),
       n.censor = as.integer(.data$status == 0)
     ) %>%
