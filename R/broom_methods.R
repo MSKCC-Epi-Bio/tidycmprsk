@@ -126,7 +126,16 @@ tidy.tidycuminc <- function(x, times = NULL,
 
   # if user requested the default tidier, return the version in x$tidy ---------
   if (is.null(times) && isTRUE(conf.int) && identical(conf.level, x$conf.level)) {
-    return(x$tidy)
+    df_tidy <-
+      x$tidy %>%
+      arrange(across(any_of(c("strata", "outcome", "time")))) %>%
+      group_by(across(any_of(c("strata", "outcome")))) %>%
+      mutate(
+        interval.event = c(0,diff(.data$cumulative.event)),
+        interval.censor = c(0,diff(.data$cumulative.censor))
+      ) %>%
+      dplyr::ungroup()
+    return(df_tidy)
   }
 
   times <- times %||% unique(x$tidy$time) %>% sort()
@@ -137,7 +146,16 @@ tidy.tidycuminc <- function(x, times = NULL,
 
   # if user requested default tidier without CI, return w/o CI -----------------
   if (is.null(times) && !isTRUE(conf.int)) {
-    return(select(x$tidy, -.data$conf.low, -.data$conf.high))
+    df_tidy <-
+      x$tidy %>%
+      arrange(across(any_of(c("strata", "outcome", "time")))) %>%
+      group_by(across(any_of(c("strata", "outcome")))) %>%
+      mutate(
+        interval.event = c(0,diff(.data$cumulative.event)),
+        interval.censor = c(0,diff(.data$cumulative.censor))
+      ) %>%
+      dplyr::ungroup()
+    return(select(df_tidy, -.data$conf.low, -.data$conf.high))
   }
 
   # tidy df with requested time points -----------------------------------------
@@ -147,7 +165,7 @@ tidy.tidycuminc <- function(x, times = NULL,
       list(
         outcome = unique(x$tidy$outcome),
         strata = switch("strata" %in% names(x$tidy),
-          unique(x$tidy$strata)
+                        unique(x$tidy$strata)
         ),
         time = times
       ) %>%
@@ -164,8 +182,8 @@ tidy.tidycuminc <- function(x, times = NULL,
     ) %>%
     # fill down the estimates
     tidyr::fill(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high,
-      .data$n.risk, .data$cumulative.event, .data$cumulative.censor,
-      .direction = "down"
+                .data$n.risk, .data$cumulative.event, .data$cumulative.censor,
+                .direction = "down"
     ) %>%
     # correcting values larger than largest observed timepoint
     mutate(
@@ -177,7 +195,13 @@ tidy.tidycuminc <- function(x, times = NULL,
     ) %>%
     select(-.data$..max_time..) %>%
     dplyr::ungroup() %>%
-    filter(.data$time %in% .env$times)
+    filter(.data$time %in% .env$times) %>%
+    group_by(across(any_of(c("strata", "outcome")))) %>%
+    mutate(
+      interval.event = c(0,diff(.data$cumulative.event)),
+      interval.censor = c(0,diff(.data$cumulative.censor))
+    ) %>%
+    dplyr::ungroup()
 
   # delete/update CI if needed -------------------------------------------------
   if (!isTRUE(conf.int)) {
@@ -256,10 +280,10 @@ add_conf.int <- function(df_tidy, conf.level) {
     mutate(
       conf.low =
         .data$estimate^exp(stats::qnorm((1 - .env$conf.level) / 2) * .data$std.error /
-          (.data$estimate * log(.data$estimate))),
+                             (.data$estimate * log(.data$estimate))),
       conf.high =
         .data$estimate^exp(-stats::qnorm((1 - .env$conf.level) / 2) * .data$std.error /
-          (.data$estimate * log(.data$estimate))),
+                             (.data$estimate * log(.data$estimate))),
       across(c(.data$conf.low, .data$conf.high), ~ ifelse(is.nan(.), NA, .))
     )
 }
@@ -281,9 +305,9 @@ add_n_stats <- function(df_tidy, x) {
             x$formula, x$data,
             blueprint = hardhat::default_formula_blueprint(indicators = "none")
           ) %>%
-            purrr::pluck("predictors") %>%
-            interaction() %>%
-            as.character()
+          purrr::pluck("predictors") %>%
+          interaction() %>%
+          as.character()
       )
   }
 
@@ -321,8 +345,8 @@ add_n_stats <- function(df_tidy, x) {
     group_by(across(any_of(c("strata", "time")))) %>%
     mutate(
       outcome = ifelse(.data$status != 0,
-        dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))),
-        "censored"
+                       dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))),
+                       "censored"
       )
     ) %>%
     select(-.data$status) %>%
@@ -397,10 +421,10 @@ add_n_stats <- function(df_tidy, x) {
     arrange(across(any_of(c("strata", "outcome", "time", "n.risk")))) %>%
     group_by(across(any_of(c("strata", "outcome")))) %>%
     tidyr::fill(.data$n.risk, .data$estimate, .data$std.error,
-      .data$conf.low, .data$conf.high,
-      .data$n.event, .data$n.censor, .data$cumulative.event,
-      .data$cumulative.censor,
-      .direction = "down"
+                .data$conf.low, .data$conf.high,
+                .data$n.event, .data$n.censor, .data$cumulative.event,
+                .data$cumulative.censor,
+                .direction = "down"
     ) %>%
     dplyr::ungroup() %>%
     filter(!is.na(.data$outcome)) %>%
@@ -429,7 +453,7 @@ cuminc_matrix_to_df <- function(x, name, times) {
 
   # checking for issues mapping the numeric times back onto the estimates
   if (any(is.na(df$time)) || any(is.na(df$time_chr)) ||
-    max(abs(df$time - as.numeric(df$time_chr))) > 10e-5) {
+      max(abs(df$time - as.numeric(df$time_chr))) > 10e-5) {
     paste(
       "There was an error mapping observed times to cumulative",
       "incidence estimates. Please report this bug at",
@@ -466,8 +490,8 @@ glance.tidycuminc <- function(x, ...) {
       by = "failcode_id"
     ) %>%
     select(.data$outcome, .data$failcode_id,
-      statistic = .data$stat,
-      .data$df, p.value = .data$pv
+           statistic = .data$stat,
+           .data$df, p.value = .data$pv
     ) %>%
     tidyr::pivot_wider(
       values_from = c(.data$outcome, .data$statistic, .data$df, .data$p.value),
