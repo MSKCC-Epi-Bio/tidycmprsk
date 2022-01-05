@@ -163,9 +163,12 @@ tidy.tidycuminc <- function(x, times = NULL,
       ..max_time.. = max(.data$time[!is.na(.data$estimate)])
     ) %>%
     # fill down the estimates
-    tidyr::fill(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high,
-                .data$n.risk, .data$cumulative.event, .data$cumulative.censor,
+    tidyr::fill(.data$cumulative.event, .data$cumulative.censor,
                 .direction = "down"
+    ) %>%
+    tidyr::fill(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high,
+                .data$n.risk,
+                .direction = "up"
     ) %>%
     # correcting values larger than largest observed timepoint
     mutate(
@@ -180,6 +183,8 @@ tidy.tidycuminc <- function(x, times = NULL,
     filter(.data$time %in% .env$times) %>%
     group_by(across(any_of(c("strata", "outcome")))) %>%
     mutate(
+      n.risk.survfit = n.risk,
+      n.risk = n.risk - n.event - n.censor,
       n.event = c(0,diff(.data$cumulative.event)),
       n.censor = c(0,diff(.data$cumulative.censor))
     ) %>%
@@ -320,7 +325,7 @@ add_n_stats <- function(df_tidy, x) {
     arrange(across(any_of(c("strata", "time", "status")))) %>%
     group_by(across(any_of(c("strata")))) %>%
     mutate(
-      n.risk = dplyr::n() - dplyr::row_number() + 0L,
+      n.risk = dplyr::n() - dplyr::row_number() + 1L,
       n.event = as.integer(.data$status != 0),
       n.censor = as.integer(.data$status == 0)
     ) %>%
