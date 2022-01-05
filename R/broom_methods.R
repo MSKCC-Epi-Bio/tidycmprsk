@@ -126,16 +126,7 @@ tidy.tidycuminc <- function(x, times = NULL,
 
   # if user requested the default tidier, return the version in x$tidy ---------
   if (is.null(times) && isTRUE(conf.int) && identical(conf.level, x$conf.level)) {
-    df_tidy <-
-      x$tidy %>%
-      arrange(across(any_of(c("strata", "outcome", "time")))) %>%
-      group_by(across(any_of(c("strata", "outcome")))) %>%
-      mutate(
-        interval.event = c(0,diff(.data$cumulative.event)),
-        interval.censor = c(0,diff(.data$cumulative.censor))
-      ) %>%
-      dplyr::ungroup()
-    return(df_tidy)
+    return(x_tidy)
   }
 
   times <- times %||% unique(x$tidy$time) %>% sort()
@@ -146,16 +137,7 @@ tidy.tidycuminc <- function(x, times = NULL,
 
   # if user requested default tidier without CI, return w/o CI -----------------
   if (is.null(times) && !isTRUE(conf.int)) {
-    df_tidy <-
-      x$tidy %>%
-      arrange(across(any_of(c("strata", "outcome", "time")))) %>%
-      group_by(across(any_of(c("strata", "outcome")))) %>%
-      mutate(
-        interval.event = c(0,diff(.data$cumulative.event)),
-        interval.censor = c(0,diff(.data$cumulative.censor))
-      ) %>%
-      dplyr::ungroup()
-    return(select(df_tidy, -.data$conf.low, -.data$conf.high))
+    return(select(x$tidy, -.data$conf.low, -.data$conf.high))
   }
 
   # tidy df with requested time points -----------------------------------------
@@ -198,8 +180,8 @@ tidy.tidycuminc <- function(x, times = NULL,
     filter(.data$time %in% .env$times) %>%
     group_by(across(any_of(c("strata", "outcome")))) %>%
     mutate(
-      interval.event = c(0,diff(.data$cumulative.event)),
-      interval.censor = c(0,diff(.data$cumulative.censor))
+      n.event = c(0,diff(.data$cumulative.event)),
+      n.censor = c(0,diff(.data$cumulative.censor))
     ) %>%
     dplyr::ungroup()
 
