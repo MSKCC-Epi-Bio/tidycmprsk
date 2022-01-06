@@ -229,4 +229,15 @@ test_that("broom methods", {
     tidy_cuminc1_time$n.censor,
     c(0L, 0L, 0L, 0L)
   )
+
+  # testing that n.event over intervals is correct when 0 is and is not specified
+  tt <- cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
+
+  expect_equal(
+    tidy(tt, times = c(0, 24)) %>%
+      dplyr::select(time, outcome, estimate, n.event, n.censor) %>%
+      dplyr::filter(time %in% 24),
+    tidy(tt, times = c(24)) %>%
+      dplyr::select(time, outcome, estimate, n.event, n.censor)
+  )
 })
