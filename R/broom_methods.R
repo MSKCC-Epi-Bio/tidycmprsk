@@ -160,7 +160,8 @@ tidy.tidycuminc <- function(x, times = NULL,
     # replace unobserved timepoints with 0 counts for events and censored
     mutate(
       across(c(.data$n.event, .data$n.censor), ~ tidyr::replace_na(., 0L)),
-      ..max_time.. = max(.data$time[!is.na(.data$estimate)])
+      ..max_time.. = max(.data$time[!is.na(.data$estimate)]),
+      ..min_time.. = min(.data$time[!is.na(.data$estimate) & .data$time > 0])
     ) %>%
     # fill down the estimates
     tidyr::fill(.data$cumulative.event, .data$cumulative.censor,
@@ -176,18 +177,34 @@ tidy.tidycuminc <- function(x, times = NULL,
         c(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high),
         ~ ifelse(.data$time > .data$..max_time.., NA, .)
       ),
-      n.risk = ifelse(.data$time > .data$..max_time.., 0L, .data$n.risk)
+      n.risk = ifelse(.data$time > .data$..max_time.., 0L, .data$n.risk),
+      across(
+        c(.data$conf.low, .data$conf.high),
+        ~ ifelse(.data$time < .data$..min_time.., NA, .)
+      ),
+      across(
+        c(.data$estimate, .data$std.error),
+        ~ ifelse(.data$time < .data$..min_time.., 0, .)
+      )
     ) %>%
-    select(-.data$..max_time..) %>%
+    # select(-.data$..max_time..,-.data$..min_time..) %>%
     dplyr::ungroup() %>%
     filter(.data$time %in% .env$times) %>%
     group_by(across(any_of(c("strata", "outcome")))) %>%
     mutate(
-      n.risk.survfit = n.risk,
-      n.risk = n.risk - n.event - n.censor,
+      n.risk.survfit = .data$n.risk,
+      n.risk = .data$n.risk - .data$n.event - .data$n.censor,
       n.event = c(0,diff(.data$cumulative.event)),
       n.censor = c(0,diff(.data$cumulative.censor))
+    )  %>%
+    # correcting values larger than largest observed timepoint
+    mutate(
+      across(
+        c(.data$n.event, .data$n.censor),
+        ~ ifelse(.data$time > .data$..max_time.. | .data$time < .data$..min_time.., 0, .)
+      )
     ) %>%
+    select(-.data$..max_time..,-.data$..min_time..) %>%
     dplyr::ungroup()
 
   # delete/update CI if needed -------------------------------------------------
