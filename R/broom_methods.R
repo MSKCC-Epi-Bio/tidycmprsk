@@ -147,7 +147,7 @@ tidy.tidycuminc <- function(x, times = NULL,
       list(
         outcome = unique(x$tidy$outcome),
         strata = switch("strata" %in% names(x$tidy),
-          unique(x$tidy$strata)
+                        unique(x$tidy$strata)
         ),
         time = times
       ) %>%
@@ -160,12 +160,16 @@ tidy.tidycuminc <- function(x, times = NULL,
     # replace unobserved timepoints with 0 counts for events and censored
     mutate(
       across(c(.data$n.event, .data$n.censor), ~ tidyr::replace_na(., 0L)),
-      ..max_time.. = max(.data$time[!is.na(.data$estimate)])
+      ..max_time.. = max(.data$time[!is.na(.data$estimate)]),
+      ..min_time.. = min(.data$time[!is.na(.data$estimate) & .data$time > 0])
     ) %>%
     # fill down the estimates
+    tidyr::fill(.data$cumulative.event, .data$cumulative.censor,
+                .direction = "down"
+    ) %>%
     tidyr::fill(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high,
-      .data$n.risk, .data$cumulative.event, .data$cumulative.censor,
-      .direction = "down"
+                .data$n.risk,
+                .direction = "up"
     ) %>%
     # correcting values larger than largest observed timepoint
     mutate(
@@ -173,11 +177,35 @@ tidy.tidycuminc <- function(x, times = NULL,
         c(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high),
         ~ ifelse(.data$time > .data$..max_time.., NA, .)
       ),
-      n.risk = ifelse(.data$time > .data$..max_time.., 0L, .data$n.risk)
+      n.risk = ifelse(.data$time > .data$..max_time.., 0L, .data$n.risk),
+      across(
+        c(.data$conf.low, .data$conf.high),
+        ~ ifelse(.data$time < .data$..min_time.., NA, .)
+      ),
+      across(
+        c(.data$estimate, .data$std.error),
+        ~ ifelse(.data$time < .data$..min_time.., 0L, .)
+      )
     ) %>%
-    select(-.data$..max_time..) %>%
+    # select(-.data$..max_time..,-.data$..min_time..) %>%
     dplyr::ungroup() %>%
-    filter(.data$time %in% .env$times)
+    filter(.data$time %in% .env$times) %>%
+    group_by(across(any_of(c("strata", "outcome")))) %>%
+    mutate(
+      n.risk.survfit = .data$n.risk,
+      n.risk = .data$n.risk - .data$n.event - .data$n.censor,
+      n.event = c(.data$cumulative.event[1],diff(.data$cumulative.event)),
+      n.censor = c(.data$cumulative.censor[1],diff(.data$cumulative.censor))
+    )  %>%
+    # correcting values larger than largest observed timepoint
+    mutate(
+      across(
+        c(.data$n.event, .data$n.censor),
+        ~ ifelse(.data$time > .data$..max_time.. | .data$time < .data$..min_time.., 0L, .)
+      )
+    ) %>%
+    select(-.data$..max_time..,-.data$..min_time..) %>%
+    dplyr::ungroup()
 
   # delete/update CI if needed -------------------------------------------------
   if (!isTRUE(conf.int)) {
@@ -256,10 +284,10 @@ add_conf.int <- function(df_tidy, conf.level) {
     mutate(
       conf.low =
         .data$estimate^exp(stats::qnorm((1 - .env$conf.level) / 2) * .data$std.error /
-          (.data$estimate * log(.data$estimate))),
+                             (.data$estimate * log(.data$estimate))),
       conf.high =
         .data$estimate^exp(-stats::qnorm((1 - .env$conf.level) / 2) * .data$std.error /
-          (.data$estimate * log(.data$estimate))),
+                             (.data$estimate * log(.data$estimate))),
       across(c(.data$conf.low, .data$conf.high), ~ ifelse(is.nan(.), NA, .))
     )
 }
@@ -281,9 +309,9 @@ add_n_stats <- function(df_tidy, x) {
             x$formula, x$data,
             blueprint = hardhat::default_formula_blueprint(indicators = "none")
           ) %>%
-            purrr::pluck("predictors") %>%
-            interaction() %>%
-            as.character()
+          purrr::pluck("predictors") %>%
+          interaction() %>%
+          as.character()
       )
   }
 
@@ -321,8 +349,8 @@ add_n_stats <- function(df_tidy, x) {
     group_by(across(any_of(c("strata", "time")))) %>%
     mutate(
       outcome = ifelse(.data$status != 0,
-        dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))),
-        "censored"
+                       dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))),
+                       "censored"
       )
     ) %>%
     select(-.data$status) %>%
@@ -397,10 +425,10 @@ add_n_stats <- function(df_tidy, x) {
     arrange(across(any_of(c("strata", "outcome", "time", "n.risk")))) %>%
     group_by(across(any_of(c("strata", "outcome")))) %>%
     tidyr::fill(.data$n.risk, .data$estimate, .data$std.error,
-      .data$conf.low, .data$conf.high,
-      .data$n.event, .data$n.censor, .data$cumulative.event,
-      .data$cumulative.censor,
-      .direction = "down"
+                .data$conf.low, .data$conf.high,
+                .data$n.event, .data$n.censor, .data$cumulative.event,
+                .data$cumulative.censor,
+                .direction = "down"
     ) %>%
     dplyr::ungroup() %>%
     filter(!is.na(.data$outcome)) %>%
@@ -429,7 +457,7 @@ cuminc_matrix_to_df <- function(x, name, times) {
 
   # checking for issues mapping the numeric times back onto the estimates
   if (any(is.na(df$time)) || any(is.na(df$time_chr)) ||
-    max(abs(df$time - as.numeric(df$time_chr))) > 10e-5) {
+      max(abs(df$time - as.numeric(df$time_chr))) > 10e-5) {
     paste(
       "There was an error mapping observed times to cumulative",
       "incidence estimates. Please report this bug at",
@@ -466,8 +494,8 @@ glance.tidycuminc <- function(x, ...) {
       by = "failcode_id"
     ) %>%
     select(.data$outcome, .data$failcode_id,
-      statistic = .data$stat,
-      .data$df, p.value = .data$pv
+           statistic = .data$stat,
+           .data$df, p.value = .data$pv
     ) %>%
     tidyr::pivot_wider(
       values_from = c(.data$outcome, .data$statistic, .data$df, .data$p.value),
