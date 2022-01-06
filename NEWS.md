@@ -1,5 +1,7 @@
 # tidycmprsk (development version)
 
+* Updated the definition of `n.event` and `n.censor` in `tidy.tidycuminc()` to match `summary.survfit()` when users specify `tidy.tidycuminc(times=)`. We now report the cumulative number of events/censors in the interval prior to the specified times. (#49)
+
 * Added `crr(conf.level=)` and `cuminc(conf.level=)` arguments. The tidy data frame returned with each of these objects now has confidence limits that match `conf.level=`. (#45)
 
 * The `tidy.ticycrr()` and `tidy.ticycuminc()` `conf.level=` defaults have been updated to `x$conf.level` passed in the original model call.

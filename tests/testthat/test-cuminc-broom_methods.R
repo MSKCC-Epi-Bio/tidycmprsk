@@ -4,7 +4,7 @@ test_that("broom methods", {
   tidy_survfit1_cancer <-
     survival::survfit(Surv(ttdeath, death_cr == "death from cancer") ~ 1, trial) %>%
     broom::tidy()
-  survfit1_cancer_times <- summary(survival::survfit(Surv(ttdeath, death_cr == "death from cancer") ~ 1, trial),times=c(0,5,10,15,20))
+  survfit1_cancer_times <- summary(survival::survfit(Surv(ttdeath, death_cr == "death from cancer") ~ 1, trial), times = c(0, 5, 10, 15, 20))
   tidy_survfit1_other <-
     survival::survfit(Surv(ttdeath, death_cr == "death from cancer") ~ 1, trial) %>%
     broom::tidy()
@@ -132,13 +132,17 @@ test_that("broom methods", {
 
   # Selected time points
 
-  cuminc1_tidy_time <- tidy(cuminc1,times=c(0,5,10,15,20))
+  cuminc1_tidy_time <- tidy(cuminc1, times = c(0, 5, 10, 15, 20))
   survfit_check1_time <-
     cuminc1_tidy_time %>%
     filter(outcome == "death from cancer") %>%
     select(time, n.risk.survfit, n.event) %>%
     dplyr::inner_join(
-      data.frame(time=survfit1_cancer_times$time,n.risk=survfit1_cancer_times$n.risk,n.event=survfit1_cancer_times$n.event),
+      data.frame(
+        time = survfit1_cancer_times$time,
+        n.risk = survfit1_cancer_times$n.risk,
+        n.event = survfit1_cancer_times$n.event
+      ),
       by = c("time")
     )
 
