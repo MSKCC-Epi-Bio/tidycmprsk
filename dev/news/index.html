@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9004</span>
       </span>
     </div>
 
@@ -55,7 +55,8 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="tidycmprsk-development-version">tidycmprsk (development version)<a class="anchor" aria-label="anchor" href="#tidycmprsk-development-version"></a></h2>
-<ul><li><p>Added <code>crr(conf.level=)</code> and <code>cuminc(conf.level=)</code> arguments. The tidy data frame returned with each of these objects now has confidence limits that match <code>conf.level=</code>. (<a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/45" class="external-link">#45</a>)</p></li>
+<ul><li><p>Updated the definition of <code>n.event</code> and <code>n.censor</code> in <code><a href="../reference/broom_methods_cuminc.html">tidy.tidycuminc()</a></code> to match <code>summary.survfit()</code> when users specify <code>tidy.tidycuminc(times=)</code>. We now report the cumulative number of events/censors in the interval prior to the specified times. (<a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/49" class="external-link">#49</a>)</p></li>
+<li><p>Added <code>crr(conf.level=)</code> and <code>cuminc(conf.level=)</code> arguments. The tidy data frame returned with each of these objects now has confidence limits that match <code>conf.level=</code>. (<a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/45" class="external-link">#45</a>)</p></li>
 <li><p>The <code>tidy.ticycrr()</code> and <code>tidy.ticycuminc()</code> <code>conf.level=</code> defaults have been updated to <code>x$conf.level</code> passed in the original model call.</p></li>
 <li><p>Now returning the the number at risk, number of events, and the number of censored observations in <code><a href="../reference/broom_methods_cuminc.html">tidy.tidycuminc()</a></code>.</p></li>
 <li><p>Updated the default value to <code>tidy.tidycuminc(conf.int = TRUE)</code> from <code>FALSE</code></p></li>
