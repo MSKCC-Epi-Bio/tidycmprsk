@@ -184,7 +184,7 @@ tidy.tidycuminc <- function(x, times = NULL,
       ),
       across(
         c(.data$estimate, .data$std.error),
-        ~ ifelse(.data$time < .data$..min_time.., 0, .)
+        ~ ifelse(.data$time < .data$..min_time.., 0L, .)
       )
     ) %>%
     # select(-.data$..max_time..,-.data$..min_time..) %>%
@@ -194,14 +194,14 @@ tidy.tidycuminc <- function(x, times = NULL,
     mutate(
       n.risk.survfit = .data$n.risk,
       n.risk = .data$n.risk - .data$n.event - .data$n.censor,
-      n.event = c(0,diff(.data$cumulative.event)),
-      n.censor = c(0,diff(.data$cumulative.censor))
+      n.event = c(.data$cumulative.event[1],diff(.data$cumulative.event)),
+      n.censor = c(.data$cumulative.censor[1],diff(.data$cumulative.censor))
     )  %>%
     # correcting values larger than largest observed timepoint
     mutate(
       across(
         c(.data$n.event, .data$n.censor),
-        ~ ifelse(.data$time > .data$..max_time.. | .data$time < .data$..min_time.., 0, .)
+        ~ ifelse(.data$time > .data$..max_time.. | .data$time < .data$..min_time.., 0L, .)
       )
     ) %>%
     select(-.data$..max_time..,-.data$..min_time..) %>%
