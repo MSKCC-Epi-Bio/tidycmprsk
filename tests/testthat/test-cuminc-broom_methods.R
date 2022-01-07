@@ -136,7 +136,7 @@ test_that("broom methods", {
   survfit_check1_time <-
     cuminc1_tidy_time %>%
     filter(outcome == "death from cancer") %>%
-    select(time, n.risk.survfit, n.event) %>%
+    select(time, n.risk, n.event) %>%
     dplyr::inner_join(
       data.frame(
         time = survfit1_cancer_times$time,
@@ -146,10 +146,6 @@ test_that("broom methods", {
       by = c("time")
     )
 
-  expect_equal(
-    survfit_check1_time$n.risk,
-    survfit_check1_time$n.risk.survfit
-  )
   expect_equal(
     survfit_check1_time$n.event.x,
     survfit_check1_time$n.event.y
