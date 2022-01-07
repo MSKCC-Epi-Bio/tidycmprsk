@@ -44,6 +44,12 @@ The returned \code{tidy()} data frame returns the following columns:\tabular{ll}
    \code{cumulative.event} \tab Cumulative number of events at specified time \cr
    \code{cumulative.censor} \tab Cumulative number of censored observations at specified time \cr
 }
+
+
+If \code{tidy(time=)} is specified, then \code{n.event} and \code{n.censor} are the
+cumulative number of events/censored in the interval. For example, if
+\code{tidy(time = c(0, 12, 18))} is passed, \code{n.event} and \code{n.censor} at \code{time = 18}
+are the cumulative number of events/censored in the interval \verb{(12, 18]}.
 }
 
 \section{Confidence intervals}{
