@@ -103,6 +103,11 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #' knitr::kable()
 #' ```
 #'
+#' If `tidy(time=)` is specified, then `n.event` and `n.censor` are the
+#' cumulative number of events/censored in the interval. For example, if
+#' `tidy(time = c(0, 12, 18))` is passed, `n.event` and `n.censor` at `time = 18`
+#' are the cumulative number of events/censored in the interval `(12, 18]`.
+#'
 #' @inheritSection cuminc Confidence intervals
 #'
 #' @examples
