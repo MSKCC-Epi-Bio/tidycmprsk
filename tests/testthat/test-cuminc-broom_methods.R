@@ -147,6 +147,11 @@ test_that("broom methods", {
     )
 
   expect_equal(
+    survfit_check1_time$n.risk.x,
+    survfit_check1_time$n.risk.y
+  )
+
+  expect_equal(
     survfit_check1_time$n.event.x,
     survfit_check1_time$n.event.y
   )
