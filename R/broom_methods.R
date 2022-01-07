@@ -113,12 +113,13 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #' glance(cuminc)
 NULL
 
-
 #' @rdname broom_methods_cuminc
 #' @export
 #' @family cuminc tidiers
-tidy.tidycuminc <- function(x, times = NULL,
-                            conf.int = TRUE, conf.level = x$conf.level, ...) {
+tidy.tidycuminc <- function(x,
+                            times = NULL,
+                            conf.int = TRUE,
+                            conf.level = x$conf.level, ...) {
   # check inputs ---------------------------------------------------------------
   if (!is.numeric(conf.level) || !dplyr::between(conf.level, 0, 1)) {
     stop("`conf.level=` must be between 0 and 1")
@@ -192,8 +193,6 @@ tidy.tidycuminc <- function(x, times = NULL,
     filter(.data$time %in% .env$times) %>%
     group_by(across(any_of(c("strata", "outcome")))) %>%
     mutate(
-      n.risk.survfit = .data$n.risk,
-      n.risk = .data$n.risk - .data$n.event - .data$n.censor,
       n.event = c(.data$cumulative.event[1],diff(.data$cumulative.event)),
       n.censor = c(.data$cumulative.censor[1],diff(.data$cumulative.censor))
     )  %>%
@@ -212,7 +211,8 @@ tidy.tidycuminc <- function(x, times = NULL,
     df_tidy <-
       df_tidy %>%
       select(-.data$conf.low, -.data$conf.high)
-  } else if (!identical(conf.level, 0.95)) {
+  }
+  else if (!identical(conf.level, x$conf.level)) {
     df_tidy <- add_conf.int(df_tidy, conf.level = conf.level)
   }
 
