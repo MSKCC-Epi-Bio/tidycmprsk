@@ -24,7 +24,7 @@ Imports:
     dplyr (>= 1.0.7),
     ggplot2 (>= 3.3.5),
     gtsummary (>= 1.5.0),
-    hardhat (>= 0.1.6.9000),
+    hardhat (>= 0.2.0),
     purrr (>= 0.3.4),
     rlang (>= 0.4.12),
     stringr (>= 1.4.0),
