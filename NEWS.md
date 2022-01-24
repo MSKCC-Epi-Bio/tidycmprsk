@@ -1,4 +1,4 @@
-# tidycmprsk (development version)
+# tidycmprsk 0.1.1
 
 * Updated the definition of `n.event` and `n.censor` in `tidy.tidycuminc()` to match `summary.survfit()` when users specify `tidy.tidycuminc(times=)`. We now report the cumulative number of events/censors in the interval prior to the specified times. (#49)
 
