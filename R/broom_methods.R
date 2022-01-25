@@ -170,12 +170,14 @@ tidy.tidycuminc <- function(x,
       ..min_time.. = min(.data$time[!is.na(.data$estimate) & .data$time > 0])
     ) %>%
     # fill down the estimates
-    tidyr::fill(.data$cumulative.event, .data$cumulative.censor,
-                .direction = "down"
+    tidyr::fill(
+      .data$estimate, .data$std.error, .data$conf.low, .data$conf.high,
+      .data$cumulative.event, .data$cumulative.censor,
+      .direction = "down"
     ) %>%
-    tidyr::fill(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high,
-                .data$n.risk,
-                .direction = "up"
+    tidyr::fill(
+      .data$n.risk,
+      .direction = "up"
     ) %>%
     # correcting values larger than largest observed timepoint
     mutate(

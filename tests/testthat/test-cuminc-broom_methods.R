@@ -1,6 +1,17 @@
 test_that("broom methods", {
   cuminc1 <- cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
   cuminc2 <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
+  cmprsk_cuminc1 <-
+    cmprsk::cuminc(
+      ftime = trial$ttdeath,
+      fstatus = as.numeric(trial$death_cr) - 1L
+    )
+  cmprsk_cuminc2 <-
+    cmprsk::cuminc(
+      ftime = trial$ttdeath,
+      fstatus = as.numeric(trial$death_cr) - 1L,
+      group = trial$trt
+    )
   tidy_survfit1_cancer <-
     survival::survfit(Surv(ttdeath, death_cr == "death from cancer") ~ 1, trial) %>%
     broom::tidy()
@@ -21,6 +32,31 @@ test_that("broom methods", {
   tidy_survfit2_cancer_censor <-
     survival::survfit(Surv(ttdeath, death_cr != "censor") ~ trt, trial) %>%
     broom::tidy()
+
+  expect_equal(
+    tidy(cuminc1, times = 15) %>%
+      dplyr::pull(estimate),
+    cmprsk::timepoints(cmprsk_cuminc1, times = 15)$est %>% c()
+  )
+  expect_equal(
+    tidy(cuminc1, times = 15) %>%
+      dplyr::pull(std.error),
+    cmprsk::timepoints(cmprsk_cuminc1, times = 15)$var %>% sqrt() %>% c()
+  )
+
+  expect_equal(
+    tidy(cuminc2, times = 15) %>%
+      dplyr::arrange(outcome) %>%
+      dplyr::pull(estimate),
+    cmprsk::timepoints(cmprsk_cuminc2, times = 15)$est %>% c()
+  )
+
+  expect_equal(
+    tidy(cuminc1, times = 15) %>%
+      dplyr::arrange(outcome) %>%
+      dplyr::pull(std.error),
+    cmprsk::timepoints(cmprsk_cuminc1, times = 15)$var %>% sqrt() %>% c()
+  )
 
   expect_false(
     identical(
