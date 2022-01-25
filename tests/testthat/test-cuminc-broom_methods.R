@@ -44,6 +44,20 @@ test_that("broom methods", {
     cmprsk::timepoints(cmprsk_cuminc1, times = 15)$var %>% sqrt() %>% c()
   )
 
+  expect_equal(
+    tidy(cuminc2, times = 15) %>%
+      dplyr::arrange(outcome) %>%
+      dplyr::pull(estimate),
+    cmprsk::timepoints(cmprsk_cuminc2, times = 15)$est %>% c()
+  )
+
+  expect_equal(
+    tidy(cuminc1, times = 15) %>%
+      dplyr::arrange(outcome) %>%
+      dplyr::pull(std.error),
+    cmprsk::timepoints(cmprsk_cuminc1, times = 15)$var %>% sqrt() %>% c()
+  )
+
   expect_false(
     identical(
       cuminc1 %>% tidy(times = c(12, 24)),
