@@ -3,7 +3,8 @@
 #' @param x input object
 #' @param formula formula with `Surv()` on LHS and covariates on RHS.
 #' The event status variable must be a factor, with the first level indicating
-#' 'censor' and subsequent levels the competing risks.
+#' 'censor' and subsequent levels the competing risks. The `Surv(time2=)`
+#' argument cannot be used.
 #' @param data data frame
 #' @param failcode Indicates event of interest. If `failcode=` is `NULL`,
 #' the first competing event will be used as the event of interest.
@@ -64,10 +65,10 @@ as_numeric_failcode <- function(formula, data, failcode, keep_all = FALSE) {
     !identical(attr(formula_lhs, "type"), "mright")) {
     paste(
       "The LHS of the formula must be of class 'Surv' and type 'mright'.",
-      "Please review syntax in the help file.",
+      "Please review expected syntax in the help file.",
       "The status variable must be a factor, where the first level indicates",
       "the observation was censored, and subsequent levels are the",
-      "competing events."
+      "competing events. Cannot use `Surv(time2=)` argument."
     ) %>%
       stop(call. = FALSE)
   }

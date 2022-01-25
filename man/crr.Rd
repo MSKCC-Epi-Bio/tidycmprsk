@@ -15,7 +15,8 @@ crr(x, ...)
 \arguments{
 \item{formula}{formula with \code{Surv()} on LHS and covariates on RHS.
 The event status variable must be a factor, with the first level indicating
-'censor' and subsequent levels the competing risks.}
+'censor' and subsequent levels the competing risks. The \code{Surv(time2=)}
+argument cannot be used.}
 
 \item{data}{data frame}
 
