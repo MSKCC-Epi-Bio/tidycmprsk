@@ -1,6 +1,7 @@
 CMD
 Codecov
 Melania
+Ns
 ORCID
 Pintilie
 cmprsk
@@ -13,6 +14,7 @@ ggplot
 mL
 ng
 subdistribution
+tbl
 tibble
 tidiers
 tidycrr

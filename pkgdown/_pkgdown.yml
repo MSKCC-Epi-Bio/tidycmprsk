@@ -41,6 +41,11 @@ reference:
   - contents:
        - autoplot.tidycuminc
 
+  - title: Summary Tables
+  - contents:
+       - tbl_cuminc
+       - add_cuminc
+
   - title: Other Functions
   - contents:
       - predict.tidycrr

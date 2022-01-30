@@ -9,6 +9,10 @@
 \alias{tidy}
 \alias{glance}
 \alias{augment}
+\alias{add_n}
+\alias{add_nevent}
+\alias{add_p}
+\alias{inline_text}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -21,6 +25,8 @@ below to see their documentation.
   \item{dplyr}{\code{\link[dplyr:reexports]{\%>\%}}}
 
   \item{ggplot2}{\code{\link[ggplot2]{autoplot}}}
+
+  \item{gtsummary}{\code{\link[gtsummary]{add_n}}, \code{\link[gtsummary]{add_nevent}}, \code{\link[gtsummary]{add_p}}, \code{\link[gtsummary]{inline_text}}}
 
   \item{survival}{\code{\link[survival]{Surv}}}
 }}
