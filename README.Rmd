@@ -84,7 +84,31 @@ Plot risks using `autoplot()`.
 
 ```{r fig.asp = .45}
 cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
-  autoplot(outcomes = "death from cancer", conf.int = TRUE)
+  autoplot(conf.int = TRUE)
+```
+
+Summary table
+
+```{r tbl_cuminc}
+tbl <- 
+  cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
+  tbl_cuminc(times = c(12, 24), label_header = "**Month {time}**") %>%
+  add_p() %>%
+  add_n()
+```
+
+```{r gtsummary_print2, include = FALSE}
+# Had to manually save images in temp file, not sure if better way.
+gt::gtsave(gtsummary::as_gt(tbl), file = file.path(tempdir(), "temp.png"))
+```
+
+```{r out.width = "50%", echo = FALSE}
+# Have to do this workaround since the README needs markdown format for GitHub page but a different format for the website.
+if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
+  tbl
+} else {
+  knitr::include_graphics("man/figures/README-gtsummary_print2-1.png")
+} 
 ```
 
 ## Contributing

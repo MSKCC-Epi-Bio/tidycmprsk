@@ -97,8 +97,8 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #'   "`n.risk`", "Number at risk at the specified time",
 #'   "`n.event`", "Number of events at specified time",
 #'   "`n.censor`", "Number of censored observations at specified time",
-#'   "`cumulative.event`", "Cumulative number of events at specified time",
-#'   "`cumulative.censor`", "Cumulative number of censored observations at specified time"
+#'   "`cum.event`", "Cumulative number of events at specified time",
+#'   "`cum.censor`", "Cumulative number of censored observations at specified time"
 #' ) %>%
 #' knitr::kable()
 #' ```
@@ -107,6 +107,12 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #' cumulative number of events/censored in the interval. For example, if
 #' `tidy(time = c(0, 12, 18))` is passed, `n.event` and `n.censor` at `time = 18`
 #' are the cumulative number of events/censored in the interval `(12, 18]`.
+#'
+#' @section p-values:
+#'
+#' The p-values reported in `glance.tidycuminc()` and `add_p.tbl_cuminc()`
+#' are Gray's test as reported in
+#' Gray RJ (1988) *A class of K-sample tests for comparing the cumulative incidence of a competing risk*, Annals of Statistics, 16:1141-1154.
 #'
 #' @inheritSection cuminc Confidence intervals
 #'
@@ -172,7 +178,7 @@ tidy.tidycuminc <- function(x,
     # fill down the estimates
     tidyr::fill(
       .data$estimate, .data$std.error, .data$conf.low, .data$conf.high,
-      .data$cumulative.event, .data$cumulative.censor,
+      .data$cum.event, .data$cum.censor,
       .direction = "down"
     ) %>%
     tidyr::fill(
@@ -200,8 +206,8 @@ tidy.tidycuminc <- function(x,
     filter(.data$time %in% .env$times) %>%
     group_by(across(any_of(c("strata", "outcome")))) %>%
     mutate(
-      n.event = c(.data$cumulative.event[1],diff(.data$cumulative.event)),
-      n.censor = c(.data$cumulative.censor[1],diff(.data$cumulative.censor))
+      n.event = c(.data$cum.event[1],diff(.data$cum.event)),
+      n.censor = c(.data$cum.censor[1],diff(.data$cum.censor))
     )  %>%
     # correcting values larger than largest observed timepoint
     mutate(
@@ -418,8 +424,8 @@ add_n_stats <- function(df_tidy, x) {
     group_by(across(any_of(c("strata", "outcome")))) %>%
     arrange(across(any_of(c("strata", "outcome", "time")))) %>%
     mutate(
-      cumulative.event = as.integer(cumsum(.data$n.event)),
-      cumulative.censor = as.integer(cumsum(.data$n.censor))
+      cum.event = as.integer(cumsum(.data$n.event)),
+      cum.censor = as.integer(cumsum(.data$n.censor))
     )
 
   if ("strata" %in% names(df_tidy)) {
@@ -433,8 +439,8 @@ add_n_stats <- function(df_tidy, x) {
     group_by(across(any_of(c("strata", "outcome")))) %>%
     tidyr::fill(.data$n.risk, .data$estimate, .data$std.error,
                 .data$conf.low, .data$conf.high,
-                .data$n.event, .data$n.censor, .data$cumulative.event,
-                .data$cumulative.censor,
+                .data$n.event, .data$n.censor, .data$cum.event,
+                .data$cum.censor,
                 .direction = "down"
     ) %>%
     dplyr::ungroup() %>%

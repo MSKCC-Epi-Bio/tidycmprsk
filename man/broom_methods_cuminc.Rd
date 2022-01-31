@@ -41,8 +41,8 @@ The returned \code{tidy()} data frame returns the following columns:\tabular{ll}
    \code{n.risk} \tab Number at risk at the specified time \cr
    \code{n.event} \tab Number of events at specified time \cr
    \code{n.censor} \tab Number of censored observations at specified time \cr
-   \code{cumulative.event} \tab Cumulative number of events at specified time \cr
-   \code{cumulative.censor} \tab Cumulative number of censored observations at specified time \cr
+   \code{cum.event} \tab Cumulative number of events at specified time \cr
+   \code{cum.censor} \tab Cumulative number of censored observations at specified time \cr
 }
 
 
@@ -50,6 +50,14 @@ If \code{tidy(time=)} is specified, then \code{n.event} and \code{n.censor} are 
 cumulative number of events/censored in the interval. For example, if
 \code{tidy(time = c(0, 12, 18))} is passed, \code{n.event} and \code{n.censor} at \code{time = 18}
 are the cumulative number of events/censored in the interval \verb{(12, 18]}.
+}
+
+\section{p-values}{
+
+
+The p-values reported in \code{glance.tidycuminc()} and \code{add_p.tbl_cuminc()}
+are Gray's test as reported in
+Gray RJ (1988) \emph{A class of K-sample tests for comparing the cumulative incidence of a competing risk}, Annals of Statistics, 16:1141-1154.
 }
 
 \section{Confidence intervals}{

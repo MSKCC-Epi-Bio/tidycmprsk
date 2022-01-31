@@ -90,10 +90,22 @@ Plot risks using `autoplot()`.
 
 ``` r
 cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
-  autoplot(outcomes = "death from cancer", conf.int = TRUE)
+  autoplot(conf.int = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+Summary table
+
+``` r
+tbl <- 
+  cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
+  tbl_cuminc(times = c(12, 24), label_header = "**Month {time}**") %>%
+  add_p() %>%
+  add_n()
+```
+
+<img src="man/figures/README-gtsummary_print2-1.png" width="50%" />
 
 ## Contributing
 
