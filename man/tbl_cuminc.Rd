@@ -26,8 +26,7 @@ tbl_cuminc(x, ...)
 \item{times}{Numeric vector of times to obtain risk estimates at}
 
 \item{outcomes}{character vector of outcomes to include. Default
-is to include the first outcome. To include all outcomes, use
-\code{outcomes = names(x$failcode)}}
+is to include the first outcome.}
 
 \item{statistic}{string of statistic to report. Default is
 \code{"{estimate}\% ({conf.low}\%, {conf.high}\%)"}}
@@ -51,10 +50,30 @@ em-dash, \code{"\\U2014"}}
 \description{
 \emph{This is experimental and breaking changes may be made in a future release.}
 }
+\section{Example Output}{
+
+\if{html}{Example 1}
+
+\if{html}{\figure{tbl_cuminc_ex1.png}{options: width=50\%}}
+
+\if{html}{Example 2}
+
+\if{html}{\figure{tbl_cuminc_ex2.png}{options: width=60\%}}
+}
+
 \examples{
-tbl <-
-  cuminc(Surv(ttdeath, death_cr) ~ trt, trial) \%>\%
+# Example 1 ----------------------------------
+tbl_cuminc_ex1 <-
+  cuminc(Surv(ttdeath, death_cr) ~ 1, trial) \%>\%
   tbl_cuminc(times = c(12, 24), label_header = "**Month {time}**")
+
+# Example 2 ----------------------------------
+tbl_cuminc_ex2 <-
+  cuminc(Surv(ttdeath, death_cr) ~ trt, trial) \%>\%
+  tbl_cuminc(times = c(12, 24),
+             outcomes = c("death from cancer", "death other causes"),
+             label_header = "**Month {time}**")
+
 }
 \seealso{
 Other tbl_cuminc tools: 

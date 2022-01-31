@@ -14,7 +14,7 @@
 
 \method{add_nevent}{tbl_cuminc}(x, location = NULL, ...)
 
-\method{inline_text}{tbl_cuminc}(x, time = NULL, column = NULL, level = NULL, ...)
+\method{inline_text}{tbl_cuminc}(x, time = NULL, column = NULL, outcome = NULL, level = NULL, ...)
 }
 \arguments{
 \item{x}{object of class 'tbl_cuminc'}
@@ -33,12 +33,13 @@ variable's label row for continuous.}
 
 \item{column}{column name of the statistic to report}
 
+\item{outcome}{string indicating the outcome to select from. If \code{NULL}, the
+first outcome is used.}
+
 \item{level}{if estimates are stratified, level of the stratum to report}
 }
 \description{
 \emph{This is experimental and breaking changes may be made in a future release.}
-}
-\details{
 \itemize{
 \item \code{add_p()} Add column with p-value comparing incidence across stratum
 \item \code{add_n()} Add column with the total N, or N within stratum
@@ -46,15 +47,39 @@ variable's label row for continuous.}
 \item \code{inline_text()} Report statistics from a \code{tbl_cuminc()} table inline
 }
 }
+\section{Example Output}{
+
+\if{html}{Example 1}
+
+\if{html}{\figure{add_cuminc_ex1.png}{options: width=50\%}}
+
+\if{html}{Example 2}
+
+\if{html}{\figure{add_cuminc_ex2.png}{options: width=60\%}}
+}
+
 \examples{
-tbl <-
-  cuminc(Surv(ttdeath, death_cr) ~ trt, trial) \%>\%
+# Example 1 ----------------------------------
+add_cuminc_ex1 <-
+  cuminc(Surv(ttdeath, death_cr) ~ 1, trial) \%>\%
   tbl_cuminc(times = c(12, 24), label_header = "**Month {time}**") \%>\%
-  add_p() \%>\%
   add_nevent() \%>\%
   add_n()
 
-inline_text(tbl, time = 12, level = "Drug A")
+# Example 2 ----------------------------------
+add_cuminc_ex2 <-
+  cuminc(Surv(ttdeath, death_cr) ~ trt, trial) \%>\%
+  tbl_cuminc(times = c(12, 24),
+             outcomes = c("death from cancer", "death other causes"),
+             label_header = "**Month {time}**") \%>\%
+  add_p() \%>\%
+  add_nevent(location = c("label", "level")) \%>\%
+  add_n(location = c("label", "level"))
+
+# inline_text() ------------------------------
+inline_text(add_cuminc_ex2, time = 12, level = "Drug A")
+inline_text(add_cuminc_ex2, column = p.value)
+
 }
 \seealso{
 Other tbl_cuminc tools: 

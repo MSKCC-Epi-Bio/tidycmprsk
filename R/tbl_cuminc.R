@@ -4,8 +4,7 @@
 #'
 #' @param x a 'tidycuminc' object created with `cuminc()`
 #' @param outcomes character vector of outcomes to include. Default
-#' is to include the first outcome. To include all outcomes, use
-#' `outcomes = names(x$failcode)`
+#' is to include the first outcome.
 #' @param statistic string of statistic to report. Default is
 #' `"{estimate}% ({conf.low}%, {conf.high}%)"`
 #' @param estimate_fun function that styles and formats the statistics.
@@ -22,9 +21,26 @@
 #' @family tbl_cuminc tools
 #' @export
 #' @examples
-#' tbl <-
-#'   cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
+#' # Example 1 ----------------------------------
+#' tbl_cuminc_ex1 <-
+#'   cuminc(Surv(ttdeath, death_cr) ~ 1, trial) %>%
 #'   tbl_cuminc(times = c(12, 24), label_header = "**Month {time}**")
+#'
+#' # Example 2 ----------------------------------
+#' tbl_cuminc_ex2 <-
+#'   cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
+#'   tbl_cuminc(times = c(12, 24),
+#'              outcomes = c("death from cancer", "death other causes"),
+#'              label_header = "**Month {time}**")
+#'
+#' @section Example Output:
+#' \if{html}{Example 1}
+#'
+#' \if{html}{\figure{tbl_cuminc_ex1.png}{options: width=50\%}}
+#'
+#' \if{html}{Example 2}
+#'
+#' \if{html}{\figure{tbl_cuminc_ex2.png}{options: width=60\%}}
 NULL
 
 #' @export
@@ -209,6 +225,7 @@ tbl_cuminc <- function(x, ...) {
 
 #' Additional Functions for `tbl_cuminc()`
 #'
+#' @description
 #' *This is experimental and breaking changes may be made in a future release.*
 #'
 #' - `add_p()` Add column with p-value comparing incidence across stratum
@@ -226,19 +243,42 @@ tbl_cuminc <- function(x, ...) {
 #' @param time time of statistic to report
 #' @param column column name of the statistic to report
 #' @param level if estimates are stratified, level of the stratum to report
+#' @param outcome string indicating the outcome to select from. If `NULL`, the
+#' first outcome is used.
 #' @inheritParams rlang::args_dots_empty
 #'
 #' @name add_cuminc
 #' @family tbl_cuminc tools
 #' @examples
-#' tbl <-
-#'   cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
+#' # Example 1 ----------------------------------
+#' add_cuminc_ex1 <-
+#'   cuminc(Surv(ttdeath, death_cr) ~ 1, trial) %>%
 #'   tbl_cuminc(times = c(12, 24), label_header = "**Month {time}**") %>%
-#'   add_p() %>%
 #'   add_nevent() %>%
 #'   add_n()
 #'
-#' inline_text(tbl, time = 12, level = "Drug A")
+#' # Example 2 ----------------------------------
+#' add_cuminc_ex2 <-
+#'   cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
+#'   tbl_cuminc(times = c(12, 24),
+#'              outcomes = c("death from cancer", "death other causes"),
+#'              label_header = "**Month {time}**") %>%
+#'   add_p() %>%
+#'   add_nevent(location = c("label", "level")) %>%
+#'   add_n(location = c("label", "level"))
+#'
+#' # inline_text() ------------------------------
+#' inline_text(add_cuminc_ex2, time = 12, level = "Drug A")
+#' inline_text(add_cuminc_ex2, column = p.value)
+#'
+#' @section Example Output:
+#' \if{html}{Example 1}
+#'
+#' \if{html}{\figure{add_cuminc_ex1.png}{options: width=50\%}}
+#'
+#' \if{html}{Example 2}
+#'
+#' \if{html}{\figure{add_cuminc_ex2.png}{options: width=60\%}}
 NULL
 
 #' @export
@@ -357,9 +397,18 @@ add_nevent.tbl_cuminc <- function(x, location = NULL, ...) {
 
 #' @export
 #' @rdname add_cuminc
-inline_text.tbl_cuminc <- function(x, time = NULL, column = NULL, level = NULL, ...) {
+inline_text.tbl_cuminc <- function(x,
+                                   time = NULL,
+                                   column = NULL,
+                                   outcome = NULL,
+                                   level = NULL, ...) {
   rlang::check_dots_empty()
-  if (is.null(time) + is.null(column) != 1L) {
+  column <- rlang::enquo(column)
+  column_is_null <-
+    tryCatch(rlang::quo_is_null(column) || is.null(rlang::eval_tidy(column)),
+             error = function(e) FALSE)
+
+  if (is.null(time) + column_is_null != 1L) {
     stop("Specify only one of `time=` or `column=`.", call. = FALSE)
   }
 
@@ -371,10 +420,15 @@ inline_text.tbl_cuminc <- function(x, time = NULL, column = NULL, level = NULL, 
     column <- filter(x$tidy, .data$time %in% .env$time)$column_name[1]
   }
 
+  # subset on the outcome of interest
+  if (is.null(outcome)) outcome <- names(x$inputs$x$failcode)[1]
+  outcome <- match.arg(outcome, choices = names(x$inputs$x$failcode))
+  x$table_body <- filter(x$table_body, .data$outcome %in% .env$outcome)
+
   gtsummary::inline_text(
     x = structure(x, class = "gtsummary"), # forcing gtsummary method
     variable = x$table_body$variable[1],
     level = {{ level }},
-    column = column
+    column = !!column
   )
 }
