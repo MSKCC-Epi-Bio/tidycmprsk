@@ -116,7 +116,7 @@ tbl_cuminc.tidycuminc <- function(x,
                  n = .data$n.risk),
         tidy(x, times = max(x$tidy$time) + 1) %>%
           select(any_of(c("outcome", "strata")),
-                 n.event = .data$cumulative.event)
+                 n.event = .data$cum.event)
       )
     ) %>%
     dplyr::group_by(.data$outcome) %>%

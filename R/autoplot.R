@@ -4,7 +4,7 @@
 #'
 #' @param object object of class 'cuminc'
 #' @param outcomes character vector of outcomes to include in plot. Default
-#' is to include all competing events.
+#' is to include the first competing events.
 #' @param aes List of arguments that will be added or replace the existing
 #' arguments in `ggplot2::aes()`. Details below.
 #' @inheritParams tidy.tidycuminc
@@ -34,10 +34,11 @@
 #'     x = "Months from Treatment",
 #'     y = "Risk of Death"
 #'   )
-autoplot.tidycuminc <- function(object, outcomes = names(object$failcode),
+autoplot.tidycuminc <- function(object, outcomes = NULL,
                                 conf.int = FALSE, conf.level = 0.95,
                                 aes = NULL, ...) {
   # checking inputs ------------------------------------------------------------
+  outcomes <- outcomes %||% names(object$failcode)[1]
   outcomes <- match.arg(outcomes, names(object$failcode), several.ok = TRUE)
 
   # tidying --------------------------------------------------------------------

@@ -6,7 +6,7 @@
 \usage{
 \method{autoplot}{tidycuminc}(
   object,
-  outcomes = names(object$failcode),
+  outcomes = NULL,
   conf.int = FALSE,
   conf.level = 0.95,
   aes = NULL,
@@ -17,7 +17,7 @@
 \item{object}{object of class 'cuminc'}
 
 \item{outcomes}{character vector of outcomes to include in plot. Default
-is to include all competing events.}
+is to include the first competing events.}
 
 \item{conf.int}{Logical indicating whether or not to include a confidence
 interval in the tidied output. Defaults to \code{FALSE}.}

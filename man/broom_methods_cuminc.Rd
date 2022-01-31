@@ -41,8 +41,8 @@ The returned \code{tidy()} data frame returns the following columns:\tabular{ll}
    \code{n.risk} \tab Number at risk at the specified time \cr
    \code{n.event} \tab Number of events at specified time \cr
    \code{n.censor} \tab Number of censored observations at specified time \cr
-   \code{cumulative.event} \tab Cumulative number of events at specified time \cr
-   \code{cumulative.censor} \tab Cumulative number of censored observations at specified time \cr
+   \code{cum.event} \tab Cumulative number of events at specified time \cr
+   \code{cum.censor} \tab Cumulative number of censored observations at specified time \cr
 }
 
 
