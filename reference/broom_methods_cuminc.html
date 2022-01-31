@@ -90,10 +90,19 @@ interval in the tidied output. Defaults to <code>FALSE</code>.</p></dd>
     
 
 
-<p>The returned <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> data frame returns the following columns:</p><table class="table table"><tr><td><strong>Column Name</strong></td><td><strong>Description</strong></td></tr><tr><td><code>outcome</code></td><td>Competing Event Outcome</td></tr><tr><td><code>time</code></td><td>Numeric follow-up time</td></tr><tr><td><code>estimate</code></td><td>Risk estimate</td></tr><tr><td><code>std.error</code></td><td>Standard Error</td></tr><tr><td><code>n.risk</code></td><td>Number at risk at the specified time</td></tr><tr><td><code>n.event</code></td><td>Number of events at specified time</td></tr><tr><td><code>n.censor</code></td><td>Number of censored observations at specified time</td></tr><tr><td><code>cumulative.event</code></td><td>Cumulative number of events at specified time</td></tr><tr><td><code>cumulative.censor</code></td><td>Cumulative number of censored observations at specified time</td></tr></table><p>If <code>tidy(time=)</code> is specified, then <code>n.event</code> and <code>n.censor</code> are the
+<p>The returned <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> data frame returns the following columns:</p><table class="table table"><tr><td><strong>Column Name</strong></td><td><strong>Description</strong></td></tr><tr><td><code>outcome</code></td><td>Competing Event Outcome</td></tr><tr><td><code>time</code></td><td>Numeric follow-up time</td></tr><tr><td><code>estimate</code></td><td>Risk estimate</td></tr><tr><td><code>std.error</code></td><td>Standard Error</td></tr><tr><td><code>n.risk</code></td><td>Number at risk at the specified time</td></tr><tr><td><code>n.event</code></td><td>Number of events at specified time</td></tr><tr><td><code>n.censor</code></td><td>Number of censored observations at specified time</td></tr><tr><td><code>cum.event</code></td><td>Cumulative number of events at specified time</td></tr><tr><td><code>cum.censor</code></td><td>Cumulative number of censored observations at specified time</td></tr></table><p>If <code>tidy(time=)</code> is specified, then <code>n.event</code> and <code>n.censor</code> are the
 cumulative number of events/censored in the interval. For example, if
 <code>tidy(time = c(0, 12, 18))</code> is passed, <code>n.event</code> and <code>n.censor</code> at <code>time = 18</code>
 are the cumulative number of events/censored in the interval <code>(12, 18]</code>.</p>
+    </div>
+    <div id="p-values">
+    <h2>p-values</h2>
+    
+
+
+<p>The p-values reported in <code>glance.tidycuminc()</code> and <code><a href="add_cuminc.html">add_p.tbl_cuminc()</a></code>
+are Gray's test as reported in
+Gray RJ (1988) <em>A class of K-sample tests for comparing the cumulative incidence of a competing risk</em>, Annals of Statistics, 16:1141-1154.</p>
     </div>
     <div id="confidence-intervals">
     <h2>Confidence intervals</h2>
@@ -132,8 +141,8 @@ confidence level of the interval, e.g. \(z = 1.96\) for a 95% CI.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 10.5  death from… Drug A   0.020<span style="text-decoration: underline;">4</span>    0.014<span style="text-decoration: underline;">4</span>  3.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>    0.065<span style="text-decoration: underline;">2</span>     92       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 11.4  death from… Drug A   0.030<span style="text-decoration: underline;">6</span>    0.017<span style="text-decoration: underline;">5</span>  8.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>    0.079<span style="text-decoration: underline;">8</span>     91       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 11.8  death from… Drug A   0.030<span style="text-decoration: underline;">6</span>    0.017<span style="text-decoration: underline;">5</span>  8.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>    0.079<span style="text-decoration: underline;">8</span>     90       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 218 more rows, and 3 more variables: n.censor &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   cumulative.event &lt;int&gt;, cumulative.censor &lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 218 more rows, and 3 more variables: n.censor &lt;int&gt;, cum.event &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   cum.censor &lt;int&gt;</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">cuminc</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 8</span></span>

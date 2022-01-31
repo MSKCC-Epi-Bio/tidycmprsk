@@ -140,8 +140,16 @@
 <p>Plot risks using <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span>outcomes <span class="op">=</span> <span class="st">"death from cancer"</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span>conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
+<p>Summary table</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tbl</span> <span class="op">&lt;-</span> 
+  <span class="fu"><a href="reference/cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="reference/tbl_cuminc.html">tbl_cuminc</a></span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span>, label_header <span class="op">=</span> <span class="st">"**Month {time}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_p.html" class="external-link">add_p</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-gtsummary_print2-1.png" width="50%"></p>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
