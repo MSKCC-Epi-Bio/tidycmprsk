@@ -271,6 +271,8 @@ tbl_cuminc <- function(x, ...) {
 #' inline_text(add_cuminc_ex2, time = 12, level = "Drug A")
 #' inline_text(add_cuminc_ex2, column = p.value)
 #'
+#' @inheritSection broom_methods_cuminc p-values
+#'
 #' @section Example Output:
 #' \if{html}{Example 1}
 #'
@@ -316,6 +318,7 @@ add_p.tbl_cuminc <- function(x, pvalue_fun = gtsummary::style_pvalue, ...) {
       columns = "p.value",
       hide = FALSE,
       label = "**p-value**",
+      footnote = "Gray's Test",
       fmt_fun = pvalue_fun
     ) %>%
     gtsummary::modify_table_styling(
