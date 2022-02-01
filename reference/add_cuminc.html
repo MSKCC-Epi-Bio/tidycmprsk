@@ -114,6 +114,15 @@ first outcome is used.</p></dd>
 <p>Example 2</p>
 <p><img src="figures/add_cuminc_ex2.png" width="60%"></p>
     </div>
+    <div id="p-values">
+    <h2>p-values</h2>
+    
+
+
+<p>The p-values reported in <code><a href="cuminc.html">cuminc()</a></code>, <code><a href="broom_methods_cuminc.html">glance.tidycuminc()</a></code> and <code>add_p.tbl_cuminc()</code>
+are Gray's test as described in
+Gray RJ (1988) <em>A class of K-sample tests for comparing the cumulative incidence of a competing risk</em>, Annals of Statistics, 16:1141-1154.</p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other tbl_cuminc tools: 
@@ -128,6 +137,7 @@ first outcome is used.</p></dd>
 <span class="r-in">  <span class="fu"><a href="tbl_cuminc.html">tbl_cuminc</a></span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span>, label_header <span class="op">=</span> <span class="st">"**Month {time}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_nevent.html" class="external-link">add_nevent</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .data$column_name:</span> Column `column_name` not found in `.data`.</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Example 2 ----------------------------------</span></span>
 <span class="r-in"><span class="va">add_cuminc_ex2</span> <span class="op">&lt;-</span></span>
@@ -138,12 +148,13 @@ first outcome is used.</p></dd>
 <span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_p.html" class="external-link">add_p</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_nevent.html" class="external-link">add_nevent</a></span><span class="op">(</span>location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"label"</span>, <span class="st">"level"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span>location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"label"</span>, <span class="st">"level"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .data$column_name:</span> Column `column_name` not found in `.data`.</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># inline_text() ------------------------------</span></span>
 <span class="r-in"><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/inline_text.html" class="external-link">inline_text</a></span><span class="op">(</span><span class="va">add_cuminc_ex2</span>, time <span class="op">=</span> <span class="fl">12</span>, level <span class="op">=</span> <span class="st">"Drug A"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3.1% (0.82%, 8.0%)</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in inline_text(add_cuminc_ex2, time = 12, level = "Drug A"):</span> object 'add_cuminc_ex2' not found</span>
 <span class="r-in"><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/inline_text.html" class="external-link">inline_text</a></span><span class="op">(</span><span class="va">add_cuminc_ex2</span>, column <span class="op">=</span> <span class="va">p.value</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.2"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in inline_text(add_cuminc_ex2, column = p.value):</span> object 'add_cuminc_ex2' not found</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
