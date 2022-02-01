@@ -115,13 +115,17 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tbl</span> <span class="op">&lt;-</span> 
   <span class="va">crr_mod</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">tbl_regression</a></span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+  <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">tbl_regression</a></span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span>location <span class="op">=</span> <span class="st">"level"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-gtsummary_print-1.png" width="50%"></p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/inline_text.html" class="external-link">inline_text</a></span><span class="op">(</span><span class="va">tbl</span>, variable <span class="op">=</span> <span class="va">age</span><span class="op">)</span>
+<span class="co">#&gt; [1] "1.01 (95% CI 0.99, 1.03; p=0.6)"</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="cumulative-incidence">Cumulative Incidence<a class="anchor" aria-label="anchor" href="#cumulative-incidence"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">trial</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; -- cuminc() --------------------------------------------------------------------</span>
@@ -138,12 +142,12 @@
 <span class="co">#&gt; 15.0   158      0.090      0.020       0.055, 0.135    </span>
 <span class="co">#&gt; 20.0   116      0.205      0.029       0.152, 0.264</span></code></pre></div>
 <p>Plot risks using <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span>conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%"></p>
 <p>Summary table</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tbl</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="reference/cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="reference/tbl_cuminc.html">tbl_cuminc</a></span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span>, label_header <span class="op">=</span> <span class="st">"**Month {time}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
