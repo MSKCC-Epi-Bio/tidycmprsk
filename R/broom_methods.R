@@ -108,7 +108,7 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #' `tidy(time = c(0, 12, 18))` is passed, `n.event` and `n.censor` at `time = 18`
 #' are the cumulative number of events/censored in the interval `(12, 18]`.
 #'
-#' @inheritSection broom_methods_cuminc p-values
+#' @inheritSection cuminc p-values
 #' @inheritSection cuminc Confidence intervals
 #'
 #' @examples

@@ -271,7 +271,7 @@ tbl_cuminc <- function(x, ...) {
 #' inline_text(add_cuminc_ex2, time = 12, level = "Drug A")
 #' inline_text(add_cuminc_ex2, column = p.value)
 #'
-#' @inheritSection broom_methods_cuminc p-values
+#' @inheritSection cuminc p-values
 #'
 #' @section Example Output:
 #' \if{html}{Example 1}
