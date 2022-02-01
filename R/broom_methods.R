@@ -108,12 +108,7 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #' `tidy(time = c(0, 12, 18))` is passed, `n.event` and `n.censor` at `time = 18`
 #' are the cumulative number of events/censored in the interval `(12, 18]`.
 #'
-#' @section p-values:
-#'
-#' The p-values reported in `glance.tidycuminc()` and `add_p.tbl_cuminc()`
-#' are Gray's test as reported in
-#' Gray RJ (1988) *A class of K-sample tests for comparing the cumulative incidence of a competing risk*, Annals of Statistics, 16:1141-1154.
-#'
+#' @inheritSection broom_methods_cuminc p-values
 #' @inheritSection cuminc Confidence intervals
 #'
 #' @examples

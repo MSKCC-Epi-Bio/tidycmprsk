@@ -57,7 +57,8 @@ The `tidycmprsk` plays well with other packages, such as `gtsummary`.
 ```{r gtsummary, message = FALSE}
 tbl <- 
   crr_mod %>%
-  gtsummary::tbl_regression(exponentiate = TRUE)
+  gtsummary::tbl_regression(exponentiate = TRUE) %>%
+  add_n(location = "level")
 ```
 
 ```{r gtsummary_print, include = FALSE}
@@ -72,6 +73,10 @@ if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
 } else {
   knitr::include_graphics("man/figures/README-gtsummary_print-1.png")
 } 
+```
+
+```{r}
+gtsummary::inline_text(tbl, variable = age)
 ```
 
 ## Cumulative Incidence

@@ -52,14 +52,6 @@ cumulative number of events/censored in the interval. For example, if
 are the cumulative number of events/censored in the interval \verb{(12, 18]}.
 }
 
-\section{p-values}{
-
-
-The p-values reported in \code{glance.tidycuminc()} and \code{add_p.tbl_cuminc()}
-are Gray's test as reported in
-Gray RJ (1988) \emph{A class of K-sample tests for comparing the cumulative incidence of a competing risk}, Annals of Statistics, 16:1141-1154.
-}
-
 \section{Confidence intervals}{
 
 

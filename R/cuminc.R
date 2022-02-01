@@ -15,6 +15,12 @@
 #' standard error estimate, and \eqn{z} is the z-score associated with the
 #' confidence level of the interval, e.g. \eqn{z = 1.96} for a 95% CI.
 #'
+#' @section p-values:
+#'
+#' The p-values reported in `cuminc()`, `glance.tidycuminc()` and `add_p.tbl_cuminc()`
+#' are Gray's test as described in
+#' Gray RJ (1988) *A class of K-sample tests for comparing the cumulative incidence of a competing risk*, Annals of Statistics, 16:1141-1154.
+#'
 #' @return tidycuminc object
 #' @family cuminc() functions
 #' @name cuminc

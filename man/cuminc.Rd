@@ -54,6 +54,14 @@ standard error estimate, and \eqn{z} is the z-score associated with the
 confidence level of the interval, e.g. \eqn{z = 1.96} for a 95\% CI.
 }
 
+\section{p-values}{
+
+
+The p-values reported in \code{cuminc()}, \code{glance.tidycuminc()} and \code{add_p.tbl_cuminc()}
+are Gray's test as described in
+Gray RJ (1988) \emph{A class of K-sample tests for comparing the cumulative incidence of a competing risk}, Annals of Statistics, 16:1141-1154.
+}
+
 \examples{
 # calculate risk for entire cohort -----------
 cuminc(Surv(ttdeath, death_cr) ~ 1, trial)

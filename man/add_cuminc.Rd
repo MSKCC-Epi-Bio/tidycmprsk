@@ -58,14 +58,6 @@ first outcome is used.}
 \if{html}{\figure{add_cuminc_ex2.png}{options: width=60\%}}
 }
 
-\section{p-values}{
-
-
-The p-values reported in \code{glance.tidycuminc()} and \code{add_p.tbl_cuminc()}
-are Gray's test as reported in
-Gray RJ (1988) \emph{A class of K-sample tests for comparing the cumulative incidence of a competing risk}, Annals of Statistics, 16:1141-1154.
-}
-
 \examples{
 # Example 1 ----------------------------------
 add_cuminc_ex1 <-

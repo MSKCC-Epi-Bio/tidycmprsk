@@ -61,10 +61,16 @@ The `tidycmprsk` plays well with other packages, such as `gtsummary`.
 ``` r
 tbl <- 
   crr_mod %>%
-  gtsummary::tbl_regression(exponentiate = TRUE)
+  gtsummary::tbl_regression(exponentiate = TRUE) %>%
+  add_n(location = "level")
 ```
 
 <img src="man/figures/README-gtsummary_print-1.png" width="50%" />
+
+``` r
+gtsummary::inline_text(tbl, variable = age)
+#> [1] "1.01 (95% CI 0.99, 1.03; p=0.6)"
+```
 
 ## Cumulative Incidence
 
@@ -93,7 +99,7 @@ cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
   autoplot(conf.int = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 Summary table
 
