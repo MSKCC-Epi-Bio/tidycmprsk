@@ -128,6 +128,13 @@ tbl_cuminc.tidycuminc <- function(x,
     dplyr::ungroup()
 
   # combine results ------------------------------------------------------------
+  if (is.null(df_tidy)) {
+    stop("df_tidy is NULL WTF?!")
+  }
+  if (!"column_name" %in% names(df_tidy)) {
+    names_ugh <- paste(names(df_tidy), collapse = ", ")
+    stop(paste("Only these column names:", names_ugh))
+  }
   table_body <-
     df_tidy %>%
     select(-.data$label_header, -.data$time) %>%
