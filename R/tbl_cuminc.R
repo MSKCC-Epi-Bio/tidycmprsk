@@ -106,6 +106,8 @@ tbl_cuminc.tidycuminc <- function(x,
     dplyr::group_by(across(any_of(c("outcome", "strata")))) %>%
     mutate(column_name = paste("stat", dplyr::row_number(), sep = "_")) %>%
     dplyr::ungroup()
+  names_ugh <- paste(names(df_tidy), collapse = ", ")
+  stop(paste("Only these column names:", names_ugh))
 
   # calculate Ns ---------------------------------------------------------------
   df_n <-
@@ -128,7 +130,6 @@ tbl_cuminc.tidycuminc <- function(x,
     dplyr::ungroup()
 
   # combine results ------------------------------------------------------------
-  names_ugh <- paste(names(df_tidy), collapse = ", ")
   if (is.null(df_tidy)) {
     stop("df_tidy is NULL WTF?!")
   }
