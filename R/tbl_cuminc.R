@@ -128,6 +128,7 @@ tbl_cuminc.tidycuminc <- function(x,
     dplyr::ungroup()
 
   # combine results ------------------------------------------------------------
+  print(df_tidy)
   table_body <-
     df_tidy %>%
     select(-.data$label_header, -.data$time) %>%
