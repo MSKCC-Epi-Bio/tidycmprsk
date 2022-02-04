@@ -128,14 +128,13 @@ tbl_cuminc.tidycuminc <- function(x,
     dplyr::ungroup()
 
   # combine results ------------------------------------------------------------
-  print(df_tidy)
   table_body <-
     df_tidy %>%
     select(-.data$label_header, -.data$time) %>%
     tidyr::pivot_wider(
-      id_cols = -c(.data$column_name, .data$statistic),
-      names_from = .data$column_name,
-      values_from = .data$statistic
+      id_cols = dplyr::all_of(c("column_name", "statistic")),
+      names_from = dplyr::all_of("column_name"),
+      values_from = dplyr::all_of("statistic")
     ) %>%
     mutate(row_type = "level") %>%
     purrr::when(
