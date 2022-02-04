@@ -138,7 +138,6 @@ tbl_cuminc.tidycuminc <- function(x,
   if (!"column_name" %in% names(df_tidy)) {
     stop(paste("Only these column names:", names_ugh))
   }
-  # stop(paste("Only these column names:", names_ugh))
 
   table_body <-
     df_tidy %>%
@@ -147,7 +146,10 @@ tbl_cuminc.tidycuminc <- function(x,
       id_cols = dplyr::all_of(c("column_name", "statistic")),
       names_from = dplyr::all_of("column_name"),
       values_from = dplyr::all_of("statistic")
-    ) %>%
+    )
+  stop("ugh, do we get this far?")
+
+   tt %>%
     mutate(row_type = "level") %>%
     purrr::when(
       # add a header row for stratified tables and the label column
