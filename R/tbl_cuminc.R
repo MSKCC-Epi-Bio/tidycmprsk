@@ -143,12 +143,12 @@ tbl_cuminc.tidycuminc <- function(x,
     df_tidy %>%
     select(-.data$label_header, -.data$time)
 
-  stop(paste("Only these column names:",  paste(names(table_body), collapse = ", ")))
+  # stop(paste("Only these column names:",  paste(names(table_body), collapse = ", ")))
   table_body %>%
     tidyr::pivot_wider(
-      id_cols = dplyr::all_of(c("column_name", "statistic")),
-      names_from = dplyr::all_of("column_name"),
-      values_from = dplyr::all_of("statistic")
+      id_cols = c(column_name, statistic),
+      names_from = column_name,
+      values_from = statistic
     )
   stop("ugh, do we get this far?")
 
