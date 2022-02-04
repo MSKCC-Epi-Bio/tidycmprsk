@@ -126,7 +126,7 @@ em-dash, <code>"\U2014"</code></p></dd>
 <span class="r-in"><span class="va">tbl_cuminc_ex1</span> <span class="op">&lt;-</span></span>
 <span class="r-in">  <span class="fu"><a href="cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span class="r-in">  <span class="fu">tbl_cuminc</span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span>, label_header <span class="op">=</span> <span class="st">"**Month {time}**"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tbl_cuminc.tidycuminc(., times = c(12, 24), label_header = "**Month {time}**"):</span> Only these column names: label_header, time, outcome, statistic, column_name</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tbl_cuminc.tidycuminc(., times = c(12, 24), label_header = "**Month {time}**"):</span> Only these column names: outcome, statistic, column_name</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Example 2 ----------------------------------</span></span>
 <span class="r-in"><span class="va">tbl_cuminc_ex2</span> <span class="op">&lt;-</span></span>
@@ -134,7 +134,7 @@ em-dash, <code>"\U2014"</code></p></dd>
 <span class="r-in">  <span class="fu">tbl_cuminc</span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span>,</span>
 <span class="r-in">             outcomes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"death from cancer"</span>, <span class="st">"death other causes"</span><span class="op">)</span>,</span>
 <span class="r-in">             label_header <span class="op">=</span> <span class="st">"**Month {time}**"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tbl_cuminc.tidycuminc(., times = c(12, 24), outcomes = c("death from cancer",     "death other causes"), label_header = "**Month {time}**"):</span> Only these column names: label_header, time, outcome, strata, statistic, column_name</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tbl_cuminc.tidycuminc(., times = c(12, 24), outcomes = c("death from cancer",     "death other causes"), label_header = "**Month {time}**"):</span> Only these column names: outcome, strata, statistic, column_name</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
