@@ -128,31 +128,14 @@ tbl_cuminc.tidycuminc <- function(x,
     dplyr::ungroup()
 
   # combine results ------------------------------------------------------------
-  names_ugh <- paste(names(df_tidy), collapse = ", ")
-  if (is.null(df_tidy)) {
-    stop("df_tidy is NULL WTF?!")
-  }
-  if (!is.data.frame(df_tidy)) {
-    stop("df_tidy is a data frame WTF?!")
-  }
-  if (!"column_name" %in% names(df_tidy)) {
-    stop(paste("Only these column names:", names_ugh))
-  }
-
   table_body <-
     df_tidy %>%
-    select(-.data$label_header, -.data$time)
-
-  # stop(paste("Only these column names:",  paste(names(table_body), collapse = ", ")))
-  table_body %>% select(column_name, statistic)
-    # tidyr::pivot_wider(
-    #   id_cols = c(column_name, statistic),
-    #   names_from = column_name,
-    #   values_from = statistic
-    # )
-  stop("ugh, do we get this far?")
-
-   tt %>%
+    select(dplyr::any_of(c("outcome", "strata", "column_name", "statistic"))) %>%
+    tidyr::pivot_wider(
+      id_cols = dplyr::any_of(c("outcome", "strata")),
+      names_from = .data$column_name,
+      values_from = .data$statistic
+    ) %>%
     mutate(row_type = "level") %>%
     purrr::when(
       # add a header row for stratified tables and the label column
