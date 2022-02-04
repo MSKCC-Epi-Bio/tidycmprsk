@@ -132,10 +132,13 @@ tbl_cuminc.tidycuminc <- function(x,
   if (is.null(df_tidy)) {
     stop("df_tidy is NULL WTF?!")
   }
+  if (!is.data.frame(df_tidy)) {
+    stop("df_tidy is a data frame WTF?!")
+  }
   if (!"column_name" %in% names(df_tidy)) {
     stop(paste("Only these column names:", names_ugh))
   }
-  stop(paste("Only these column names:", names_ugh))
+  # stop(paste("Only these column names:", names_ugh))
 
   table_body <-
     df_tidy %>%
