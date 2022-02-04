@@ -1,4 +1,4 @@
-test_that("multiplication works", {
+test_that("tbl_cuminc() works", {
   expect_error(
     tbl0 <-
       cuminc(Surv(ttdeath, death_cr) ~ 1, trial) %>%
