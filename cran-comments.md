@@ -6,8 +6,6 @@
 
 ## R CMD check results
 Maintainer: 'Daniel D. Sjoberg <danield.sjoberg@gmail.com>'
-
-New submission
   
 ## Additional Comments
 
