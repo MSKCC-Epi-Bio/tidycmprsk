@@ -1,3 +1,5 @@
+# tidycmprsk (development version)
+
 # tidycmprsk 0.1.1
 
 * Adding the `tbl_cuminc()` function (similar to `gtsummary::tbl_survfit()`). Also added related methods, `add_n.tbl_cuminc()`, `add_nevent.tbl_cuminc()`, `add_p.tbl_cuminc()`, and `inline_text.tbl_cuminc()`
