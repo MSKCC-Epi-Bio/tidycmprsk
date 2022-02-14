@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
       </span>
     </div>
 
@@ -55,7 +55,11 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="tidycmprsk-development-version">tidycmprsk (development version)<a class="anchor" aria-label="anchor" href="#tidycmprsk-development-version"></a></h2>
-<ul><li><p>Updated the definition of <code>n.event</code> and <code>n.censor</code> in <code><a href="../reference/broom_methods_cuminc.html">tidy.tidycuminc()</a></code> to match <code>summary.survfit()</code> when users specify <code>tidy.tidycuminc(times=)</code>. We now report the cumulative number of events/censors in the interval prior to the specified times. (<a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/49" class="external-link">#49</a>)</p></li>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.1.1" id="tidycmprsk-011">tidycmprsk 0.1.1<small>2022-02-14</small><a class="anchor" aria-label="anchor" href="#tidycmprsk-011"></a></h2>
+<ul><li><p>Adding the <code><a href="../reference/tbl_cuminc.html">tbl_cuminc()</a></code> function (similar to <code><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_survfit.html" class="external-link">gtsummary::tbl_survfit()</a></code>). Also added related methods, <code><a href="../reference/add_cuminc.html">add_n.tbl_cuminc()</a></code>, <code><a href="../reference/add_cuminc.html">add_nevent.tbl_cuminc()</a></code>, <code><a href="../reference/add_cuminc.html">add_p.tbl_cuminc()</a></code>, and <code><a href="../reference/add_cuminc.html">inline_text.tbl_cuminc()</a></code></p></li>
+<li><p>Updated the definition of <code>n.event</code> and <code>n.censor</code> in <code><a href="../reference/broom_methods_cuminc.html">tidy.tidycuminc()</a></code> to match <code>summary.survfit()</code> when users specify <code>tidy.tidycuminc(times=)</code>. We now report the cumulative number of events/censors in the interval prior to the specified times. (<a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/49" class="external-link">#49</a>)</p></li>
 <li><p>Added <code>crr(conf.level=)</code> and <code>cuminc(conf.level=)</code> arguments. The tidy data frame returned with each of these objects now has confidence limits that match <code>conf.level=</code>. (<a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/45" class="external-link">#45</a>)</p></li>
 <li><p>The <code>tidy.ticycrr()</code> and <code>tidy.ticycuminc()</code> <code>conf.level=</code> defaults have been updated to <code>x$conf.level</code> passed in the original model call.</p></li>
 <li><p>Now returning the the number at risk, number of events, and the number of censored observations in <code><a href="../reference/broom_methods_cuminc.html">tidy.tidycuminc()</a></code>.</p></li>
@@ -63,6 +67,7 @@
 <li><p>Update the <code><a href="../reference/crr.html">crr()</a></code> and <code><a href="../reference/cuminc.html">cuminc()</a></code> print methods for more clarity.</p></li>
 <li><p>Update documentations for <code><a href="../reference/cuminc.html">cuminc()</a></code> method with an explicit formula for the confidence interval.</p></li>
 <li><p>Returning the cumulative number of events and the cumulative number of censored observations in <code><a href="../reference/broom_methods_cuminc.html">tidy.tidycuminc()</a></code>.</p></li>
+<li><p>The <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> figure will now display the first outcome only as default. Previously, all outcomes were shown by default.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.0" id="tidycmprsk-010">tidycmprsk 0.1.0<small>2021-11-19</small><a class="anchor" aria-label="anchor" href="#tidycmprsk-010"></a></h2>
@@ -78,11 +83,11 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://www.danieldsjoberg.com/" class="external-link">Daniel D. Sjoberg</a>, <a href="http://scholarblogs.emory.edu/tfei" class="external-link">Teng Fei</a>.</p>
+  <p></p><p>Developed by <a href="http://www.danieldsjoberg.com/" class="external-link">Daniel D. Sjoberg</a>, <a href="https://www.mskcc.org/profile/teng-fei" class="external-link">Teng Fei</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>

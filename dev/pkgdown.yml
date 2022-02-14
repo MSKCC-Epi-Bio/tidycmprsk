@@ -1,8 +1,8 @@
 pandoc: 2.7.3
-pkgdown: 2.0.1
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-01-07T21:10Z
+last_built: 2022-02-14T12:43Z
 urls:
   reference: https://mskcc-epi-bio.github.io/tidycmprsk/reference
   article: https://mskcc-epi-bio.github.io/tidycmprsk/articles

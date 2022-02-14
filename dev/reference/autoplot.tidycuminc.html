@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
       </span>
     </div>
 
@@ -62,7 +62,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for tidycuminc</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span>
   <span class="va">object</span>,
-  outcomes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">object</span><span class="op">$</span><span class="va">failcode</span><span class="op">)</span>,
+  outcomes <span class="op">=</span> <span class="cn">NULL</span>,
   conf.int <span class="op">=</span> <span class="cn">FALSE</span>,
   conf.level <span class="op">=</span> <span class="fl">0.95</span>,
   aes <span class="op">=</span> <span class="cn">NULL</span>,
@@ -76,7 +76,7 @@
 <dd><p>object of class 'cuminc'</p></dd>
 <dt>outcomes</dt>
 <dd><p>character vector of outcomes to include in plot. Default
-is to include all competing events.</p></dd>
+is to include the first competing events.</p></dd>
 <dt>conf.int</dt>
 <dd><p>Logical indicating whether or not to include a confidence
 interval in the tidied output. Defaults to <code>FALSE</code>.</p></dd>
@@ -136,11 +136,11 @@ Not all arguments appear in every plot, however.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://www.danieldsjoberg.com/" class="external-link">Daniel D. Sjoberg</a>, <a href="http://scholarblogs.emory.edu/tfei" class="external-link">Teng Fei</a>.</p>
+  <p></p><p>Developed by <a href="http://www.danieldsjoberg.com/" class="external-link">Daniel D. Sjoberg</a>, <a href="https://www.mskcc.org/profile/teng-fei" class="external-link">Teng Fei</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>

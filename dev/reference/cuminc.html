@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.0.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.9000</span>
       </span>
     </div>
 
@@ -73,7 +73,8 @@
     <dl><dt>formula</dt>
 <dd><p>formula with <code><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv()</a></code> on LHS and covariates on RHS.
 The event status variable must be a factor, with the first level indicating
-'censor' and subsequent levels the competing risks.</p></dd>
+'censor' and subsequent levels the competing risks. The <code>Surv(time2=)</code>
+argument cannot be used.</p></dd>
 <dt>data</dt>
 <dd><p>data frame</p></dd>
 <dt>strata</dt>
@@ -104,6 +105,15 @@ stratified on this variable.  (all data in 1 stratum, if missing)</p></dd>
 standard error estimate, and \(z\) is the z-score associated with the
 confidence level of the interval, e.g. \(z = 1.96\) for a 95% CI.</p>
     </div>
+    <div id="p-values">
+    <h2>p-values</h2>
+    
+
+
+<p>The p-values reported in <code>cuminc()</code>, <code><a href="broom_methods_cuminc.html">glance.tidycuminc()</a></code> and <code><a href="add_cuminc.html">add_p.tbl_cuminc()</a></code>
+are Gray's test as described in
+Gray RJ (1988) <em>A class of K-sample tests for comparing the cumulative incidence of a competing risk</em>, Annals of Statistics, 16:1141-1154.</p>
+    </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p>Other cuminc() functions: 
@@ -120,16 +130,16 @@ confidence level of the interval, e.g. \(z = 1.96\) for a 95% CI.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Failure type <span style="color: #0000BB;">"death from cancer"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">time   n.risk   estimate   std.error   95% CI         </span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   199      0.005      0.005       0.000, 0.026    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   199      0.000      0.000       NA, NA          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   189      0.030      0.012       0.012, 0.061    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   158      0.120      0.023       0.079, 0.169    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   116      0.220      0.029       0.165, 0.280    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   116      0.215      0.029       0.161, 0.274    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Failure type <span style="color: #0000BB;">"death other causes"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">time   n.risk   estimate   std.error   95% CI         </span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5.00   199      0.005      0.005       0.000, 0.026    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   189      0.030      0.012       0.012, 0.061    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   158      0.095      0.021       0.059, 0.141    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10.0   189      0.025      0.011       0.009, 0.054    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15.0   158      0.090      0.020       0.055, 0.135    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20.0   116      0.205      0.029       0.152, 0.264    </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># calculate risk by treatment group ----------</span></span>
@@ -139,10 +149,10 @@ confidence level of the interval, e.g. \(z = 1.96\) for a 95% CI.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Failure type <span style="color: #0000BB;">"death from cancer"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">strata   time   n.risk   estimate   std.error   95% CI         </span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   5.00   97       0.010      0.010       0.001, 0.050    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   5.00   97       0.000      0.000       NA, NA          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   10.0   94       0.020      0.014       0.004, 0.065    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   15.0   83       0.071      0.026       0.031, 0.134    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   20.0   61       0.184      0.039       0.114, 0.266    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   20.0   61       0.173      0.039       0.106, 0.255    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Drug B   5.00   102      0.000      0.000       NA, NA          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Drug B   10.0   95       0.039      0.019       0.013, 0.090    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Drug B   15.0   75       0.167      0.037       0.102, 0.246    </span>
@@ -151,13 +161,13 @@ confidence level of the interval, e.g. \(z = 1.96\) for a 95% CI.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Failure type <span style="color: #0000BB;">"death other causes"</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">strata   time   n.risk   estimate   std.error   95% CI         </span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   5.00   97       0.010      0.010       0.001, 0.050    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   10.0   94       0.031      0.017       0.008, 0.080    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   15.0   83       0.092      0.029       0.045, 0.159    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   10.0   94       0.020      0.014       0.004, 0.065    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   15.0   83       0.082      0.028       0.038, 0.147    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Drug A   20.0   61       0.204      0.041       0.131, 0.289    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Drug B   5.00   102      0.000      0.000       NA, NA          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Drug B   10.0   95       0.039      0.019       0.013, 0.090    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Drug B   15.0   75       0.108      0.031       0.057, 0.177    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Drug B   20.0   55       0.216      0.041       0.141, 0.300    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Drug B   10.0   95       0.029      0.017       0.008, 0.077    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Drug B   15.0   75       0.098      0.030       0.050, 0.165    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Drug B   20.0   55       0.206      0.040       0.133, 0.289    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> • Tests</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="font-style: italic; text-decoration: underline;">outcome              statistic   df     p.value   </span> </span>
@@ -173,11 +183,11 @@ confidence level of the interval, e.g. \(z = 1.96\) for a 95% CI.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by <a href="http://www.danieldsjoberg.com/" class="external-link">Daniel D. Sjoberg</a>, <a href="http://scholarblogs.emory.edu/tfei" class="external-link">Teng Fei</a>.</p>
+  <p></p><p>Developed by <a href="http://www.danieldsjoberg.com/" class="external-link">Daniel D. Sjoberg</a>, <a href="https://www.mskcc.org/profile/teng-fei" class="external-link">Teng Fei</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>
