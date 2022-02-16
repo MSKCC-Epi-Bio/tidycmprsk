@@ -111,7 +111,7 @@ tbl <-
   add_n()
 ```
 
-<img src="man/figures/README-gtsummary_print2-1.png" width="50%" />
+<img src="man/figures/README-gtsummary_print2-1.png" width="70%" />
 
 ## Contributing
 
