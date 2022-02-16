@@ -107,7 +107,7 @@ tbl <-
 gt::gtsave(gtsummary::as_gt(tbl), file = file.path(tempdir(), "temp.png"))
 ```
 
-```{r out.width = "50%", echo = FALSE}
+```{r out.width = "70%", echo = FALSE}
 # Have to do this workaround since the README needs markdown format for GitHub page but a different format for the website.
 if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
   tbl
