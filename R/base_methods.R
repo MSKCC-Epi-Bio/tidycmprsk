@@ -128,6 +128,12 @@ coef.tidycrr <- function(object, ...) {
 
 #' @export
 #' @rdname base_methods_crr
+vcov.tidycrr <- function(object, ...) {
+  object$cmprsk$var
+}
+
+#' @export
+#' @rdname base_methods_crr
 model.matrix.tidycrr <- function(object, ...) {
   # by default there is no intercept term in F&G's model
   stats::model.matrix(object$formula, object$data)[, -1, drop = FALSE]

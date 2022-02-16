@@ -3,12 +3,15 @@
 \name{base_methods_crr}
 \alias{base_methods_crr}
 \alias{coef.tidycrr}
+\alias{vcov.tidycrr}
 \alias{model.matrix.tidycrr}
 \alias{model.frame.tidycrr}
 \alias{terms.tidycrr}
 \title{Functions for tidycrr objects}
 \usage{
 \method{coef}{tidycrr}(object, ...)
+
+\method{vcov}{tidycrr}(object, ...)
 
 \method{model.matrix}{tidycrr}(object, ...)
 
