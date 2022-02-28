@@ -275,6 +275,22 @@ first_cuminc_tidy <- function(x, conf.level) {
     df_tidy$strata <- NULL
   }
 
+  # if one stratifying variable AND it's a fct, make strata col a fct ----------
+  if ("strata" %in% names(df_tidy) &&                                   # has stratifying variable
+      x$formula %>% rlang::f_rhs() %>% all.vars() %>% length() == 1L && # has single strata variable
+      stats::model.frame(x$formula, data = x$data) %>%                  # stratifying variable is factor
+      dplyr::select(dplyr::last_col()) %>% dplyr::pull() %>% inherits("factor")) {
+    df_tidy$strata <-
+      factor(
+        df_tidy$strata,
+        levels =
+          stats::model.frame(x$formula, data = x$data) %>%
+          dplyr::select(dplyr::last_col()) %>%
+          dplyr::pull() %>%
+          levels()
+      )
+  }
+
   # add conf.int to tibble -----------------------------------------------------
   df_tidy <- add_conf.int(df_tidy, conf.level = conf.level)
 

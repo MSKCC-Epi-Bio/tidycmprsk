@@ -281,4 +281,12 @@ test_that("broom methods", {
     tidy(tt, times = c(24)) %>%
       dplyr::select(time, outcome, estimate, n.event, n.censor)
   )
+
+  # checking factor class in internal tidy object
+  expect_true(
+    cuminc(Surv(ttdeath, death_cr) ~ grade, data = trial) %>%
+      tidy(times = c(0, 24)) %>%
+      purrr::pluck("strata") %>%
+      inherits("factor")
+  )
 })
