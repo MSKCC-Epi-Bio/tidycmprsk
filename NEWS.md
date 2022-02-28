@@ -1,5 +1,7 @@
 # tidycmprsk (development version)
 
+* The `"strata"` column in tidied `cuminc()` results is now a factor. (#62)
+
 * Fix in the documentation for `tbl_cuminc()` that resulted in a UTF-related error on Debian system R CMD Check. (#65)
 
 * Adding `vcov()` method for `crr()` models (#63)

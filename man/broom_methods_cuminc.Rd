@@ -79,6 +79,14 @@ cuminc <- cuminc(Surv(ttdeath, death_cr) ~ trt, trial)
 tidy(cuminc)
 
 glance(cuminc)
+
+# restructure glance to one line per outcome
+glance(cuminc) \%>\%
+  tidyr::pivot_longer(
+    everything(),
+    names_to = c(".value", "outcome_id"),
+    names_pattern = "(.*)_(.*)"
+  )
 }
 \seealso{
 Other cuminc() functions: 

@@ -59,7 +59,7 @@ cuminc.formula <- function(formula, data, strata, rho = 0, conf.level = 0.95, ..
       )
 
     # use covariate interactions as input to cmprsk::cuminc
-    processed$predictors <- interaction(processed$predictors)
+    processed$predictors <- interaction(processed$predictors, sep = ", ")
   }
 
   # building model -------------------------------------------------------------

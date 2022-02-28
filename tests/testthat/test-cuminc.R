@@ -69,5 +69,17 @@ test_that("cuminc() works", {
     model.frame(Surv(ttdeath, death_cr) ~ trt, data = trial),
     ignore_attr = TRUE
   )
+
+  expect_error(
+    cuminc(Surv(ttdeath, death_cr) ~ grade + trt, data = trial),
+    NA
+  )
+
+  # checking factor class in internal tidy object
+  expect_true(
+    cuminc(Surv(ttdeath, death_cr) ~ grade, data = trial) %>%
+      purrr::pluck("tidy", "strata") %>%
+      inherits("factor")
+  )
 })
 
