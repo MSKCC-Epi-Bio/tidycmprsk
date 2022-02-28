@@ -283,24 +283,18 @@ first_cuminc_tidy <- function(x, conf.level) {
     df_tidy$strata <- NULL
   }
 
-  # if one stratifying variable AND it's a fct, make strata col a fct ----------
-  if ("strata" %in% names(df_tidy) &&                                   # has stratifying variable
-      x$formula %>% rlang::f_rhs() %>% all.vars() %>% length() == 1L && # has single strata variable
-      stats::model.frame(x$formula, data = x$data) %>%                  # stratifying variable is factor
-      dplyr::select(dplyr::last_col()) %>% dplyr::pull() %>% inherits("factor")) {
-    df_tidy$strata <-
-      factor(
-        df_tidy$strata,
-        levels =
-          stats::model.frame(x$formula, data = x$data) %>%
-          dplyr::select(dplyr::last_col()) %>%
-          dplyr::pull() %>%
-          levels()
-      )
-  }
-  # otherwise making the strata a fct with default ordering
-  else if ("strata" %in% names(df_tidy)) {
-    df_tidy$strata <-factor(df_tidy$strata)
+  # if there is a strata, then make it a factor --------------------------------
+  if ("strata" %in% names(df_tidy)) {
+    lvls <-
+      hardhat::mold(
+        x$formula, x$data,
+        blueprint = hardhat::default_formula_blueprint(indicators = "none")
+      ) %>%
+      purrr::pluck("predictors") %>%
+      interaction(sep = ", ") %>%
+      levels()
+
+    df_tidy$strata <- factor(df_tidy$strata, levels = lvls)
   }
 
   # add conf.int to tibble -----------------------------------------------------
@@ -346,7 +340,7 @@ add_n_stats <- function(df_tidy, x) {
             blueprint = hardhat::default_formula_blueprint(indicators = "none")
           ) %>%
           purrr::pluck("predictors") %>%
-          interaction() %>%
+          interaction(sep = ", ") %>%
           as.character()
       )
   }
