@@ -53,7 +53,7 @@ tbl_cuminc.tidycuminc <- function(x,
                                   label_header = "**Time {time}**",
                                   estimate_fun = NULL,
                                   conf.level = x$conf.level,
-                                  missing = "\U2014",
+                                  missing = NULL,
                                   ...) {
   # check inputs ---------------------------------------------------------------
   rlang::check_dots_empty()
@@ -70,6 +70,7 @@ tbl_cuminc.tidycuminc <- function(x,
     stop("Error in `outcomes=` specification.", call. = FALSE)
   }
   func_inputs <- as.list(environment())
+  missing <- missing %||% "\U2014"
 
   # setting defaults -----------------------------------------------------------
   outcomes <- outcomes %||% names(x$failcode)[1]

@@ -14,7 +14,7 @@
   label_header = "**Time {time}**",
   estimate_fun = NULL,
   conf.level = x$conf.level,
-  missing = "—",
+  missing = NULL,
   ...
 )
 
