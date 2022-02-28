@@ -283,7 +283,8 @@ test_that("broom methods", {
   )
 
   # checking factor class in internal tidy object
-  trial2 <- trial %>% dplyr::mutate(grade = forcats::fct_rev(grade))
+  trial2 <- trial
+  levels(trial2$grade) <- c("III", "II", "I")
   expect_equal(
     cuminc(Surv(ttdeath, death_cr) ~ grade, data = trial2) %>%
       tidy(times = c(0, 24)) %>%
