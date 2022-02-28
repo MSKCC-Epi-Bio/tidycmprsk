@@ -117,6 +117,14 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #' tidy(cuminc)
 #'
 #' glance(cuminc)
+#'
+#' # restructure glance to one line per outcome
+#' glance(cuminc) %>%
+#'   tidyr::pivot_longer(
+#'     everything(),
+#'     names_to = c(".value", "outcome_id"),
+#'     names_pattern = "(.*)_(.*)"
+#'   )
 NULL
 
 #' @rdname broom_methods_cuminc
@@ -289,6 +297,10 @@ first_cuminc_tidy <- function(x, conf.level) {
           dplyr::pull() %>%
           levels()
       )
+  }
+  # otherwise making the strata a fct with default ordering
+  else if ("strata" %in% names(df_tidy)) {
+    df_tidy$strata <-factor(df_tidy$strata)
   }
 
   # add conf.int to tibble -----------------------------------------------------

@@ -1,5 +1,7 @@
 # tidycmprsk (development version)
 
+* The `"strata"` column in tidied `cuminc()` results is now a factor. If there is a single stratifying variable that was originally a factor, the strata column will be a factor with the same ordering. (#62)
+
 * Fix in the documentation for `tbl_cuminc()` that resulted in a UTF-related error on Debian system R CMD Check. (#65)
 
 * Adding `vcov()` method for `crr()` models (#63)

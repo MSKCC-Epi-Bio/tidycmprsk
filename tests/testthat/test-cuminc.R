@@ -71,7 +71,8 @@ test_that("cuminc() works", {
   )
 
   expect_error(
-    cuminc(Surv(ttdeath, death_cr) ~ grade + trt, data = trial)
+    cuminc(Surv(ttdeath, death_cr) ~ grade + trt, data = trial),
+    NA
   )
 
   # checking factor class in internal tidy object
