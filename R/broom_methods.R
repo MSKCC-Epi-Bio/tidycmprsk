@@ -95,8 +95,8 @@ augment.tidycrr <- function(x, times = NULL, probs = NULL, newdata = NULL, ...) 
 #'   "`estimate`", "Risk estimate",
 #'   "`std.error`", "Standard Error",
 #'   "`n.risk`", "Number at risk at the specified time",
-#'   "`n.event`", "Number of events at specified time",
-#'   "`n.censor`", "Number of censored observations at specified time",
+#'   "`n.event`", "If the `times=` argument is missing, then the number of events that occurred at time `t`. Otherwise, it is the cumulative number of events that have occurred since the last time listed.",
+#'   "`n.censor`", "If the `times=` argument is missing, then the number of censored obs at time `t`. Otherwise, it is the cumulative number of censored obs that have occurred since the last time listed.",
 #'   "`cum.event`", "Cumulative number of events at specified time",
 #'   "`cum.censor`", "Cumulative number of censored observations at specified time"
 #' ) %>%
