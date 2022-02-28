@@ -283,10 +283,12 @@ test_that("broom methods", {
   )
 
   # checking factor class in internal tidy object
-  expect_true(
-    cuminc(Surv(ttdeath, death_cr) ~ grade, data = trial) %>%
+  trial2 <- trial %>% dplyr::mutate(grade = forcats::fct_rev(grade))
+  expect_equal(
+    cuminc(Surv(ttdeath, death_cr) ~ grade, data = trial2) %>%
       tidy(times = c(0, 24)) %>%
       purrr::pluck("strata") %>%
-      inherits("factor")
+      levels(),
+    c("III", "II", "I")
   )
 })
