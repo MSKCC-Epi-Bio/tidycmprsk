@@ -1,5 +1,7 @@
 # tidycmprsk (development version)
 
+* Fix in the documentation for `tbl_cuminc()` that resulted in a UTF-related error on Debian system R CMD Check. (#65)
+
 * Adding `vcov()` method for `crr()` models (#63)
 
 # tidycmprsk 0.1.1
