@@ -39,8 +39,8 @@ The returned \code{tidy()} data frame returns the following columns:\tabular{ll}
    \code{estimate} \tab Risk estimate \cr
    \code{std.error} \tab Standard Error \cr
    \code{n.risk} \tab Number at risk at the specified time \cr
-   \code{n.event} \tab Number of events at specified time \cr
-   \code{n.censor} \tab Number of censored observations at specified time \cr
+   \code{n.event} \tab If the \verb{times=} argument is missing, then the number of events that occurred at time \code{t}. Otherwise, it is the cumulative number of events that have occurred since the last time listed. \cr
+   \code{n.censor} \tab If the \verb{times=} argument is missing, then the number of censored obs at time \code{t}. Otherwise, it is the cumulative number of censored obs that have occurred since the last time listed. \cr
    \code{cum.event} \tab Cumulative number of events at specified time \cr
    \code{cum.censor} \tab Cumulative number of censored observations at specified time \cr
 }
