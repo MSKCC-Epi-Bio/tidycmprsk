@@ -9,4 +9,5 @@ Maintainer: 'Daniel D. Sjoberg <danield.sjoberg@gmail.com>'
   
 ## Additional Comments
 
+Update in response to email from Kurt Hornik regarding a strict Latin-1 locale check on Debian.
 Thank you for your time.
