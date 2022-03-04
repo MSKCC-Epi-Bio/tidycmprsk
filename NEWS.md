@@ -1,4 +1,4 @@
-# tidycmprsk (development version)
+# tidycmprsk 0.1.2
 
 * The `"strata"` column in tidied `cuminc()` results is now a factor. (#62)
 
