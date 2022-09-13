@@ -84,7 +84,8 @@ test_that("cuminc() works", {
 
   # no warnings with tied times
   expect_warning(
-    cuminc(Surv(drat, factor(cyl)) ~ 1, mtcars)
+    cuminc(Surv(drat, factor(cyl)) ~ 1, mtcars),
+    NA
   )
 })
 
