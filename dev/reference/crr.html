@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9001</span>
       </span>
     </div>
 
@@ -59,13 +59,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for formula</span>
-<span class="fu">crr</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, failcode <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">crr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for default</span>
-<span class="fu">crr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">crr</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, failcode <span class="op">=</span> <span class="cn">NULL</span>, conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">crr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">crr</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -75,22 +75,35 @@
 The event status variable must be a factor, with the first level indicating
 'censor' and subsequent levels the competing risks. The <code>Surv(time2=)</code>
 argument cannot be used.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>data frame</p></dd>
+
+
 <dt>failcode</dt>
 <dd><p>Indicates event of interest. If <code>failcode=</code> is <code>NULL</code>,
 the first competing event will be used as the event of interest.
 Default is <code>NULL</code>.</p></dd>
+
+
 <dt>conf.level</dt>
 <dd><p>confidence level. Default is 0.95.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>passed to methods</p></dd>
+
+
 <dt>x</dt>
 <dd><p>input object</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>tidycrr object</p>
+    
+
+<p>tidycrr object</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -101,7 +114,7 @@ Default is <code>NULL</code>.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">crr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">grade</span>, <span class="va">trial</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">crr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">grade</span>, <span class="va">trial</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11 cases omitted due to missing values</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">crr()</span> <span style="color: #00BBBB;">───────────────────────────────────────────────────────────────────────</span></span>
@@ -126,7 +139,7 @@ Default is <code>NULL</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

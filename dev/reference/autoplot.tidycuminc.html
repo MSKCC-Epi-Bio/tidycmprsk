@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9001</span>
       </span>
     </div>
 
@@ -59,39 +59,52 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for tidycuminc</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  outcomes <span class="op">=</span> <span class="cn">NULL</span>,
-  conf.int <span class="op">=</span> <span class="cn">FALSE</span>,
-  conf.level <span class="op">=</span> <span class="fl">0.95</span>,
-  aes <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for tidycuminc</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  outcomes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  conf.int <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  conf.level <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  aes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p>object of class 'cuminc'</p></dd>
+
+
 <dt>outcomes</dt>
 <dd><p>character vector of outcomes to include in plot. Default
 is to include the first competing events.</p></dd>
+
+
 <dt>conf.int</dt>
 <dd><p>Logical indicating whether or not to include a confidence
 interval in the tidied output. Defaults to <code>FALSE</code>.</p></dd>
+
+
 <dt>conf.level</dt>
 <dd><p>Level of the confidence interval. Default matches that in
 <code>cuminc(conf.level=)</code> (typically, 0.95)</p></dd>
+
+
 <dt>aes</dt>
 <dd><p>List of arguments that will be added or replace the existing
 arguments in <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">ggplot2::aes()</a></code>. Details below.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>not used</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a ggplot object</p>
+    
+
+<p>a ggplot object</p>
     </div>
     <div id="aesthetics">
     <h2>aesthetics</h2>
@@ -113,18 +126,18 @@ Not all arguments appear in every plot, however.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Example 1 ----------------------------------</span></span>
-<span class="r-in"><span class="fu"><a href="cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1 ----------------------------------</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="autoplot.tidycuminc-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Example 2 ----------------------------------</span></span>
-<span class="r-in"><span class="fu"><a href="cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span>outcomes <span class="op">=</span> <span class="st">"death from cancer"</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
-<span class="r-in">    x <span class="op">=</span> <span class="st">"Months from Treatment"</span>,</span>
-<span class="r-in">    y <span class="op">=</span> <span class="st">"Risk of Death"</span></span>
-<span class="r-in">  <span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example 2 ----------------------------------</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span>outcomes <span class="op">=</span> <span class="st">"death from cancer"</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    x <span class="op">=</span> <span class="st">"Months from Treatment"</span>,</span></span>
+<span class="r-in"><span>    y <span class="op">=</span> <span class="st">"Risk of Death"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="autoplot.tidycuminc-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -140,7 +153,7 @@ Not all arguments appear in every plot, however.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

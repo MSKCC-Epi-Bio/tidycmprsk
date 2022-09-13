@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9001</span>
       </span>
     </div>
 
@@ -59,31 +59,42 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for tidycuminc</span>
-<span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">x</span>, times <span class="op">=</span> <span class="cn">NULL</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span>, conf.level <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">conf.level</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for tidycuminc</span>
-<span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for tidycuminc</span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">x</span>, times <span class="op">=</span> <span class="cn">NULL</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span>, conf.level <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">conf.level</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for tidycuminc</span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>object of class 'tidycuminc'</p></dd>
+
+
 <dt>times</dt>
 <dd><p>Numeric vector of times to obtain risk estimates at</p></dd>
+
+
 <dt>conf.int</dt>
 <dd><p>Logical indicating whether or not to include a confidence
 interval in the tidied output. Defaults to <code>FALSE</code>.</p></dd>
+
+
 <dt>conf.level</dt>
 <dd><p>Level of the confidence interval. Default matches that in
 <code>cuminc(conf.level=)</code> (typically, 0.95)</p></dd>
+
+
 <dt>...</dt>
 <dd><p>not used</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a tibble</p>
+    
+
+<p>a tibble</p>
     </div>
     <div id="tidy-data-frame">
     <h2><code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> data frame</h2>
@@ -125,38 +136,39 @@ confidence level of the interval, e.g. \(z = 1.96\) for a 95% CI.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">cuminc</span> <span class="op">&lt;-</span> <span class="fu"><a href="cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">cuminc</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">cuminc</span> <span class="op">&lt;-</span> <span class="fu"><a href="cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">cuminc</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 228 × 12</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     time outcome     strata estimate std.error conf.low conf.high n.risk n.event</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  0    death from… Drug A   0         0      <span style="color: #BB0000;">NA</span>   <span style="color: #949494;"> </span>     <span style="color: #BB0000;">NA</span>          98       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  3.53 death from… Drug A   0         0      <span style="color: #BB0000;">NA</span>   <span style="color: #949494;"> </span>     <span style="color: #BB0000;">NA</span>          98       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  7.27 death from… Drug A   0.010<span style="text-decoration: underline;">2</span>    0.010<span style="text-decoration: underline;">2</span>  8.84<span style="color: #949494;">e</span><span style="color: #BB0000;">-4</span>    0.050<span style="text-decoration: underline;">3</span>     97       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  7.38 death from… Drug A   0.020<span style="text-decoration: underline;">4</span>    0.014<span style="text-decoration: underline;">4</span>  3.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>    0.065<span style="text-decoration: underline;">2</span>     96       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  8.37 death from… Drug A   0.020<span style="text-decoration: underline;">4</span>    0.014<span style="text-decoration: underline;">4</span>  3.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>    0.065<span style="text-decoration: underline;">2</span>     95       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 10.1  death from… Drug A   0.020<span style="text-decoration: underline;">4</span>    0.014<span style="text-decoration: underline;">4</span>  3.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>    0.065<span style="text-decoration: underline;">2</span>     94       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 10.3  death from… Drug A   0.020<span style="text-decoration: underline;">4</span>    0.014<span style="text-decoration: underline;">4</span>  3.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>    0.065<span style="text-decoration: underline;">2</span>     93       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 10.5  death from… Drug A   0.020<span style="text-decoration: underline;">4</span>    0.014<span style="text-decoration: underline;">4</span>  3.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>    0.065<span style="text-decoration: underline;">2</span>     92       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 11.4  death from… Drug A   0.030<span style="text-decoration: underline;">6</span>    0.017<span style="text-decoration: underline;">5</span>  8.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>    0.079<span style="text-decoration: underline;">8</span>     91       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 11.8  death from… Drug A   0.030<span style="text-decoration: underline;">6</span>    0.017<span style="text-decoration: underline;">5</span>  8.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>    0.079<span style="text-decoration: underline;">8</span>     90       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 218 more rows, and 3 more variables: n.censor &lt;int&gt;, cum.event &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   cum.censor &lt;int&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">cuminc</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     time outcome  strata estim…¹ std.e…² conf.low conf.…³ n.risk n.event n.cen…⁴</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  0    death f… Drug A  0       0      <span style="color: #BB0000;">NA</span>   <span style="color: #949494;"> </span>   <span style="color: #BB0000;">NA</span>          98       0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  3.53 death f… Drug A  0       0      <span style="color: #BB0000;">NA</span>   <span style="color: #949494;"> </span>   <span style="color: #BB0000;">NA</span>          98       0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  7.27 death f… Drug A  0.010<span style="text-decoration: underline;">2</span>  0.010<span style="text-decoration: underline;">2</span>  8.84<span style="color: #949494;">e</span><span style="color: #BB0000;">-4</span>  0.050<span style="text-decoration: underline;">3</span>     97       1       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  7.38 death f… Drug A  0.020<span style="text-decoration: underline;">4</span>  0.014<span style="text-decoration: underline;">4</span>  3.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  0.065<span style="text-decoration: underline;">2</span>     96       1       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  8.37 death f… Drug A  0.020<span style="text-decoration: underline;">4</span>  0.014<span style="text-decoration: underline;">4</span>  3.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  0.065<span style="text-decoration: underline;">2</span>     95       0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 10.1  death f… Drug A  0.020<span style="text-decoration: underline;">4</span>  0.014<span style="text-decoration: underline;">4</span>  3.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  0.065<span style="text-decoration: underline;">2</span>     94       0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 10.3  death f… Drug A  0.020<span style="text-decoration: underline;">4</span>  0.014<span style="text-decoration: underline;">4</span>  3.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  0.065<span style="text-decoration: underline;">2</span>     93       0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 10.5  death f… Drug A  0.020<span style="text-decoration: underline;">4</span>  0.014<span style="text-decoration: underline;">4</span>  3.90<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  0.065<span style="text-decoration: underline;">2</span>     92       0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 11.4  death f… Drug A  0.030<span style="text-decoration: underline;">6</span>  0.017<span style="text-decoration: underline;">5</span>  8.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  0.079<span style="text-decoration: underline;">8</span>     91       1       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 11.8  death f… Drug A  0.030<span style="text-decoration: underline;">6</span>  0.017<span style="text-decoration: underline;">5</span>  8.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  0.079<span style="text-decoration: underline;">8</span>     90       0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 218 more rows, 2 more variables: cum.event &lt;int&gt;, cum.censor &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   and abbreviated variable names ¹​estimate, ²​std.error, ³​conf.high, ⁴​n.censor</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">cuminc</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   outcome_1    statistic_1  df_1 p.value_1 outcome_2 statistic_2  df_2 p.value_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> death from …        1.99     1     0.159 death ot…      0.088<span style="text-decoration: underline;">6</span>     1     0.766</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># restructure glance to one line per outcome</span></span>
-<span class="r-in"><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">cuminc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"outcome_id"</span><span class="op">)</span>,</span>
-<span class="r-in">    names_pattern <span class="op">=</span> <span class="st">"(.*)_(.*)"</span></span>
-<span class="r-in">  <span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   outcome_1         statistic_1  df_1 p.value_1 outcome_2  stati…¹  df_2 p.val…²</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> death from cancer        1.99     1     0.159 death oth…  0.088<span style="text-decoration: underline;">6</span>     1   0.766</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable names ¹​statistic_2, ²​p.value_2</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># restructure glance to one line per outcome</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">cuminc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"outcome_id"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    names_pattern <span class="op">=</span> <span class="st">"(.*)_(.*)"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   outcome_id outcome            statistic    df p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -176,7 +188,7 @@ confidence level of the interval, e.g. \(z = 1.96\) for a 95% CI.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

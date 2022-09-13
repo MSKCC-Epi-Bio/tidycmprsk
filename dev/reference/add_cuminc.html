@@ -23,7 +23,7 @@ inline_text() Report statistics from a tbl_cuminc() table inline
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9001</span>
       </span>
     </div>
 
@@ -68,42 +68,57 @@ inline_text() Report statistics from a tbl_cuminc() table inline
 </ul></div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for tbl_cuminc</span>
-<span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_p.html" class="external-link">add_p</a></span><span class="op">(</span><span class="va">x</span>, pvalue_fun <span class="op">=</span> <span class="fu">gtsummary</span><span class="fu">::</span><span class="va"><a href="https://www.danieldsjoberg.com/gtsummary/reference/style_pvalue.html" class="external-link">style_pvalue</a></span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for tbl_cuminc</span>
-<span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span><span class="va">x</span>, location <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for tbl_cuminc</span>
-<span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_nevent.html" class="external-link">add_nevent</a></span><span class="op">(</span><span class="va">x</span>, location <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for tbl_cuminc</span>
-<span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/inline_text.html" class="external-link">inline_text</a></span><span class="op">(</span><span class="va">x</span>, time <span class="op">=</span> <span class="cn">NULL</span>, column <span class="op">=</span> <span class="cn">NULL</span>, outcome <span class="op">=</span> <span class="cn">NULL</span>, level <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for tbl_cuminc</span></span>
+<span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_p.html" class="external-link">add_p</a></span><span class="op">(</span><span class="va">x</span>, pvalue_fun <span class="op">=</span> <span class="fu">gtsummary</span><span class="fu">::</span><span class="va"><a href="https://www.danieldsjoberg.com/gtsummary/reference/style_pvalue.html" class="external-link">style_pvalue</a></span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for tbl_cuminc</span></span>
+<span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span><span class="va">x</span>, location <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for tbl_cuminc</span></span>
+<span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_nevent.html" class="external-link">add_nevent</a></span><span class="op">(</span><span class="va">x</span>, location <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for tbl_cuminc</span></span>
+<span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/inline_text.html" class="external-link">inline_text</a></span><span class="op">(</span><span class="va">x</span>, time <span class="op">=</span> <span class="cn">NULL</span>, column <span class="op">=</span> <span class="cn">NULL</span>, outcome <span class="op">=</span> <span class="cn">NULL</span>, level <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
 <dd><p>object of class 'tbl_cuminc'</p></dd>
+
+
 <dt>pvalue_fun</dt>
 <dd><p>function to style/format p-values. Default is
 <code><a href="https://www.danieldsjoberg.com/gtsummary/reference/style_pvalue.html" class="external-link">gtsummary::style_pvalue</a></code></p></dd>
+
+
 <dt>...</dt>
 <dd><p>These dots are for future extensions and must be empty.</p></dd>
+
+
 <dt>location</dt>
 <dd><p>location to place Ns. When <code>"label"</code> total Ns are placed
 on each variable's label row. When <code>"level"</code> level counts are placed on
 the variable level for categorical variables, and total N on the
 variable's label row for continuous.</p></dd>
+
+
 <dt>time</dt>
 <dd><p>time of statistic to report</p></dd>
+
+
 <dt>column</dt>
 <dd><p>column name of the statistic to report</p></dd>
+
+
 <dt>outcome</dt>
 <dd><p>string indicating the outcome to select from. If <code>NULL</code>, the
 first outcome is used.</p></dd>
+
+
 <dt>level</dt>
 <dd><p>if estimates are stratified, level of the stratum to report</p></dd>
+
 </dl></div>
     <div id="example-output">
     <h2>Example Output</h2>
@@ -131,29 +146,29 @@ Gray RJ (1988) <em>A class of K-sample tests for comparing the cumulative incide
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Example 1 ----------------------------------</span></span>
-<span class="r-in"><span class="va">add_cuminc_ex1</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu"><a href="cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="tbl_cuminc.html">tbl_cuminc</a></span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span>, label_header <span class="op">=</span> <span class="st">"**Month {time}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_nevent.html" class="external-link">add_nevent</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Example 2 ----------------------------------</span></span>
-<span class="r-in"><span class="va">add_cuminc_ex2</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu"><a href="cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="tbl_cuminc.html">tbl_cuminc</a></span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span>,</span>
-<span class="r-in">             outcomes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"death from cancer"</span>, <span class="st">"death other causes"</span><span class="op">)</span>,</span>
-<span class="r-in">             label_header <span class="op">=</span> <span class="st">"**Month {time}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_p.html" class="external-link">add_p</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_nevent.html" class="external-link">add_nevent</a></span><span class="op">(</span>location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"label"</span>, <span class="st">"level"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span>location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"label"</span>, <span class="st">"level"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># inline_text() ------------------------------</span></span>
-<span class="r-in"><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/inline_text.html" class="external-link">inline_text</a></span><span class="op">(</span><span class="va">add_cuminc_ex2</span>, time <span class="op">=</span> <span class="fl">12</span>, level <span class="op">=</span> <span class="st">"Drug A"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1 ----------------------------------</span></span></span>
+<span class="r-in"><span><span class="va">add_cuminc_ex1</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="tbl_cuminc.html">tbl_cuminc</a></span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span>, label_header <span class="op">=</span> <span class="st">"**Month {time}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_nevent.html" class="external-link">add_nevent</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example 2 ----------------------------------</span></span></span>
+<span class="r-in"><span><span class="va">add_cuminc_ex2</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="va">trt</span>, <span class="va">trial</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="tbl_cuminc.html">tbl_cuminc</a></span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             outcomes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"death from cancer"</span>, <span class="st">"death other causes"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             label_header <span class="op">=</span> <span class="st">"**Month {time}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_p.html" class="external-link">add_p</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_nevent.html" class="external-link">add_nevent</a></span><span class="op">(</span>location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"label"</span>, <span class="st">"level"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span>location <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"label"</span>, <span class="st">"level"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># inline_text() ------------------------------</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/inline_text.html" class="external-link">inline_text</a></span><span class="op">(</span><span class="va">add_cuminc_ex2</span>, time <span class="op">=</span> <span class="fl">12</span>, level <span class="op">=</span> <span class="st">"Drug A"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3.1% (0.82%, 8.0%)</span>
-<span class="r-in"><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/inline_text.html" class="external-link">inline_text</a></span><span class="op">(</span><span class="va">add_cuminc_ex2</span>, column <span class="op">=</span> <span class="va">p.value</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/inline_text.html" class="external-link">inline_text</a></span><span class="op">(</span><span class="va">add_cuminc_ex2</span>, column <span class="op">=</span> <span class="va">p.value</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0.2"</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -168,7 +183,7 @@ Gray RJ (1988) <em>A class of K-sample tests for comparing the cumulative incide
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
