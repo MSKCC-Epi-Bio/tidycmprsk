@@ -1,5 +1,6 @@
 #' Broom methods for tidycrr objects
 #'
+#' @param x a tidycrr object
 #' @param exponentiate Logical indicating whether or not to exponentiate the
 #' coefficient estimates. Defaults to `FALSE`.
 #' @param conf.level Level of the confidence interval. Default matches that in
@@ -329,10 +330,12 @@ add_n_stats <- function(df_tidy, x) {
     ) %>%
     group_by(across(any_of(c("strata", "time")))) %>%
     mutate(
-      outcome = ifelse(.data$status != 0,
-                       dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))),
-                       "censored"
-      )
+      outcome =
+        dplyr::recode(
+          .data$status,
+          `0` = "censored",
+          !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))
+        )
     ) %>%
     select(-.data$status) %>%
     dplyr::ungroup() %>%
