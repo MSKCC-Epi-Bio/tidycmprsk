@@ -1,5 +1,6 @@
 #' Estimate subdistribution functions for crr objects
 #'
+#' @param object a tidycrr object
 #' @param times Numeric vector of times to obtain risk estimates at
 #' @param probs Numeric vector of quantiles to obtain estimates at
 #' @param newdata A `base::data.frame()` or `tibble::tibble()` containing all

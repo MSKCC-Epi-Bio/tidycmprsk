@@ -1,5 +1,7 @@
 # tidycmprsk (development version)
 
+* Re-wrote an `ifelse()` statement to avoid a warning when tied times are present in `cuminc()`. (#74)
+
 # tidycmprsk 0.1.2
 
 * The `"strata"` column in tidied `cuminc()` results is now a factor. (#62)
