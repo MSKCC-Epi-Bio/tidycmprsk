@@ -23,6 +23,7 @@ NULL
 #' @rdname crr
 #' @export
 crr.formula <- function(formula, data, failcode = NULL, conf.level = 0.95, ...) {
+  if (!missing(data)) data <- droplevels(data)
 
   # checking inputs and assigning the numeric failcode -------------------------
   failcode_numeric <-
@@ -43,6 +44,7 @@ crr_mold <- function(formula, data) {
     )
   # remove intercept
   processed$predictors <- processed$predictors[, -1]
+
   processed
 }
 
