@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9004</span>
       </span>
     </div>
 
@@ -55,7 +55,8 @@
 
     <div class="section level2">
 <h2 class="page-header" data-toc-text="development version" id="tidycmprsk-development-version">tidycmprsk (development version)<a class="anchor" aria-label="anchor" href="#tidycmprsk-development-version"></a></h2>
-<ul><li><p>Updated <code><a href="../reference/cuminc.html">cuminc()</a></code> and <code><a href="../reference/crr.html">crr()</a></code> to drop un-observed factor levels before processing the data. Previously, un-observed levels led to a singularity error. (<a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/76" class="external-link">#76</a>)</p></li>
+<ul><li><p>The <code><a href="../reference/autoplot.tidycuminc.html">autoplot.tidycuminc()</a></code> method has been deprecated in favor of <code><a href="http://www.danieldsjoberg.com/ggsurvfit/reference/ggcuminc.html" class="external-link">ggsurvfit::ggcuminc()</a></code>. (<a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/81" class="external-link">#81</a>)</p></li>
+<li><p>Updated <code><a href="../reference/cuminc.html">cuminc()</a></code> and <code><a href="../reference/crr.html">crr()</a></code> to drop un-observed factor levels before processing the data. Previously, un-observed levels led to a singularity error. (<a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/76" class="external-link">#76</a>)</p></li>
 <li><p>Bug fix in <code><a href="../reference/broom_methods_cuminc.html">tidy.tidycuminc()</a></code> when times specified are after the maximum follow-up time. (<a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/77" class="external-link">#77</a>)</p></li>
 <li><p>Re-wrote an <code><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse()</a></code> statement to avoid a warning when tied times are present in <code><a href="../reference/cuminc.html">cuminc()</a></code>. (<a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/74" class="external-link">#74</a>)</p></li>
 </ul></div>
