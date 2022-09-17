@@ -12,6 +12,7 @@ cuminc
 doi
 exponentiate
 ggplot
+ggsurvfit
 mL
 ng
 subdistribution
@@ -20,3 +21,4 @@ tibble
 tidiers
 tidycrr
 tidycuminc
+un

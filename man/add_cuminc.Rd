@@ -39,7 +39,6 @@ first outcome is used.}
 \item{level}{if estimates are stratified, level of the stratum to report}
 }
 \description{
-\emph{This is experimental and breaking changes may be made in a future release.}
 \itemize{
 \item \code{add_p()} Add column with p-value comparing incidence across stratum
 \item \code{add_n()} Add column with the total N, or N within stratum
