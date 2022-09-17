@@ -156,72 +156,23 @@ tidy.tidycuminc <- function(x,
     return(select(x$tidy, -.data$conf.low, -.data$conf.high))
   }
 
-  # tidy df with requested time points -----------------------------------------
-  df_tidy <-
-    x$tidy %>%
-    dplyr::full_join(
-      list(
-        outcome = unique(x$tidy$outcome),
-        strata = switch("strata" %in% names(x$tidy),
-                        unique(x$tidy$strata)
-        ),
-        time = times
-      ) %>%
-        purrr::compact() %>%
-        purrr::cross_df(),
-      by = intersect(c("outcome", "strata", "time"), names(.))
-    ) %>%
-    arrange(across(any_of(c("strata", "outcome", "time")))) %>%
-    group_by(across(any_of(c("strata", "outcome")))) %>%
-    # replace unobserved timepoints with 0 counts for events and censored
-    mutate(
-      across(c(.data$n.event, .data$n.censor), ~ tidyr::replace_na(., 0L)),
-      ..max_time.. = max(.data$time[!is.na(.data$estimate)]),
-      ..min_time.. = min(.data$time[!is.na(.data$estimate) & .data$time > 0])
-    ) %>%
-    # fill down the estimates
-    tidyr::fill(
-      .data$estimate, .data$std.error, .data$conf.low, .data$conf.high,
-      .data$cum.event, .data$cum.censor,
-      .direction = "down"
-    ) %>%
-    tidyr::fill(
-      .data$n.risk,
-      .direction = "up"
-    ) %>%
-    # correcting values larger than largest observed timepoint
-    mutate(
-      across(
-        c(.data$estimate, .data$std.error, .data$conf.low, .data$conf.high),
-        ~ ifelse(.data$time > .data$..max_time.., NA, .)
-      ),
-      n.risk = ifelse(.data$time > .data$..max_time.., 0L, .data$n.risk),
-      across(
-        c(.data$conf.low, .data$conf.high),
-        ~ ifelse(.data$time < .data$..min_time.., NA, .)
-      ),
-      across(
-        c(.data$estimate, .data$std.error),
-        ~ ifelse(.data$time < .data$..min_time.., 0L, .)
-      )
-    ) %>%
-    # select(-.data$..max_time..,-.data$..min_time..) %>%
-    dplyr::ungroup() %>%
-    filter(.data$time %in% .env$times) %>%
-    group_by(across(any_of(c("strata", "outcome")))) %>%
-    mutate(
-      n.event = c(.data$cum.event[1],diff(.data$cum.event)),
-      n.censor = c(.data$cum.censor[1],diff(.data$cum.censor))
-    )  %>%
-    # correcting values larger than largest observed timepoint
-    mutate(
-      across(
-        c(.data$n.event, .data$n.censor),
-        ~ ifelse(.data$time > .data$..max_time.. | .data$time < .data$..min_time.., 0L, .)
-      )
-    ) %>%
-    select(-.data$..max_time..,-.data$..min_time..) %>%
-    dplyr::ungroup()
+  # if times are specified, add them (and associated stats) to the data frame
+  df_tidy <- .add_tidy_times(x$tidy, times = times)
+
+  # adding cumulative events and censor
+  df_tidy <- .add_cumulative_stats(df_tidy)
+
+  # if times are specified, remove the un-selected times and correct the
+  # n.censor and n.event stats (these are cumulative over the time
+  # interval, between specified times)
+  df_tidy <- .keep_selected_times(df_tidy, times = times)
+
+  # return tidied tibble
+  df_tidy %>%
+    dplyr::select(-.data$time_max) %>%
+    dplyr::mutate(
+      conf.level = x$conf.int
+    )
 
   # delete/update CI if needed -------------------------------------------------
   if (!isTRUE(conf.int)) {
@@ -536,4 +487,110 @@ glance.tidycuminc <- function(x, ...) {
       names_glue = "{.value}_{failcode_id}"
     ) %>%
     select(!!!select_expr)
+}
+
+
+
+
+.keep_selected_times <- function(x, times) {
+  if (is.null(times)) {
+    return(x)
+  }
+
+  times0 <- union(0, times) %>% sort()
+
+  x %>%
+    dplyr::mutate(
+      time_group = cut(.data$time, breaks = union(.env$times0, max(.env$x$time)))
+    ) %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("time_group", "strata", "outcome")))) %>%
+    dplyr::mutate(
+      dplyr::across(
+        dplyr::all_of(c("n.censor", "n.event")),
+        ~ sum(.)
+      )
+    ) %>%
+    dplyr::filter(.data$time %in% .env$times) %>%
+    dplyr::ungroup() %>%
+    dplyr::select(-.data$time_group)
+}
+
+.add_cumulative_stats <- function(x) {
+  x %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "outcome")))) %>%
+    dplyr::mutate(
+      cum.event = cumsum(.data$n.event),
+      cum.censor = cumsum(.data$n.censor),
+      .after = .data$n.censor
+    ) %>%
+    dplyr::ungroup()
+}
+
+.add_tidy_times <- function(x, times) {
+  x <-
+    x %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "outcome")))) %>%
+    dplyr::mutate(
+      time_max = max(.data$time)
+    ) %>%
+    dplyr::ungroup()
+
+  if (is.null(times)) {
+    return(x)
+  }
+
+  # create tibble of times
+  df_times <-
+    do.call(
+      what = expand.grid,
+      args =
+        # remove NULL elements before passing to exapnd grid
+        Filter(
+          Negate(is.null),
+          list(
+            time = times,
+            strata = suppressWarnings(unique(x$strata)),
+            outcome = suppressWarnings(unique(x$outcome)),
+            stringsAsFactors = FALSE
+          )
+        )
+    )
+
+  # merge tibble of times with tidy df
+  df_result <-
+    dplyr::full_join(
+      x,
+      df_times,
+      by = intersect(c("time", "strata", "outcome"), names(x))
+    ) %>%
+    dplyr::arrange(dplyr::across(dplyr::any_of(c("outcome", "strata", "time"))))
+
+  # fill in missing stats
+  df_result <-
+    df_result %>%
+    dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "outcome")))) %>%
+    dplyr::mutate(
+      dplyr::across(c(.data$n.event, .data$n.censor), ~ ifelse(is.na(.), 0, .))
+    ) %>%
+    tidyr::fill(
+      -c(.data$n.risk, .data$n.event, .data$n.censor),
+      .direction = "down"
+    ) %>%
+    tidyr::fill(
+      .data$n.risk,
+      .direction = "up"
+    ) %>%
+    dplyr::mutate(
+      n.risk = ifelse(.data$time > .data$time_max, 0, .data$n.risk)
+    ) %>%
+    dplyr::ungroup()
+
+  # any times above the max observed time are set to NA
+  df_result %>%
+    dplyr::mutate(
+      dplyr::across(
+        dplyr::any_of(c("estimate", "std.error", "conf.low", "conf.high")),
+        ~ ifelse(.data$time > .data$time_max, NA, .)
+      )
+    )
 }
