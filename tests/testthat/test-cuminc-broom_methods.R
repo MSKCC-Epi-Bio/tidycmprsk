@@ -229,8 +229,25 @@ test_that("broom methods", {
     rep_len(0L, 8)
   )
   expect_equal(
-    cuminc_tidy2$cum.event,
-    c(0L, 3L, 0L, 6L, 0L, 9L, 0L, 5L)
+    cuminc_tidy2 %>%
+      dplyr::arrange(strata, outcome, time) %>%
+      dplyr::pull(cum.event),
+    trial %>%
+      dplyr::filter(death == 1) %>%
+      tidyr::nest(data = -c(trt, death_cr)) %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(
+        time = list(c(0, 12)),
+        cum.event =
+          c(
+            dplyr::filter(data, ttdeath <= time[1]) %>% nrow(),
+            dplyr::filter(data, ttdeath <= time[2]) %>% nrow()
+          ) %>%
+          list()
+      ) %>%
+      tidyr::unnest(cols = c(time, cum.event)) %>%
+      dplyr::arrange(trt, death_cr, time) %>%
+      dplyr::pull(cum.event)
   )
 
 
@@ -282,11 +299,26 @@ test_that("broom methods", {
   )
   expect_equal(
     tidy_cuminc1_time$n.event,
-    c(0L, 0L, 0L, 0L)
+    trial %>%
+      dplyr::filter(death == 1) %>%
+      tidyr::nest(data = -c(death_cr)) %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(
+        time = list(c(0, 150)),
+        n.event =
+          c(
+            dplyr::filter(data, ttdeath <= time[1]) %>% nrow(),
+            dplyr::filter(data, ttdeath > time[1], ttdeath <= time[2]) %>% nrow()
+          ) %>%
+          list()
+      ) %>%
+      tidyr::unnest(cols = c(time, n.event)) %>%
+      dplyr::arrange(death_cr, time) %>%
+      dplyr::pull(n.event)
   )
   expect_equal(
     tidy_cuminc1_time$n.censor,
-    c(0L, 0L, 0L, 0L)
+    c(0L, 88L, 0L, 88L)
   )
 
   # testing that n.event over intervals is correct when 0 is and is not specified
