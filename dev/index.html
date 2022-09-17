@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.2.9003</span>
       </span>
     </div>
 
@@ -104,9 +104,9 @@
 <span><span class="co">#&gt; 11 cases omitted due to missing values</span></span>
 <span><span class="va">crr_mod</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; -- crr() -----------------------------------------------------------------------</span></span>
-<span><span class="co">#&gt; * Call Surv(ttdeath, death_cr) ~ age + trt</span></span>
-<span><span class="co">#&gt; * Failure type of interest "death from cancer"</span></span>
+<span><span class="co">#&gt; ── crr() ───────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; • Call Surv(ttdeath, death_cr) ~ age + trt</span></span>
+<span><span class="co">#&gt; • Failure type of interest "death from cancer"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Variable    Coef    SE      HR     95% CI       p-value    </span></span>
 <span><span class="co">#&gt; age         0.006   0.010   1.01   0.99, 1.03   0.56       </span></span>
@@ -116,6 +116,7 @@
 <code class="sourceCode R"><span><span class="va">tbl</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">crr_mod</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">tbl_regression</a></span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_global_p.html" class="external-link">add_global_p</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span>location <span class="op">=</span> <span class="st">"level"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-gtsummary_print-1.png" width="50%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -128,14 +129,14 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/cuminc.html">cuminc</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html" class="external-link">Surv</a></span><span class="op">(</span><span class="va">ttdeath</span>, <span class="va">death_cr</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">trial</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; -- cuminc() --------------------------------------------------------------------</span></span>
-<span><span class="co">#&gt; * Failure type "death from cancer"</span></span>
+<span><span class="co">#&gt; ── cuminc() ────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; • Failure type "death from cancer"</span></span>
 <span><span class="co">#&gt; time   n.risk   estimate   std.error   95% CI          </span></span>
 <span><span class="co">#&gt; 5.00   199      0.000      0.000       NA, NA          </span></span>
 <span><span class="co">#&gt; 10.0   189      0.030      0.012       0.012, 0.061    </span></span>
 <span><span class="co">#&gt; 15.0   158      0.120      0.023       0.079, 0.169    </span></span>
 <span><span class="co">#&gt; 20.0   116      0.215      0.029       0.161, 0.274</span></span>
-<span><span class="co">#&gt; * Failure type "death other causes"</span></span>
+<span><span class="co">#&gt; • Failure type "death other causes"</span></span>
 <span><span class="co">#&gt; time   n.risk   estimate   std.error   95% CI          </span></span>
 <span><span class="co">#&gt; 5.00   199      0.005      0.005       0.000, 0.026    </span></span>
 <span><span class="co">#&gt; 10.0   189      0.025      0.011       0.009, 0.054    </span></span>
@@ -158,7 +159,7 @@
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
-<p>Please note that the {tidycmprsk} project is released with a <a href="https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms. Thank you to all contributors!<br><a href="https://github.com/ddsjoberg" class="external-link">@ddsjoberg</a>, <a href="https://github.com/karissawhiting" class="external-link">@karissawhiting</a>, and <a href="https://github.com/tengfei-emory" class="external-link">@tengfei-emory</a></p>
+<p>Please note that the {tidycmprsk} project is released with a <a href="https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms. Thank you to all contributors!<br><a href="https://github.com/ddsjoberg" class="external-link">@ddsjoberg</a>, <a href="https://github.com/erikvona" class="external-link">@erikvona</a>, <a href="https://github.com/karissawhiting" class="external-link">@karissawhiting</a>, <a href="https://github.com/m-freitag" class="external-link">@m-freitag</a>, and <a href="https://github.com/tengfei-emory" class="external-link">@tengfei-emory</a></p>
 <div class="section level4">
 <h4 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
 </h4>
