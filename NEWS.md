@@ -1,5 +1,7 @@
 # tidycmprsk (development version)
 
+* Updated `cuminc()` and `crr()` to drop un-observed factor levels before processing the data. Previously, un-observed levels led to a singularity error. (#76)
+
 * Bug fix in `tidy.tidycuminc()` when times specified are after the maximum follow-up time. (#77)
 
 * Re-wrote an `ifelse()` statement to avoid a warning when tied times are present in `cuminc()`. (#74)

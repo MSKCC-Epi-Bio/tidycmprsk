@@ -1,7 +1,5 @@
 #' Tabular Summary of Cumulative Incidence
 #'
-#' *This is experimental and breaking changes may be made in a future release.*
-#'
 #' @param x a 'tidycuminc' object created with `cuminc()`
 #' @param outcomes character vector of outcomes to include. Default
 #' is to include the first outcome.
@@ -227,7 +225,6 @@ tbl_cuminc <- function(x, ...) {
 #' Additional Functions for `tbl_cuminc()`
 #'
 #' @description
-#' *This is experimental and breaking changes may be made in a future release.*
 #'
 #' - `add_p()` Add column with p-value comparing incidence across stratum
 #' - `add_n()` Add column with the total N, or N within stratum

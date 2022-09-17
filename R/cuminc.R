@@ -36,6 +36,7 @@ NULL
 #' @rdname cuminc
 #' @export
 cuminc.formula <- function(formula, data, strata, rho = 0, conf.level = 0.95, ...) {
+  if (!missing(data)) data <- droplevels(data)
 
   # extracting failure level ---------------------------------------------------
   failcode_numeric <-

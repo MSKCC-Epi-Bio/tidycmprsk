@@ -13,6 +13,15 @@ test_that("crr() works", {
   )
 
   expect_equal(
+    crr(Surv(ttdeath, death_cr) ~ age + trt,
+        data = trial %>% dplyr::mutate(trt = factor(trt, levels = paste("Drug", c("A", "B", "C"))))) %>%
+      utils::modifyList(val = list(data = NULL, blueprint = NULL, xlevels = NULL)),
+    crr(Surv(ttdeath, death_cr) ~ age + trt,
+        data = trial %>% dplyr::mutate(trt = factor(trt))) %>%
+      utils::modifyList(val = list(data = NULL, blueprint = NULL, xlevels = NULL))
+  )
+
+  expect_equal(
     tidy(crr1, conf.int = TRUE) %>%
       select(all_of(names(.) %>% sort())),
     broom::tidy(crr1$cmprsk, conf.int = TRUE, conf.level = 0.90) %>%

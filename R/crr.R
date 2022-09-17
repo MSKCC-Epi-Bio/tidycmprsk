@@ -23,7 +23,6 @@ NULL
 #' @rdname crr
 #' @export
 crr.formula <- function(formula, data, failcode = NULL, conf.level = 0.95, ...) {
-
   # checking inputs and assigning the numeric failcode -------------------------
   failcode_numeric <-
     as_numeric_failcode(formula = formula, data = data, failcode = failcode)
@@ -43,6 +42,17 @@ crr_mold <- function(formula, data) {
     )
   # remove intercept
   processed$predictors <- processed$predictors[, -1]
+
+  # removing unobserved levels (converted to all zero for dummy variable)
+  processed$predictors <-
+    processed$predictors %>%
+    purrr::map_dfc(
+      function(.x) {
+        if (all(.x == 0)) return(NULL)
+        .x
+      }
+    )
+
   processed
 }
 
@@ -56,7 +66,7 @@ as_numeric_failcode <- function(formula, data, failcode, keep_all = FALSE) {
       },
       error = function(e) {
         cli::cli_alert_danger("There was an error evaluating the LHS of the formula.")
-        stop(e, call. = FALSE)
+        stop(as.character(e), call. = FALSE)
       }
     )
 

@@ -47,9 +47,9 @@ crr_mod <- crr(Surv(ttdeath, death_cr) ~ age + trt, trial)
 #> 11 cases omitted due to missing values
 crr_mod
 #> 
-#> -- crr() -----------------------------------------------------------------------
-#> * Call Surv(ttdeath, death_cr) ~ age + trt
-#> * Failure type of interest "death from cancer"
+#> ── crr() ───────────────────────────────────────────────────────────────────────
+#> • Call Surv(ttdeath, death_cr) ~ age + trt
+#> • Failure type of interest "death from cancer"
 #> 
 #> Variable    Coef    SE      HR     95% CI       p-value    
 #> age         0.006   0.010   1.01   0.99, 1.03   0.56       
@@ -62,6 +62,7 @@ The `tidycmprsk` plays well with other packages, such as `gtsummary`.
 tbl <- 
   crr_mod %>%
   gtsummary::tbl_regression(exponentiate = TRUE) %>%
+  gtsummary::add_global_p() %>%
   add_n(location = "level")
 ```
 
@@ -77,14 +78,14 @@ gtsummary::inline_text(tbl, variable = age)
 ``` r
 cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
 #> 
-#> -- cuminc() --------------------------------------------------------------------
-#> * Failure type "death from cancer"
+#> ── cuminc() ────────────────────────────────────────────────────────────────────
+#> • Failure type "death from cancer"
 #> time   n.risk   estimate   std.error   95% CI          
 #> 5.00   199      0.000      0.000       NA, NA          
 #> 10.0   189      0.030      0.012       0.012, 0.061    
 #> 15.0   158      0.120      0.023       0.079, 0.169    
 #> 20.0   116      0.215      0.029       0.161, 0.274
-#> * Failure type "death other causes"
+#> • Failure type "death other causes"
 #> time   n.risk   estimate   std.error   95% CI          
 #> 5.00   199      0.005      0.005       0.000, 0.026    
 #> 10.0   189      0.025      0.011       0.009, 0.054    
@@ -121,7 +122,9 @@ Conduct](https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms. Thank
 you to all contributors!  
 [@ddsjoberg](https://github.com/ddsjoberg),
-[@karissawhiting](https://github.com/karissawhiting), and
+[@erikvona](https://github.com/erikvona),
+[@karissawhiting](https://github.com/karissawhiting),
+[@m-freitag](https://github.com/m-freitag), and
 [@tengfei-emory](https://github.com/tengfei-emory)
 
 #### Limitations

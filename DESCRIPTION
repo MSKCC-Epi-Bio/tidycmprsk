@@ -1,6 +1,6 @@
 Package: tidycmprsk
 Title: Competing Risks Estimation
-Version: 0.1.2.9002
+Version: 0.1.2.9003
 Authors@R: c(
     person(c("Daniel", "D."), "Sjoberg", , "danield.sjoberg@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0003-0862-2018")),
@@ -23,7 +23,7 @@ Imports:
     cmprsk (>= 2.2.10),
     dplyr (>= 1.0.7),
     ggplot2 (>= 3.3.5),
-    gtsummary (>= 1.5.2),
+    gtsummary (>= 1.6.1),
     hardhat (>= 0.2.0),
     purrr (>= 0.3.4),
     rlang (>= 1.0.0),
