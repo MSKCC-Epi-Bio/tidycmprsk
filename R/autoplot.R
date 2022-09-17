@@ -1,5 +1,8 @@
 #' Plot Cumulative Incidence Estimates
 #'
+#' @description
+#' **DEPRECATED** Use `ggsurvfit::ggcuminc()` instead.
+#'
 #' Function uses the result from `tidy(object)` to create figure.
 #'
 #' @param object object of class 'cuminc'
@@ -18,7 +21,7 @@
 #' `ggplot2::aes(x = time, y = estimate, colour = strata, fill = strata, linetype = outcome, ymin = conf.low, ymax = conf.high`
 #' Not all arguments appear in every plot, however.
 #'
-#'
+#' @keywords internal
 #' @return a ggplot object
 #' @family cuminc() functions
 #' @export
@@ -37,6 +40,11 @@
 autoplot.tidycuminc <- function(object, outcomes = NULL,
                                 conf.int = FALSE, conf.level = 0.95,
                                 aes = NULL, ...) {
+  # added this message on 2022-09-17
+  cli::cli_inform(c(
+    "!" = "The {.code autoplot.tidycuminc()} function is deprecated and no longer maintained.",
+    "i" = "Use {.code ggsurvfit::ggcuminc()} instead."
+  ))
   # checking inputs ------------------------------------------------------------
   outcomes <- outcomes %||% names(object$failcode)[1]
   outcomes <- match.arg(outcomes, names(object$failcode), several.ok = TRUE)

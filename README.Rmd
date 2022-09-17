@@ -85,11 +85,15 @@ gtsummary::inline_text(tbl, variable = age)
 cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
 ```
 
-Plot risks using `autoplot()`.
+Plot risks using using the {ggsurvfit} package.
 
-```{r fig.asp = .45}
+```{r}
+library(ggsurvfit)
+
 cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
-  autoplot(conf.int = TRUE)
+  ggcuminc() +
+  add_confidence_interval() +
+  add_risktable()
 ```
 
 Summary table

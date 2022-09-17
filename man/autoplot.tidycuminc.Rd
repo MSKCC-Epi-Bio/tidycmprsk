@@ -34,6 +34,8 @@ arguments in \code{ggplot2::aes()}. Details below.}
 a ggplot object
 }
 \description{
+\strong{DEPRECATED} Use \code{ggsurvfit::ggcuminc()} instead.
+
 Function uses the result from \code{tidy(object)} to create figure.
 }
 \section{aesthetics}{
@@ -65,3 +67,4 @@ Other cuminc() functions:
 \code{\link{cuminc}()}
 }
 \concept{cuminc() functions}
+\keyword{internal}

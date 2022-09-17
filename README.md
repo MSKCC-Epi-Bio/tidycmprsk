@@ -62,7 +62,6 @@ The `tidycmprsk` plays well with other packages, such as `gtsummary`.
 tbl <- 
   crr_mod %>%
   gtsummary::tbl_regression(exponentiate = TRUE) %>%
-  gtsummary::add_global_p() %>%
   add_n(location = "level")
 ```
 
@@ -93,11 +92,17 @@ cuminc(Surv(ttdeath, death_cr) ~ 1, trial)
 #> 20.0   116      0.205      0.029       0.152, 0.264
 ```
 
-Plot risks using `autoplot()`.
+Plot risks using using the {ggsurvfit} package.
 
 ``` r
+library(ggsurvfit)
+#> Loading required package: ggplot2
+
 cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
-  autoplot(conf.int = TRUE)
+  ggcuminc() +
+  add_confidence_interval() +
+  add_risktable()
+#> Plotting outcome "death from cancer".
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />

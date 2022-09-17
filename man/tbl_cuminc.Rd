@@ -48,7 +48,7 @@ em-dash, \code{"\\U2014"}}
 \item{...}{not used}
 }
 \description{
-\emph{This is experimental and breaking changes may be made in a future release.}
+Tabular Summary of Cumulative Incidence
 }
 \section{Example Output}{
 
