@@ -2,7 +2,7 @@ url: https://mskcc-epi-bio.github.io/tidycmprsk
 
 template:
   params:
-    bootswatch: flatly
+    bootswatch: lumen
 development:
   mode: auto
   version_label: default
