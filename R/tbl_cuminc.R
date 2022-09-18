@@ -122,7 +122,7 @@ tbl_cuminc.tidycuminc <- function(x,
     mutate(
       N = sum(.data$n),
       N.event = sum(.data$n.event),
-      .before = .data$n
+      .before = dplyr::all_of("n")
     ) %>%
     dplyr::ungroup()
 
@@ -159,7 +159,7 @@ tbl_cuminc.tidycuminc <- function(x,
     {suppressMessages(
       dplyr::left_join(
         .,
-        select(df_n, .data$outcome, dplyr::starts_with("N", ignore.case = FALSE)) %>% dplyr::distinct()
+        select(df_n, dplyr::all_of("outcome"), dplyr::starts_with("N", ignore.case = FALSE)) %>% dplyr::distinct()
       )
     )} %>%
     {suppressMessages(
@@ -301,7 +301,7 @@ add_p.tbl_cuminc <- function(x, pvalue_fun = gtsummary::style_pvalue, ...) {
       names_pattern = "(.*)_(.*)"
     ) %>%
     mutate(row_type = "label") %>%
-    select(-.data$outcome_id)
+    select(-dplyr::all_of("outcome_id"))
 
   # merge p-values into tbl
   x %>%
@@ -352,7 +352,7 @@ add_n.tbl_cuminc <- function(x, location = NULL, ...) {
               .data$row_type == "level" & "level" %in% .env$location,
               .data$n,
               .data$stat_n),
-          .after = .data$label
+          .after = dplyr::all_of("label")
         )
     ) %>%
     gtsummary::modify_table_styling(
@@ -384,7 +384,7 @@ add_nevent.tbl_cuminc <- function(x, location = NULL, ...) {
               .data$row_type == "level" & "level" %in% .env$location,
               .data$n.event,
               .data$stat_nevent),
-          .after = .data$label
+          .after = dplyr::all_of("label")
         )
     ) %>%
     gtsummary::modify_table_styling(
