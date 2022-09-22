@@ -112,10 +112,10 @@ tbl_cuminc.tidycuminc <- function(x,
       dplyr::full_join(
         tidy(x, times = 0) %>%
           select(any_of(c("outcome", "strata")),
-                 n = .data$n.risk),
+                 n = "n.risk"),
         tidy(x, times = max(x$tidy$time) + 1) %>%
           select(any_of(c("outcome", "strata")),
-                 n.event = .data$cum.event)
+                 n.event = "cum.event")
       )
     ) %>%
     dplyr::group_by(.data$outcome) %>%
@@ -132,8 +132,8 @@ tbl_cuminc.tidycuminc <- function(x,
     select(dplyr::any_of(c("outcome", "strata", "column_name", "statistic"))) %>%
     tidyr::pivot_wider(
       id_cols = dplyr::any_of(c("outcome", "strata")),
-      names_from = .data$column_name,
-      values_from = .data$statistic
+      names_from = "column_name",
+      values_from = "statistic"
     ) %>%
     mutate(row_type = "level") %>%
     purrr::when(
