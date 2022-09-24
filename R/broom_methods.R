@@ -41,7 +41,7 @@ tidy.tidycrr <- function(x,
   if (isTRUE(conf.int)) {
     df_tidy <-
       df_tidy %>%
-      dplyr::relocate(.data$conf.low, .data$conf.high, .before = .data$p.value)
+      dplyr::relocate(dplyr::all_of(c("conf.low", "conf.high")), .before = dplyr::all_of("p.value"))
   }
 
   df_tidy
@@ -153,7 +153,7 @@ tidy.tidycuminc <- function(x,
 
   # if user requested default tidier without CI, return w/o CI -----------------
   if (is.null(times) && !isTRUE(conf.int)) {
-    return(select(x$tidy, -.data$conf.low, -.data$conf.high))
+    return(select(x$tidy, -dplyr::all_of(c("conf.low", "conf.high"))))
   }
 
   # if times are specified, add them (and associated stats) to the data frame
@@ -169,7 +169,7 @@ tidy.tidycuminc <- function(x,
 
   # return tidied tibble
   df_tidy %>%
-    dplyr::select(-.data$time_max) %>%
+    dplyr::select(-dplyr::all_of("time_max")) %>%
     dplyr::mutate(
       conf.level = x$conf.int
     )
@@ -178,7 +178,7 @@ tidy.tidycuminc <- function(x,
   if (!isTRUE(conf.int)) {
     df_tidy <-
       df_tidy %>%
-      select(-.data$conf.low, -.data$conf.high)
+      select(-dplyr::all_of(c("conf.low", "conf.high")))
   }
   else if (!identical(conf.level, x$conf.level)) {
     df_tidy <- add_conf.int(df_tidy, conf.level = conf.level)
@@ -228,7 +228,7 @@ first_cuminc_tidy <- function(x, conf.level) {
       df_outcomes,
       by = "outcome_id"
     ) %>%
-    select(.data$outcome, everything(), -.data$outcome_id)
+    select(dplyr::all_of("outcome"), everything(), -dplyr::all_of("outcome_id"))
 
   # if only one group, then remove the column from -----------------------------
   if (length(unique(df_tidy$strata)) == 1L) {
@@ -270,7 +270,7 @@ add_conf.int <- function(df_tidy, conf.level) {
       conf.high =
         .data$estimate^exp(-stats::qnorm((1 - .env$conf.level) / 2) * .data$std.error /
                              (.data$estimate * log(.data$estimate))),
-      across(c(.data$conf.low, .data$conf.high), ~ ifelse(is.nan(.), NA, .))
+      across(dplyr::all_of(c("conf.low", "conf.high")), ~ ifelse(is.nan(.), NA, .))
     )
 }
 
@@ -314,7 +314,7 @@ add_n_stats <- function(df_tidy, x) {
         )
     ) %>%
     filter(.data$status != 0) %>%
-    select(-.data$status) %>%
+    select(-dplyr::all_of("status")) %>%
     dplyr::distinct() %>%
     dplyr::ungroup()
 
@@ -337,7 +337,7 @@ add_n_stats <- function(df_tidy, x) {
           !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))
         )
     ) %>%
-    select(-.data$status) %>%
+    select(-dplyr::all_of("status")) %>%
     dplyr::ungroup() %>%
     dplyr::distinct()
 
@@ -353,7 +353,7 @@ add_n_stats <- function(df_tidy, x) {
       outcome =
         dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode))))
     ) %>%
-    select(-.data$status) %>%
+    select(-dplyr::all_of("status")) %>%
     dplyr::ungroup() %>%
     dplyr::distinct()
 
@@ -368,7 +368,7 @@ add_n_stats <- function(df_tidy, x) {
       n.event = as.integer(.data$outcome == .data$outcome2),
       outcome = .data$outcome2
     ) %>%
-    select(-.data$status, -.data$outcome2)
+    select(-dplyr::all_of(c("status", "outcome2")))
 
   df_Surv <- merge(df_Surv, df_n_censor, all = TRUE)
   df_Surv <- merge(df_Surv, df_time_zero, all = TRUE)
@@ -389,7 +389,7 @@ add_n_stats <- function(df_tidy, x) {
 
   df_Surv <- df_Surv %>%
     filter(.data$keep == 1) %>%
-    select(-.data$ties, -.data$keep)
+    select(-dplyr::all_of(c("ties", "keep")))
 
   df_Surv <- df_Surv %>%
     group_by(across(any_of(c("strata", "outcome")))) %>%
@@ -408,11 +408,13 @@ add_n_stats <- function(df_tidy, x) {
   output %>%
     arrange(across(any_of(c("strata", "outcome", "time", "n.risk")))) %>%
     group_by(across(any_of(c("strata", "outcome")))) %>%
-    tidyr::fill(.data$n.risk, .data$estimate, .data$std.error,
-                .data$conf.low, .data$conf.high,
-                .data$n.event, .data$n.censor, .data$cum.event,
-                .data$cum.censor,
-                .direction = "down"
+    tidyr::fill(
+      dplyr::all_of(c(
+        "n.risk", "estimate", "std.error",
+        "conf.low", "conf.high",
+        "n.event", "n.censor", "cum.event",
+        "cum.censor")),
+      .direction = "down"
     ) %>%
     dplyr::ungroup() %>%
     filter(!is.na(.data$outcome)) %>%
@@ -427,16 +429,16 @@ cuminc_matrix_to_df <- function(x, name, times) {
     mutate(
       strata = stringr::word(.data$rowname, 1, -2),
       outcome_id = stringr::word(.data$rowname, -1L),
-      .before = .data$rowname
+      .before = dplyr::all_of("rowname")
     ) %>%
-    select(-.data$rowname) %>%
+    select(-dplyr::all_of("rowname")) %>%
     tidyr::pivot_longer(
-      cols = -c(.data$strata, .data$outcome_id),
+      cols = -dplyr::all_of(c("strata", "outcome_id")),
       names_to = "time_chr",
       values_to = name
     ) %>%
     group_by(.data$strata, .data$outcome_id) %>%
-    mutate(time = times, .after = .data$time_chr) %>%
+    mutate(time = times, .after = dplyr::all_of("time_chr")) %>%
     dplyr::ungroup()
 
   # checking for issues mapping the numeric times back onto the estimates
@@ -451,7 +453,7 @@ cuminc_matrix_to_df <- function(x, name, times) {
       stop(call. = FALSE)
   }
 
-  df %>% select(-.data$time_chr)
+  df %>% select(-dplyr::all_of("time_chr"))
 }
 
 #' @rdname broom_methods_cuminc
@@ -477,13 +479,14 @@ glance.tidycuminc <- function(x, ...) {
         mutate(failcode_id = as.character(.data$failcode_id)),
       by = "failcode_id"
     ) %>%
-    select(.data$outcome, .data$failcode_id,
-           statistic = .data$stat,
-           .data$df, p.value = .data$pv
+    select(dplyr::all_of(c("outcome", "failcode_id")),
+           statistic = dplyr::all_of("stat"),
+           dplyr::all_of("df"),
+           p.value = dplyr::all_of("pv")
     ) %>%
     tidyr::pivot_wider(
-      values_from = c(.data$outcome, .data$statistic, .data$df, .data$p.value),
-      names_from = .data$failcode_id,
+      values_from = dplyr::all_of(c("outcome", "statistic", "df", "p.value")),
+      names_from = dplyr::all_of("failcode_id"),
       names_glue = "{.value}_{failcode_id}"
     ) %>%
     select(!!!select_expr)
@@ -512,7 +515,7 @@ glance.tidycuminc <- function(x, ...) {
     ) %>%
     dplyr::filter(.data$time %in% .env$times) %>%
     dplyr::ungroup() %>%
-    dplyr::select(-.data$time_group)
+    dplyr::select(-dplyr::all_of("time_group"))
 }
 
 .add_cumulative_stats <- function(x) {
@@ -521,7 +524,7 @@ glance.tidycuminc <- function(x, ...) {
     dplyr::mutate(
       cum.event = cumsum(.data$n.event),
       cum.censor = cumsum(.data$n.censor),
-      .after = .data$n.censor
+      .after = dplyr::all_of("n.censor")
     ) %>%
     dplyr::ungroup()
 }
@@ -570,14 +573,14 @@ glance.tidycuminc <- function(x, ...) {
     df_result %>%
     dplyr::group_by(dplyr::across(dplyr::any_of(c("strata", "outcome")))) %>%
     dplyr::mutate(
-      dplyr::across(c(.data$n.event, .data$n.censor), ~ ifelse(is.na(.), 0, .))
+      dplyr::across(dplyr::all_of(c("n.event", "n.censor")), ~ ifelse(is.na(.), 0, .))
     ) %>%
     tidyr::fill(
-      -c(.data$n.risk, .data$n.event, .data$n.censor),
+      -dplyr::all_of(c("n.risk", "n.event", "n.censor")),
       .direction = "down"
     ) %>%
     tidyr::fill(
-      .data$n.risk,
+      dplyr::all_of("n.risk"),
       .direction = "up"
     ) %>%
     dplyr::mutate(

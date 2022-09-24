@@ -6,6 +6,8 @@
 \alias{tidycmprsk-package}
 \title{tidycmprsk: Competing Risks Estimation}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Provides an intuitive interface for working with the competing risk endpoints. The package wraps the 'cmprsk' package, and exports functions for univariate cumulative incidence estimates and competing risk regression. Methods follow those introduced in Fine and Gray (1999) \doi{10.1002/sim.7501}.
 }
 \seealso{

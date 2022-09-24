@@ -17,29 +17,28 @@ print.tidycrr <- function(x, ...) {
   x$tidy %>%
     # adding the HR with CI to data frame
     dplyr::bind_cols(
-      select(., .data$estimate, .data$conf.low, .data$conf.high) %>%
+      select(., dplyr::all_of(c("estimate", "conf.low", "conf.high"))) %>%
         mutate(
           across(
-            c(.data$estimate, .data$conf.low, .data$conf.high),
+            dplyr::all_of(c("estimate", "conf.low", "conf.high")),
             ~ gtsummary::style_ratio(exp(.), digits = 2)
           ),
           exp_estimate = .data$estimate,
           conf.int = paste(.data$conf.low, .data$conf.high, sep = ", ")
         ) %>%
-        select(.data$exp_estimate, .data$conf.int)
+        select(dplyr::all_of(c("exp_estimate", "conf.int")))
     ) %>%
     # formatting coef and p-value
     mutate(
       across(
-        c(.data$estimate, .data$std.error),
+        dplyr::all_of(c("estimate", "std.error")),
         purrr::partial(gtsummary::style_sigfig, digits = 3)
       ),
       p.value = gtsummary::style_pvalue(.data$p.value, digits = 2)
     ) %>%
-    select(
-      .data$term, .data$estimate, .data$std.error,
-      .data$exp_estimate, .data$conf.int, .data$p.value
-    ) %>%
+    select(dplyr::all_of(c(
+      "term", "estimate", "std.error", "exp_estimate", "conf.int", "p.value"
+    ))) %>%
     # adding header row
     tibble::add_row(
       term = "Variable",
@@ -120,10 +119,10 @@ print.tidycuminc <- function(x, ...) {
             # NA will be shown as "NA" in output
             across(where(is.character), ~ tidyr::replace_na(., "NA")),
             conf.int = paste(.data$conf.low, .data$conf.high, sep = ", "),
-            .after = .data$std.error
+            .after = dplyr::all_of("std.error")
           ) %>%
-          dplyr::rename("{x$conf.level * 100}% CI" := .data$conf.int) %>%
-          select(-.data$outcome, -.data$conf.low, -.data$conf.high) %>%
+          dplyr::rename("{x$conf.level * 100}% CI" := dplyr::all_of("conf.int")) %>%
+          select(-dplyr::all_of(c("outcome", "conf.low", "conf.high"))) %>%
           # add header row
           {
             tibble::add_row(
