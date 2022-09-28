@@ -316,6 +316,11 @@ add_n_stats <- function(df_tidy, x) {
     filter(.data$status != 0) %>%
     select(-dplyr::all_of("status")) %>%
     dplyr::distinct() %>%
+    dplyr::ungroup() %>%
+    # all of this below is just in case a particular stratum does not have any observed events of any of the outcomes
+    tidyr::complete(., !!!rlang::syms(intersect(c("strata", "outcome"), names(.)))) %>%
+    group_by(across(any_of(c("strata")))) %>%
+    tidyr::fill(dplyr::all_of(c("time", "n.event", "n.risk", "n.censor")), .direction = "updown") %>%
     dplyr::ungroup()
 
   df_Surv <-
