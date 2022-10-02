@@ -87,5 +87,26 @@ test_that("cuminc() works", {
     cuminc(Surv(drat, factor(cyl)) ~ 1, mtcars),
     NA
   )
+
+  # check when one stratum has no observed values of a particular outcome
+  expect_equal(
+    cuminc(
+      Surv(ttdeath, death_cr) ~ grade,
+      # remove all other cause death obs for grade "I"
+      data = trial %>% dplyr::filter(!(grade == "I" & death_cr == "death other causes"))
+    ) %>%
+      purrr::pluck("tidy") %>%
+      dplyr::filter(time == 0),
+    tibble::tribble(
+      ~time,         ~outcome, ~strata, ~estimate, ~std.error,       ~conf.low,       ~conf.high, ~n.risk, ~n.event, ~n.censor, ~cum.event, ~cum.censor,
+      0,  "death from cancer",     "I",         0,          0,        NA_real_,         NA_real_,     53L,       0L,        0L,         0L,          0L,
+      0, "death other causes",     "I",         0,          0,        NA_real_,         NA_real_,     53L,       0L,        0L,         0L,          0L,
+      0,  "death from cancer",    "II",         0,          0,        NA_real_,         NA_real_,     68L,       0L,        0L,         0L,          0L,
+      0, "death other causes",    "II",         0,          0,        NA_real_,         NA_real_,     68L,       0L,        0L,         0L,          0L,
+      0,  "death from cancer",   "III",         0,          0,        NA_real_,         NA_real_,     64L,       0L,        0L,         0L,          0L,
+      0, "death other causes",   "III",         0,          0,        NA_real_,         NA_real_,     64L,       0L,        0L,         0L,          0L
+    ) %>%
+      dplyr::mutate(strata = factor(strata, levels = c("I", "II", "III")))
+  )
 })
 
