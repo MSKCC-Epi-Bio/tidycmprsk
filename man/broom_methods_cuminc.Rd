@@ -90,7 +90,6 @@ glance(cuminc) \%>\%
 }
 \seealso{
 Other cuminc() functions: 
-\code{\link{autoplot.tidycuminc}()},
 \code{\link{cuminc}()}
 }
 \concept{cuminc tidiers}

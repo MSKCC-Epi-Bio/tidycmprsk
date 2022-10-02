@@ -1,42 +1,12 @@
 #' Plot Cumulative Incidence Estimates
 #'
 #' @description
-#' **DEPRECATED** Use `ggsurvfit::ggcuminc()` instead.
+#' **DEPRECATED** Use [`ggsurvfit::ggcuminc()`] instead.
 #'
-#' Function uses the result from `tidy(object)` to create figure.
-#'
-#' @param object object of class 'cuminc'
-#' @param outcomes character vector of outcomes to include in plot. Default
-#' is to include the first competing events.
-#' @param aes List of arguments that will be added or replace the existing
-#' arguments in `ggplot2::aes()`. Details below.
-#' @inheritParams tidy.tidycuminc
-#' @param ... not used
-#'
-#' @section aesthetics:
-#' The `aes=` argument accepts a named list of arguments that will be added to
-#' or replace existing arguments in the `ggplot2::aes()` call.
-#' The tibble used to create the figure is the output from `tidy()`.
-#' The default call to `ggplot2::aes()` includes, at most, the following:
-#' `ggplot2::aes(x = time, y = estimate, colour = strata, fill = strata, linetype = outcome, ymin = conf.low, ymax = conf.high`
-#' Not all arguments appear in every plot, however.
-#'
+#' @param object,outcomes,aes,conf.int,conf.level,... **DEPRECATED**
 #' @keywords internal
-#' @return a ggplot object
-#' @family cuminc() functions
 #' @export
-#' @examples
-#' # Example 1 ----------------------------------
-#' cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
-#'   autoplot()
-#'
-#' # Example 2 ----------------------------------
-#' cuminc(Surv(ttdeath, death_cr) ~ 1, trial) %>%
-#'   autoplot(outcomes = "death from cancer", conf.int = TRUE) +
-#'   ggplot2::labs(
-#'     x = "Months from Treatment",
-#'     y = "Risk of Death"
-#'   )
+
 autoplot.tidycuminc <- function(object, outcomes = NULL,
                                 conf.int = FALSE, conf.level = 0.95,
                                 aes = NULL, ...) {

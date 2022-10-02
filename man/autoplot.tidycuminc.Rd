@@ -14,57 +14,9 @@
 )
 }
 \arguments{
-\item{object}{object of class 'cuminc'}
-
-\item{outcomes}{character vector of outcomes to include in plot. Default
-is to include the first competing events.}
-
-\item{conf.int}{Logical indicating whether or not to include a confidence
-interval in the tidied output. Defaults to \code{FALSE}.}
-
-\item{conf.level}{Level of the confidence interval. Default matches that in
-\code{cuminc(conf.level=)} (typically, 0.95)}
-
-\item{aes}{List of arguments that will be added or replace the existing
-arguments in \code{ggplot2::aes()}. Details below.}
-
-\item{...}{not used}
-}
-\value{
-a ggplot object
+\item{object, outcomes, aes, conf.int, conf.level, ...}{\strong{DEPRECATED}}
 }
 \description{
-\strong{DEPRECATED} Use \code{ggsurvfit::ggcuminc()} instead.
-
-Function uses the result from \code{tidy(object)} to create figure.
+\strong{DEPRECATED} Use \code{\link[ggsurvfit:ggcuminc]{ggsurvfit::ggcuminc()}} instead.
 }
-\section{aesthetics}{
-
-The \verb{aes=} argument accepts a named list of arguments that will be added to
-or replace existing arguments in the \code{ggplot2::aes()} call.
-The tibble used to create the figure is the output from \code{tidy()}.
-The default call to \code{ggplot2::aes()} includes, at most, the following:
-\verb{ggplot2::aes(x = time, y = estimate, colour = strata, fill = strata, linetype = outcome, ymin = conf.low, ymax = conf.high}
-Not all arguments appear in every plot, however.
-}
-
-\examples{
-# Example 1 ----------------------------------
-cuminc(Surv(ttdeath, death_cr) ~ trt, trial) \%>\%
-  autoplot()
-
-# Example 2 ----------------------------------
-cuminc(Surv(ttdeath, death_cr) ~ 1, trial) \%>\%
-  autoplot(outcomes = "death from cancer", conf.int = TRUE) +
-  ggplot2::labs(
-    x = "Months from Treatment",
-    y = "Risk of Death"
-  )
-}
-\seealso{
-Other cuminc() functions: 
-\code{\link{broom_methods_cuminc}},
-\code{\link{cuminc}()}
-}
-\concept{cuminc() functions}
 \keyword{internal}

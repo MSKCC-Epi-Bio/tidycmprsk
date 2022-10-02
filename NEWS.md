@@ -1,8 +1,8 @@
 # tidycmprsk (development version)
 
-* Fix in `cuminc()` when one or more strata levels has no observations with one of the outcomes observed.
-
 * The `autoplot.tidycuminc()` method has been deprecated in favor of `ggsurvfit::ggcuminc()`. (#81)
+
+* Fix in `cuminc()` when one or more strata levels has no observations with one of the outcomes observed.
 
 * Updated `cuminc()` and `crr()` to drop un-observed factor levels before processing the data. Previously, un-observed levels led to a singularity error. (#76)
 
