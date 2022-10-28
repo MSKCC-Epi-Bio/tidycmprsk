@@ -135,26 +135,30 @@ tbl_cuminc.tidycuminc <- function(x,
       names_from = "column_name",
       values_from = "statistic"
     ) %>%
-    mutate(row_type = "level") %>%
-    purrr::when(
-      # add a header row for stratified tables and the label column
-      "strata" %in% names(.) ~
-        mutate(., label = .data$strata, .before = 1) %>%
-        tibble::add_row(
-          outcome = unique(.$outcome),
-          label = .env$label,
-          row_type = "label",
-          .before = 1L
-        ),
-      # otherwise, just add the label column
-      TRUE ~
-        mutate(., row_type = "label", label = .env$label, .before = 1)
-    ) %>%
-    # adding gt grouping variable if more than one outcome in the table
-    purrr::when(
-      length(unique(.$outcome)) > 1 ~ mutate(., groupname_col = .data$outcome, .before = 1),
-      TRUE ~ .
-    ) %>%
+    mutate(row_type = "level")
+
+  if ("strata" %in% names(table_body)) {
+    # add a header row for stratified tables and the label column
+    table_body <- table_body %>%
+      mutate(label = .data$strata, .before = 1) %>%
+      tibble::add_row(
+        outcome = unique(.$outcome),
+        label = .env$label,
+        row_type = "label",
+        .before = 1L
+      )
+  } else {
+    # otherwise, just add the label column
+    table_body <- table_body %>%
+      mutate(row_type = "label", label = .env$label, .before = 1)
+  }
+
+  if (length(unique(table_body$outcome)) > 1) {
+    table_body <- table_body %>%
+      mutate(groupname_col = .data$outcome, .before = 1)
+  }
+
+  table_body <- table_body %>%
     # merge in the Ns and event Ns
     {suppressMessages(
       dplyr::left_join(
