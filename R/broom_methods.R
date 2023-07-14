@@ -305,15 +305,13 @@ add_n_stats <- function(df_tidy, x) {
       time = 0,
       n.event = 0L,
       n.risk = dplyr::n(),
-      n.censor = 0L,
-      outcome =
-        dplyr::recode(
-          .data$status,
-          !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode))),
-          .default = NA_character_
-        )
-    ) %>%
+      n.censor = 0L) %>%
+    dplyr::ungroup() %>%
     filter(.data$status != 0) %>%
+    mutate(outcome = factor(.data$status,
+                            c(0,x$failcode),
+                            c("cens", names(x$failcode))),
+           outcome = as.character(.data$outcome)) %>%
     select(-dplyr::all_of("status")) %>%
     dplyr::distinct() %>%
     dplyr::ungroup() %>%
@@ -333,15 +331,11 @@ add_n_stats <- function(df_tidy, x) {
       n.event = as.integer(.data$status != 0),
       n.censor = as.integer(.data$status == 0)
     ) %>%
-    group_by(across(any_of(c("strata", "time")))) %>%
-    mutate(
-      outcome =
-        dplyr::recode(
-          .data$status,
-          `0` = "censored",
-          !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))
-        )
-    ) %>%
+    dplyr::ungroup() %>%
+    mutate(outcome = factor(.data$status,
+                            c(0,x$failcode),
+                            c("censored", names(x$failcode))),
+           outcome = as.character(.data$outcome)) %>%
     select(-dplyr::all_of("status")) %>%
     dplyr::ungroup() %>%
     dplyr::distinct()
@@ -354,22 +348,25 @@ add_n_stats <- function(df_tidy, x) {
     mutate(
       status = rep(1:length(x$failcode), dplyr::n() / length(x$failcode))
     ) %>%
-    mutate(
-      outcome =
-        dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode))))
-    ) %>%
-    select(-dplyr::all_of("status")) %>%
     dplyr::ungroup() %>%
+    mutate(outcome = factor(.data$status,
+                            c(0,x$failcode),
+                            c("censored", names(x$failcode))),
+           outcome = as.character(.data$outcome)) %>%
+    select(-dplyr::all_of("status")) %>%
     dplyr::distinct()
 
   df_Surv <- df_Surv %>%
     filter(.data$outcome != "censored") %>%
     group_by(across(any_of(c("strata", "outcome", "time")))) %>%
     dplyr::slice(rep(1:dplyr::n(), each = length(x$failcode))) %>%
+    mutate(status = rep(1:length(x$failcode), dplyr::n() / length(x$failcode))) %>%
+    dplyr::ungroup() %>%
     mutate(
-      status = rep(1:length(x$failcode), dplyr::n() / length(x$failcode)),
-      outcome2 =
-        dplyr::recode(.data$status, !!!(as.list(names(x$failcode)) %>% stats::setNames(unlist(x$failcode)))),
+      outcome2 = factor(.data$status,
+                       c(0,x$failcode),
+                       c("censored", names(x$failcode))),
+      outcome2 = as.character(.data$outcome2),
       n.event = as.integer(.data$outcome == .data$outcome2),
       outcome = .data$outcome2
     ) %>%
@@ -383,18 +380,12 @@ add_n_stats <- function(df_tidy, x) {
       ties = ifelse(.data$time == dplyr::lag(.data$time, default = -1), 1, 0)
     )
 
-  df_Surv$keep <- 1
-  for (ii in 1:nrow(df_Surv)) {
-    if (df_Surv$ties[ii] == 1) {
-      df_Surv$n.event[ii] <- df_Surv$n.event[ii] + df_Surv$n.event[ii - 1]
-      df_Surv$n.censor[ii] <- df_Surv$n.censor[ii] + df_Surv$n.censor[ii - 1]
-      df_Surv$keep[ii - 1] <- 0
-    }
-  }
-
   df_Surv <- df_Surv %>%
-    filter(.data$keep == 1) %>%
-    select(-dplyr::all_of(c("ties", "keep")))
+    group_by(across(any_of(c("time","strata","outcome")))) %>%
+    dplyr::summarize(n.risk = max(.data$n.risk),
+                     n.event = sum(.data$n.event),
+                     n.censor = sum(.data$n.censor),
+                     .groups = "drop")
 
   df_Surv <- df_Surv %>%
     group_by(across(any_of(c("strata", "outcome")))) %>%
