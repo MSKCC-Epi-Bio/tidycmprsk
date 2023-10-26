@@ -1,5 +1,7 @@
 # tidycmprsk (development version)
 
+* Performance improvements to `cuminc()`. (@pteridin; #73)
+
 * Updates ahead of the {purrr} v1.0 release.
 
 # tidycmprsk 0.2.0
