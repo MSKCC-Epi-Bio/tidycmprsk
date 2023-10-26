@@ -52,4 +52,22 @@ test_that("crr() works", {
   expect_error(
     crr(letters)
   )
+
+  # `crr()` works with no observed censoring
+  expect_error(
+    crr_no_censor<-
+      crr(
+        Surv(ttdeath, death_cr) ~ trt,
+        data = trial %>% dplyr::filter(!death_cr %in% "censor")
+      ),
+    NA
+  )
+  expect_equal(
+    cmprsk::crr(
+      ftime = trial$ttdeath[!trial$death_cr %in% "censor"],
+      fstatus = as.numeric(trial$death_cr[!trial$death_cr %in% "censor"]) - 1L,
+      cov1 = model.matrix(~., data = trial[!trial$death_cr %in% "censor", "trt"])[, -1, drop = FALSE]
+    )[1:6],
+    crr_no_censor$cmprsk[1:6]
+  )
 })

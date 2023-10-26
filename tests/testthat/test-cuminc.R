@@ -108,5 +108,23 @@ test_that("cuminc() works", {
     ) %>%
       dplyr::mutate(strata = factor(strata, levels = c("I", "II", "III")))
   )
+
+
+  # `cuminc()` works with no observed censoring
+  expect_error(
+    cuminc_no_censor<-
+      cuminc(
+        Surv(ttdeath, death_cr) ~ 1,
+        data = trial %>% dplyr::filter(!death_cr %in% "censor")
+      ),
+    NA
+  )
+  expect_equal(
+    cmprsk::cuminc(
+      ftime = trial$ttdeath[!trial$death_cr %in% "censor"],
+      fstatus = as.numeric(trial$death_cr[!trial$death_cr %in% "censor"]) - 1L
+    ),
+    cuminc_no_censor$cmprsk
+  )
 })
 
