@@ -15,6 +15,7 @@ Checklist for PR reviewer
 - [ ] Code coverage is suitable for any new functions/features. Review coverage with `covr::report()`. Before you run, set `Sys.setenv(NOT_CRAN="true")` and begin in a fresh R session without any packages loaded. 
 - [ ] R CMD Check runs without errors, warnings, and notes
 - [ ] `usethis::use_spell_check()` runs with no spelling errors in documentation
+- [ ] Test the update does not break any reverse dependencies with `revdepcheck::revdep_check()` (https://github.com/r-lib/revdepcheck)
 
 When the branch is ready to be merged into master:
 - [ ] Update `NEWS.md` with the changes from this pull request under the heading "`# tidycmprsk (development version)`". If there is an issue associated with the pull request, reference it in parentheses at the end of the update.
