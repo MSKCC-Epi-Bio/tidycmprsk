@@ -299,86 +299,86 @@ add_n_stats <- function(df_tidy, x) {
   }
 
   ## Determine n at risk (t = 0) --------
-  df_n_risk0 <- df_Surv |>
-    dplyr::group_by(across(any_of(c("strata")))) |>
+  df_n_risk0 <- df_Surv %>%
+    dplyr::group_by(across(any_of(c("strata")))) %>%
     dplyr::summarize(n.risk = dplyr::n(),
                      .groups = "drop")
 
   ## Determine censored & events each t --------
-  df_n_cens_event <- df_Surv |>
-    dplyr::group_by(across(any_of(c("time", "strata", "status")))) |>
+  df_n_cens_event <- df_Surv %>%
+    dplyr::group_by(across(any_of(c("time", "strata", "status")))) %>%
     dplyr::summarize(n = dplyr::n(),
                      .groups = "drop")
 
   ## Determine censored overall each t ---------
-  df_n_event_overall <- df_Surv |>
-    filter(.data$status != 0) |>
-    dplyr::group_by(across(any_of(c("time", "strata")))) |>
+  df_n_event_overall <- df_Surv %>%
+    filter(.data$status != 0) %>%
+    dplyr::group_by(across(any_of(c("time", "strata")))) %>%
     dplyr::summarise(n.event.overall = dplyr::n(),
                      .groups = "drop")
 
   ## Joining the data --------
   if(is_strata) {
-    df_result <- df_tidy |>
+    df_result <- df_tidy %>%
       dplyr::left_join(df_n_risk0,
-                       by = "strata") |>
-      dplyr::left_join(df_n_cens_event |>
-                         filter(.data$status != 0) |>
+                       by = "strata") %>%
+      dplyr::left_join(df_n_cens_event %>%
+                         filter(.data$status != 0) %>%
                          mutate(outcome = factor(.data$status,
                                                  x$failcode,
-                                                 names(x$failcode))) |>
-                         select(-dplyr::all_of(c("status"))) |>
+                                                 names(x$failcode))) %>%
+                         select(-dplyr::all_of(c("status"))) %>%
                          dplyr::rename(n.event = dplyr::all_of("n")),
-                       by = c("strata", "time", "outcome")) |>
-      dplyr::left_join(df_n_cens_event |>
-                         filter(.data$status == 0) |>
-                         select(-dplyr::all_of("status")) |>
+                       by = c("strata", "time", "outcome")) %>%
+      dplyr::left_join(df_n_cens_event %>%
+                         filter(.data$status == 0) %>%
+                         select(-dplyr::all_of("status")) %>%
                          dplyr::rename(n.censor = dplyr::all_of("n")),
-                       by = c("strata", "time"))   |>
+                       by = c("strata", "time"))   %>%
       dplyr::left_join(df_n_event_overall,
                        by = c("strata", "time"),
                        relationship = "many-to-many")
   } else {
-    df_result <- df_tidy |>
-      dplyr::cross_join(df_n_risk0) |>
-      dplyr::left_join(df_n_cens_event |>
-                         filter(.data$status != 0) |>
+    df_result <- df_tidy %>%
+      dplyr::cross_join(df_n_risk0) %>%
+      dplyr::left_join(df_n_cens_event %>%
+                         filter(.data$status != 0) %>%
                          mutate(outcome = factor(.data$status,
                                                  x$failcode,
-                                                 names(x$failcode))) |>
-                         select(-dplyr::all_of(c("status"))) |>
+                                                 names(x$failcode))) %>%
+                         select(-dplyr::all_of(c("status"))) %>%
                          dplyr::rename(n.event = dplyr::all_of("n")),
-                       by = c("time", "outcome")) |>
-      dplyr::left_join(df_n_cens_event |>
-                         filter(.data$status == 0) |>
-                         select(-dplyr::all_of("status")) |>
+                       by = c("time", "outcome")) %>%
+      dplyr::left_join(df_n_cens_event %>%
+                         filter(.data$status == 0) %>%
+                         select(-dplyr::all_of("status")) %>%
                          dplyr::rename(n.censor = dplyr::all_of("n")),
-                       by = c("time")) |>
+                       by = c("time")) %>%
       dplyr::left_join(df_n_event_overall,
                        by = c("time"))
   }
 
   # Fill missing values and build cum. sum ------
-  df_result <- df_result |>
+  df_result <- df_result %>%
     mutate(n.event  = dplyr::coalesce(.data$n.event, 0L),
            n.censor = dplyr::coalesce(.data$n.censor, 0L),
-           n.event.overall = dplyr::coalesce(.data$n.event.overall, 0L)) |>
-    group_by(across(any_of(c("strata", "outcome")))) |>
-    arrange("time") |>
+           n.event.overall = dplyr::coalesce(.data$n.event.overall, 0L)) %>%
+    group_by(across(any_of(c("strata", "outcome")))) %>%
+    arrange("time") %>%
     mutate(cum.event  = cumsum(.data$n.event),
            cum.censor = cumsum(.data$n.censor),
            cum.event.overall = cumsum(.data$n.event.overall),
            n.risk = .data$n.risk - .data$cum.event.overall - .data$cum.censor +
-             .data$n.event.overall + .data$n.censor) |>
-    dplyr::ungroup() |>
-    arrange(across(any_of(c("strata", "outcome", "time", "n.risk")))) |>
+             .data$n.event.overall + .data$n.censor) %>%
+    dplyr::ungroup() %>%
+    arrange(across(any_of(c("strata", "outcome", "time", "n.risk")))) %>%
     select(any_of(c("time", "outcome", "strata")),
-           everything()) |>
+           everything()) %>%
     select(-any_of(c("cum.event.overall",
                      "n.event.overall")))
 
   if(is_strata)
-    df_result <- df_result |>
+    df_result <- df_result %>%
       mutate(strata = factor(.data$strata,
                              levels(df_tidy$strata)))
 
