@@ -13,8 +13,8 @@ Description: Provides an intuitive interface for working with the
     competing risk regression. Methods follow those introduced in Fine and
     Gray (1999) <doi:10.1002/sim.7501>.
 License: AGPL (>= 3)
-URL: https://mskcc-epi-bio.github.io/tidycmprsk/
-BugReports: https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/
+URL: https://mskcc-epi-bio.github.io/tidycmprsk/, https://github.com/MSKCC-Epi-Bio/tidycmprsk
+BugReports: https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues
 Depends: 
     R (>= 3.4)
 Imports: 
