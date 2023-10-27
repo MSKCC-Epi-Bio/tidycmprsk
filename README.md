@@ -128,9 +128,17 @@ Conduct](https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms. Thank
 you to all contributors!  
 [@ddsjoberg](https://github.com/ddsjoberg),
+[@dublinQAQ](https://github.com/dublinQAQ),
 [@erikvona](https://github.com/erikvona),
+[@fdehrich](https://github.com/fdehrich),
+[@hadley](https://github.com/hadley),
 [@karissawhiting](https://github.com/karissawhiting),
-[@m-freitag](https://github.com/m-freitag), and
+[@Lamenace23](https://github.com/Lamenace23),
+[@m-freitag](https://github.com/m-freitag),
+[@mjtjmjtj](https://github.com/mjtjmjtj),
+[@pteridin](https://github.com/pteridin),
+[@ramashka328](https://github.com/ramashka328),
+[@SoumyaRo](https://github.com/SoumyaRo), and
 [@tengfei-emory](https://github.com/tengfei-emory)
 
 #### Limitations

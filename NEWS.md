@@ -1,6 +1,6 @@
 # tidycmprsk (development version)
 
-* Corrected regression and `cuminc()` can again handle models with no observed censoring. (#89)
+* Corrected a previous regression bug and `cuminc()` can again handle models with no observed censoring. (#89)
 
 * Performance improvements to `cuminc()`. (@pteridin; #73)
 

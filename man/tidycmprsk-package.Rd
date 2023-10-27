@@ -14,7 +14,8 @@ Provides an intuitive interface for working with the competing risk endpoints. T
 Useful links:
 \itemize{
   \item \url{https://mskcc-epi-bio.github.io/tidycmprsk/}
-  \item Report bugs at \url{https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues/}
+  \item \url{https://github.com/MSKCC-Epi-Bio/tidycmprsk}
+  \item Report bugs at \url{https://github.com/MSKCC-Epi-Bio/tidycmprsk/issues}
 }
 
 }
