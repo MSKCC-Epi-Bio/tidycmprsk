@@ -4,6 +4,8 @@
 
 * Performance improvements to `cuminc()`. (@pteridin; #73)
 
+* The `autoplot()` method for `cuminc()` objects is now defunct in favor of `ggsurvfit::ggcuminc()`. (#100)
+
 * Updates ahead of the {purrr} v1.0 release.
 
 # tidycmprsk 0.2.0

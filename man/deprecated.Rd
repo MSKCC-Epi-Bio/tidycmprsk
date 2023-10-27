@@ -15,8 +15,6 @@ Misc.
 }
 \description{
 \strong{DEPRECATED} functions.
-
-Use \code{\link[ggsurvfit:ggcuminc]{ggsurvfit::ggcuminc()}} instead.
 }
 \examples{
 # DO NOT USE DEPRECATED FUNCTIONS
