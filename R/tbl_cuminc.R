@@ -55,17 +55,20 @@ tbl_cuminc.tidycuminc <- function(x,
                                   ...) {
   # check inputs ---------------------------------------------------------------
   rlang::check_dots_empty()
-  if (!purrr::every(c(statistic, label_header), rlang::is_string)) {
-    stop("Arguments `statistic=` and `label_header=` must be strings.", call. = FALSE)
+  if (!rlang::is_string(statistic)) {
+    cli::cli_abort("Argument {.arg statistic} must be a string.")
+  }
+  if (!rlang::is_string(label_header)) {
+    cli::cli_abort("Argument {.arg label_header} must be a string.")
   }
   if (!is.null(label) && !rlang::is_string(label)) {
-    stop("Argument `label=` must be a string.", call. = FALSE)
+    cli::cli_abort("Argument {.arg label} must be a string.")
   }
   if (any(!outcomes %in% names(x$failcode))) {
-    paste("Argument {.code outcomes=} must be one or more of",
-          "{.val {names(x$failcode)}}.") %>%
-      cli::cli_alert_danger()
-    stop("Error in `outcomes=` specification.", call. = FALSE)
+    cli::cli_abort(c(
+      "!" = "Error in {.arg outcomes} argument specification.",
+      "i" = "Must be one or more of {.val {names(x$failcode)}}."
+    ))
   }
   func_inputs <- as.list(environment())
   missing <- missing %||% "\U2014"

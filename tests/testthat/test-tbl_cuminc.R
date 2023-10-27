@@ -27,4 +27,29 @@ test_that("tbl_cuminc() works", {
     "0.2"
   )
 
+  expect_snapshot(
+    cuminc(Surv(ttdeath, death_cr) ~ 1, trial) %>%
+      tbl_cuminc(outcomes = letters),
+    error = TRUE
+  )
+
+  expect_snapshot(
+    cuminc(Surv(ttdeath, death_cr) ~ 1, trial) %>%
+      tbl_cuminc(statistic = letters),
+    error = TRUE
+  )
+
+  expect_snapshot(
+    cuminc(Surv(ttdeath, death_cr) ~ 1, trial) %>%
+      tbl_cuminc(label = letters),
+    error = TRUE
+  )
+
+  expect_snapshot(
+    cuminc(Surv(ttdeath, death_cr) ~ 1, trial) %>%
+      tbl_cuminc() %>%
+      add_p(),
+    error = TRUE
+  )
+
 })
