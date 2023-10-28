@@ -63,10 +63,11 @@ The `tidycmprsk` plays well with other packages, such as `gtsummary`.
 tbl <- 
   crr_mod %>%
   gtsummary::tbl_regression(exponentiate = TRUE) %>%
+  gtsummary::add_global_p(anova_fun = gtsummary::tidy_wald_test) %>%
   add_n(location = "level")
 ```
 
-<img src="man/figures/README-gtsummary_print-1.png" width="50%" />
+<img src="man/figures/README-gtsummary-crr.png" width="50%" />
 
 ``` r
 gtsummary::inline_text(tbl, variable = age)
@@ -118,7 +119,7 @@ tbl <-
   add_n()
 ```
 
-<img src="man/figures/README-gtsummary_print2-1.png" width="70%" />
+<img src="man/figures/README-gtsummary-cuminc.png" width="70%" />
 
 ## Contributing
 
@@ -145,4 +146,4 @@ you to all contributors!
 
 The `tidycmprsk` package implements most features (and more) available
 in `cmprsk`. However, the time interaction features available in
-`cmprsk::crr()` have not yet been made available in `tidycmprsk`.
+`cmprsk::crr()` is not available in `tidycmprsk`.

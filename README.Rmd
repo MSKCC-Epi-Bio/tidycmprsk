@@ -59,12 +59,13 @@ The `tidycmprsk` plays well with other packages, such as `gtsummary`.
 tbl <- 
   crr_mod %>%
   gtsummary::tbl_regression(exponentiate = TRUE) %>%
+  gtsummary::add_global_p(anova_fun = gtsummary::tidy_wald_test) %>%
   add_n(location = "level")
 ```
 
 ```{r gtsummary_print, include = FALSE}
 # Had to manually save images in temp file, not sure if better way.
-gt::gtsave(gtsummary::as_gt(tbl), file = file.path(tempdir(), "temp.png"))
+gt::gtsave(gtsummary::as_gt(tbl), file = "man/figures/README-gtsummary-crr.png")
 ```
 
 ```{r out.width = "50%", echo = FALSE}
@@ -72,7 +73,7 @@ gt::gtsave(gtsummary::as_gt(tbl), file = file.path(tempdir(), "temp.png"))
 if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
   tbl
 } else {
-  knitr::include_graphics("man/figures/README-gtsummary_print-1.png")
+  knitr::include_graphics("man/figures/README-gtsummary-crr.png")
 } 
 ```
 
@@ -109,7 +110,7 @@ tbl <-
 
 ```{r gtsummary_print2, include = FALSE}
 # Had to manually save images in temp file, not sure if better way.
-gt::gtsave(gtsummary::as_gt(tbl), file = file.path(tempdir(), "temp.png"))
+gt::gtsave(gtsummary::as_gt(tbl), file = "man/figures/README-gtsummary-cuminc.png")
 ```
 
 ```{r out.width = "70%", echo = FALSE}
@@ -117,7 +118,7 @@ gt::gtsave(gtsummary::as_gt(tbl), file = file.path(tempdir(), "temp.png"))
 if (identical(Sys.getenv("IN_PKGDOWN"), "true")) {
   tbl
 } else {
-  knitr::include_graphics("man/figures/README-gtsummary_print2-1.png")
+  knitr::include_graphics("man/figures/README-gtsummary-cuminc.png")
 } 
 ```
 
@@ -130,4 +131,4 @@ By contributing to this project, you agree to abide by its terms. Thank you to a
 #### Limitations
 
 The `tidycmprsk` package implements most features (and more) available in `cmprsk`.
-However, the time interaction features available in `cmprsk::crr()` have not yet been made available in `tidycmprsk`.
+However, the time interaction features available in `cmprsk::crr()` is not available in `tidycmprsk`.
