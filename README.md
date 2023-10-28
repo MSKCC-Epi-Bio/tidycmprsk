@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/MSKCC-Epi-Bio/tidycmprsk/workflows/R-CMD-check/badge.svg)](https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions)
+[![R-CMD-check](https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge.svg)](https://app.codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk?branch=main)
 [![CRAN
