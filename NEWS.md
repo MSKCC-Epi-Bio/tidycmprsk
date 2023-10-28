@@ -1,4 +1,4 @@
-# tidycmprsk (development version)
+# tidycmprsk 1.0.0
 
 * Corrected a previous regression bug and `cuminc()` can again handle models with no observed censoring. (#89)
 
