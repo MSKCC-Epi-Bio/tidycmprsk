@@ -124,8 +124,9 @@
 <code class="sourceCode R"><span><span class="va">tbl</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">crr_mod</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">tbl_regression</a></span><span class="op">(</span>exponentiate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_global_p.html" class="external-link">add_global_p</a></span><span class="op">(</span>anova_fun <span class="op">=</span> <span class="fu">gtsummary</span><span class="fu">::</span><span class="va"><a href="https://www.danieldsjoberg.com/gtsummary/reference/custom_tidiers.html" class="external-link">tidy_wald_test</a></span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span>location <span class="op">=</span> <span class="st">"level"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-gtsummary_print-1.png" width="50%"></p>
+<p><img src="reference/figures/README-gtsummary-crr.png" width="50%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gtsummary</span><span class="fu">::</span><span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/inline_text.html" class="external-link">inline_text</a></span><span class="op">(</span><span class="va">tbl</span>, variable <span class="op">=</span> <span class="va">age</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "1.01 (95% CI 0.99, 1.03; p=0.6)"</span></span></code></pre></div>
@@ -167,7 +168,7 @@
 <span>  <span class="fu"><a href="reference/tbl_cuminc.html">tbl_cuminc</a></span><span class="op">(</span>times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">24</span><span class="op">)</span>, label_header <span class="op">=</span> <span class="st">"**Month {time}**"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_p.html" class="external-link">add_p</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/add_n.html" class="external-link">add_n</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-gtsummary_print2-1.png" width="70%"></p>
+<p><img src="reference/figures/README-gtsummary-cuminc.png" width="70%"></p>
 </div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
@@ -176,7 +177,7 @@
 <div class="section level4">
 <h4 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
 </h4>
-<p>The <code>tidycmprsk</code> package implements most features (and more) available in <code>cmprsk</code>. However, the time interaction features available in <code><a href="https://rdrr.io/pkg/cmprsk/man/crr.html" class="external-link">cmprsk::crr()</a></code> have not yet been made available in <code>tidycmprsk</code>.</p>
+<p>The <code>tidycmprsk</code> package implements most features (and more) available in <code>cmprsk</code>. However, the time interaction features available in <code><a href="https://rdrr.io/pkg/cmprsk/man/crr.html" class="external-link">cmprsk::crr()</a></code> is not available in <code>tidycmprsk</code>.</p>
 </div>
 </div>
 </div>
