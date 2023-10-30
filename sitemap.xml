@@ -31,9 +31,6 @@
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/add_cuminc.html</loc>
   </url>
   <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/autoplot.tidycuminc.html</loc>
-  </url>
-  <url>
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/base_methods_crr.html</loc>
   </url>
   <url>
@@ -50,6 +47,9 @@
   </url>
   <url>
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/cuminc.html</loc>
+  </url>
+  <url>
+    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/deprecated.html</loc>
   </url>
   <url>
     <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/index.html</loc>
