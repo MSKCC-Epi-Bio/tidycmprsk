@@ -33,9 +33,9 @@ Imports:
     tidyr (>= 1.1.4)
 Suggests:  
     aod,
+    broom.helpers (>= 1.15.0),
     cardx (>= 0.2.0),
     covr (>= 3.5.1),
-    broom.helpers,
     ggsurvfit,
     knitr (>= 1.36),
     spelling,
