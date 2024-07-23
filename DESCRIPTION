@@ -40,7 +40,6 @@ Suggests:
     knitr (>= 1.36),
     spelling,
     testthat (>= 3.2.0)
-Remotes: ddsjoberg/gtsummary
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
