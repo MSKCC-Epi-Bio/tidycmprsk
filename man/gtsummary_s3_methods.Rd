@@ -31,7 +31,7 @@ results.
 \item \code{tbl_regression.tidycrr()}: This function sets the tidycmprsk tidier for \code{crr()} models.
 \item \code{global_pvalue_fun.tidycrr()}: This function ensures that \code{gtsummary::add_global_p(anova_fun)} uses
 the Wald test by default (instead of \code{car::Anova()}, which does not support this model type).
-The Wald test is executed with the aod package via \code{cardx::ard_aod_wald_test()}.
+The Wald test is executed with \code{cardx::ard_aod_wald_test()}, which wraps \code{aod::wald.test()}.
 }
 }
 \examples{

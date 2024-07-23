@@ -7,7 +7,7 @@
 #' - `tbl_regression.tidycrr()`: This function sets the tidycmprsk tidier for `crr()` models.
 #' - `global_pvalue_fun.tidycrr()`: This function ensures that `gtsummary::add_global_p(anova_fun)` uses
 #'     the Wald test by default (instead of `car::Anova()`, which does not support this model type).
-#'     The Wald test is executed with the aod package via `cardx::ard_aod_wald_test()`.
+#'     The Wald test is executed with `cardx::ard_aod_wald_test()`, which wraps `aod::wald.test()`.
 #'
 #' @param x (`tidycrr`)\cr
 #'   `tidycmprsk::crr()` regression object
