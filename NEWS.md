@@ -1,5 +1,10 @@
 # tidycmprsk (development version)
 
+* Updating package to account for changes in {gtsummary} v2.0. To use `gtsummary::tbl_regression()` with `tidycmprsk::crr()` models, the {tidycmprsk} package must be loaded (to access the S3 methods below). In the next release of gtsummary, tidycmprsk will no longer be a dependency.
+  - Added {broom.helpers}, {cardx}, and {aod} to Suggests field.
+  - Added `tbl_regression.tidycrr()` method.
+  - Added `global_pvalue_fun.tidycrr()` method, which changes the default calculation in `gtsummary::add_global_p(anova_fun)` to use the Wald test.
+
 # tidycmprsk 1.0.0
 
 * Corrected a previous regression bug and `cuminc()` can again handle models with no observed censoring. (#89)

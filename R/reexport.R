@@ -28,6 +28,14 @@ broom::augment
 
 # gtsummary --------------------------------------------------------------------
 #' @export
+#' @importFrom gtsummary tbl_regression
+gtsummary::tbl_regression
+
+#' @export
+#' @importFrom gtsummary global_pvalue_fun
+gtsummary::global_pvalue_fun
+
+#' @export
 #' @importFrom gtsummary add_n
 gtsummary::add_n
 
@@ -42,4 +50,5 @@ gtsummary::add_p
 #' @export
 #' @importFrom gtsummary inline_text
 gtsummary::inline_text
+
 

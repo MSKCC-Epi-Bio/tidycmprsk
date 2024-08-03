@@ -51,3 +51,8 @@ reference:
   - title: Data
   - contents:
       - trial
+
+  - title: gtsummary related functions
+  - contents:
+      - tbl_regression.tidycrr
+      - global_pvalue_fun.tidycrr
