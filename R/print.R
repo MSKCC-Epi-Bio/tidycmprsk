@@ -165,7 +165,7 @@ print.tidycuminc <- function(x, ...) {
     df_glance <- glance(x)
 
     nrow(x$cmprsk$Tests) %>%
-      seq_len() %>%
+      seq_len(.) %>%
       purrr::map(
         function(i) {
           df_glance %>%

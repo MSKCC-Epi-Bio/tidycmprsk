@@ -26,7 +26,7 @@ below to see their documentation.
 
   \item{ggplot2}{\code{\link[ggplot2]{autoplot}}}
 
-  \item{gtsummary}{\code{\link[gtsummary]{add_n}}, \code{\link[gtsummary]{add_nevent}}, \code{\link[gtsummary]{add_p}}, \code{\link[gtsummary]{inline_text}}}
+  \item{gtsummary}{\code{\link[gtsummary]{add_n}}, \code{\link[gtsummary:add_nevent_regression]{add_nevent}}, \code{\link[gtsummary]{add_p}}, \code{\link[gtsummary]{inline_text}}}
 
   \item{survival}{\code{\link[survival]{Surv}}}
 }}

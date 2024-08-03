@@ -215,7 +215,7 @@ first_cuminc_tidy <- function(x, conf.level) {
     x$cmprsk %>%
     cmprsk::timepoints(times = times) %>%
     purrr::pluck("var") %>%
-    sqrt() %>%
+    sqrt(.) %>%
     cuminc_matrix_to_df(name = "std.error", times = times)
 
   # combine estimates and variances into single tibble -------------------------
