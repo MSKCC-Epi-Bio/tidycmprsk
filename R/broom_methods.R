@@ -214,7 +214,7 @@ first_cuminc_tidy <- function(x, conf.level) {
   df_se <-
     x$cmprsk %>%
     cmprsk::timepoints(times = times) %>%
-    purrr::pluck("var") %>%
+    purrr::pluck("var") |>
     sqrt() %>%
     cuminc_matrix_to_df(name = "std.error", times = times)
 
