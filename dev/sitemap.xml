@@ -1,72 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/PULL_REQUEST_TEMPLATE.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/SUPPORT.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/index.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/add_cuminc.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/base_methods_crr.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/base_methods_cuminc.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/broom_methods_crr.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/broom_methods_cuminc.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/crr.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/cuminc.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/deprecated.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/predict.tidycrr.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/print.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/tbl_cuminc.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/tidycmprsk-package.html</loc>
-  </url>
-  <url>
-    <loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/trial.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/CONTRIBUTING.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/LICENSE.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/PULL_REQUEST_TEMPLATE.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/SUPPORT.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/authors.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/index.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/news/index.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/add_cuminc.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/base_methods_crr.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/base_methods_cuminc.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/broom_methods_crr.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/broom_methods_cuminc.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/crr.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/cuminc.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/deprecated.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/gtsummary_s3_methods.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/index.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/predict.tidycrr.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/print.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/reexports.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/tbl_cuminc.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/tidycmprsk-package.html</loc></url>
+<url><loc>https://mskcc-epi-bio.github.io/tidycmprsk/reference/trial.html</loc></url>
 </urlset>
+
