@@ -7,11 +7,10 @@
 
 ## revdepcheck results
 
-I checked 5 reverse dependencies using the `revdepcheck::revdep_check()` tool, which reported no new issues.
-But I submitted the package two days ago to CRAN, and the CRAN checks found one new issue in the `ggsurvfit` package: a package I also maintain.
-I investigated the issue and I updated a unit test to correct the failure in `ggsurvfit`.
-I will submit an updated `ggsurvfit` after `tidycmprsk` is accepted.
-Thank you for the thorough checks!
+We checked 6 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
 
 ## R CMD check results
 
