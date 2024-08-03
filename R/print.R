@@ -164,8 +164,8 @@ print.tidycuminc <- function(x, ...) {
     cli::cli_li("Tests")
     df_glance <- glance(x)
 
-    nrow(x$cmprsk$Tests) %>%
-      seq_len(.) %>%
+    nrow(x$cmprsk$Tests) |>
+      seq_len() %>%
       purrr::map(
         function(i) {
           df_glance %>%
