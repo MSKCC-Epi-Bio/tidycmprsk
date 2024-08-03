@@ -63,7 +63,7 @@ The `tidycmprsk` plays well with other packages, such as `gtsummary`.
 tbl <- 
   crr_mod %>%
   gtsummary::tbl_regression(exponentiate = TRUE) %>%
-  gtsummary::add_global_p(anova_fun = gtsummary::tidy_wald_test) %>%
+  gtsummary::add_global_p() %>%
   add_n(location = "level")
 ```
 
@@ -103,7 +103,8 @@ library(ggsurvfit)
 cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
   ggcuminc() +
   add_confidence_interval() +
-  add_risktable()
+  add_risktable() +
+  scale_ggsurvfit(x_scales = list(breaks = seq(0, 24, by = 6)))
 #> Plotting outcome "death from cancer".
 ```
 
@@ -128,18 +129,24 @@ Please note that the {tidycmprsk} project is released with a
 Conduct](https://mskcc-epi-bio.github.io/tidycmprsk/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms. Thank
 you to all contributors!  
+[@abduazizR](https://github.com/abduazizR),
+[@ABohynDOE](https://github.com/ABohynDOE),
 [@ddsjoberg](https://github.com/ddsjoberg),
 [@dublinQAQ](https://github.com/dublinQAQ),
 [@erikvona](https://github.com/erikvona),
 [@fdehrich](https://github.com/fdehrich),
+[@gustavomodelli](https://github.com/gustavomodelli),
 [@hadley](https://github.com/hadley),
 [@karissawhiting](https://github.com/karissawhiting),
 [@Lamenace23](https://github.com/Lamenace23),
 [@m-freitag](https://github.com/m-freitag),
 [@mjtjmjtj](https://github.com/mjtjmjtj),
+[@nettam](https://github.com/nettam),
+[@Nickrou10](https://github.com/Nickrou10),
 [@pteridin](https://github.com/pteridin),
 [@ramashka328](https://github.com/ramashka328),
-[@SoumyaRo](https://github.com/SoumyaRo), and
+[@SoumyaRo](https://github.com/SoumyaRo),
+[@t-vinn](https://github.com/t-vinn), and
 [@tengfei-emory](https://github.com/tengfei-emory)
 
 #### Limitations

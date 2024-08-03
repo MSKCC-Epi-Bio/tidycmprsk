@@ -59,7 +59,7 @@ The `tidycmprsk` plays well with other packages, such as `gtsummary`.
 tbl <- 
   crr_mod %>%
   gtsummary::tbl_regression(exponentiate = TRUE) %>%
-  gtsummary::add_global_p(anova_fun = gtsummary::tidy_wald_test) %>%
+  gtsummary::add_global_p() %>%
   add_n(location = "level")
 ```
 
@@ -95,7 +95,8 @@ library(ggsurvfit)
 cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
   ggcuminc() +
   add_confidence_interval() +
-  add_risktable()
+  add_risktable() +
+  scale_ggsurvfit(x_scales = list(breaks = seq(0, 24, by = 6)))
 ```
 
 Summary table
