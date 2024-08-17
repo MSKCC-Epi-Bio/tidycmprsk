@@ -1,6 +1,6 @@
 Package: tidycmprsk
 Title: Competing Risks Estimation
-Version: 1.0.0.9001
+Version: 1.1.0
 Authors@R: c(
     person(c("Daniel", "D."), "Sjoberg", , "danield.sjoberg@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0003-0862-2018")),
@@ -31,7 +31,7 @@ Imports:
     survival,
     tibble (>= 3.1.6),
     tidyr (>= 1.1.4)
-Suggests:  
+Suggests: 
     aod,
     broom.helpers (>= 1.15.0),
     cardx (>= 0.2.0),
