@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidycmprsk</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9000</span>
       </span>
     </div>
 
@@ -50,11 +50,12 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/blob/v1.1.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/MSKCC-Epi-Bio/tidycmprsk/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2"><h2 class="page-header" data-toc-text="development version" id="tidycmprsk-development-version">tidycmprsk (development version)<a class="anchor" aria-label="anchor" href="#tidycmprsk-development-version"></a></h2></div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="development version" id="tidycmprsk-development-version">tidycmprsk (development version)<a class="anchor" aria-label="anchor" href="#tidycmprsk-development-version"></a></h2>
+<h2 class="page-header" data-toc-text="1.1.0" id="tidycmprsk-110">tidycmprsk 1.1.0<a class="anchor" aria-label="anchor" href="#tidycmprsk-110"></a></h2>
 <ul><li>Updating package to account for changes in {gtsummary} v2.0. To use <code><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_regression.html" class="external-link">gtsummary::tbl_regression()</a></code> with <code><a href="../reference/crr.html">tidycmprsk::crr()</a></code> models, the {tidycmprsk} package must be loaded (to access the S3 methods below). In the next release of gtsummary, tidycmprsk will no longer be a dependency.<ul><li>Added {broom.helpers}, {cardx}, and {aod} to Suggests field.</li>
 <li>Added <code><a href="../reference/gtsummary_s3_methods.html">tbl_regression.tidycrr()</a></code> method.</li>
 <li>Added <code><a href="../reference/gtsummary_s3_methods.html">global_pvalue_fun.tidycrr()</a></code> method, which changes the default calculation in <code>gtsummary::add_global_p(anova_fun)</code> to use the Wald test.</li>
