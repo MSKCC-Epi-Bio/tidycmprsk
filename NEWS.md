@@ -1,3 +1,5 @@
+# tidycmprsk (development version)
+
 # tidycmprsk 1.1.0
 
 * Updating package to account for changes in {gtsummary} v2.0. To use `gtsummary::tbl_regression()` with `tidycmprsk::crr()` models, the {tidycmprsk} package must be loaded (to access the S3 methods below). In the next release of gtsummary, tidycmprsk will no longer be a dependency.
