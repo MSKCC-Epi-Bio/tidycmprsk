@@ -131,10 +131,12 @@ By contributing to this project, you agree to abide by its terms. Thank
 you to all contributors!  
 [@abduazizR](https://github.com/abduazizR),
 [@ABohynDOE](https://github.com/ABohynDOE),
+[@alxleroux](https://github.com/alxleroux),
 [@ddsjoberg](https://github.com/ddsjoberg),
 [@dublinQAQ](https://github.com/dublinQAQ),
 [@erikvona](https://github.com/erikvona),
 [@fdehrich](https://github.com/fdehrich),
+[@ghbore](https://github.com/ghbore),
 [@gustavomodelli](https://github.com/gustavomodelli),
 [@hadley](https://github.com/hadley),
 [@karissawhiting](https://github.com/karissawhiting),
@@ -143,11 +145,14 @@ you to all contributors!
 [@mjtjmjtj](https://github.com/mjtjmjtj),
 [@nettam](https://github.com/nettam),
 [@Nickrou10](https://github.com/Nickrou10),
+[@noellewarmenhoven](https://github.com/noellewarmenhoven),
 [@pteridin](https://github.com/pteridin),
 [@ramashka328](https://github.com/ramashka328),
 [@SoumyaRo](https://github.com/SoumyaRo),
-[@t-vinn](https://github.com/t-vinn), and
-[@tengfei-emory](https://github.com/tengfei-emory)
+[@t-vinn](https://github.com/t-vinn),
+[@tengfei-emory](https://github.com/tengfei-emory),
+[@uriahf](https://github.com/uriahf), and
+[@watts-the-point](https://github.com/watts-the-point)
 
 #### Limitations
 

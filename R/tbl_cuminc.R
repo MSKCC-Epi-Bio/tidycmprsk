@@ -20,25 +20,14 @@
 #' @export
 #' @examples
 #' # Example 1 ----------------------------------
-#' tbl_cuminc_ex1 <-
-#'   cuminc(Surv(ttdeath, death_cr) ~ 1, trial) %>%
+#' cuminc(Surv(ttdeath, death_cr) ~ 1, trial) |>
 #'   tbl_cuminc(times = c(12, 24), label_header = "**Month {time}**")
 #'
 #' # Example 2 ----------------------------------
-#' tbl_cuminc_ex2 <-
-#'   cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
+#' cuminc(Surv(ttdeath, death_cr) ~ trt, trial) |>
 #'   tbl_cuminc(times = c(12, 24),
 #'              outcomes = c("death from cancer", "death other causes"),
 #'              label_header = "**Month {time}**")
-#'
-#' @section Example Output:
-#' \if{html}{Example 1}
-#'
-#' \if{html}{\figure{tbl_cuminc_ex1.png}{options: width=50\%}}
-#'
-#' \if{html}{Example 2}
-#'
-#' \if{html}{\figure{tbl_cuminc_ex2.png}{options: width=60\%}}
 NULL
 
 #' @export
@@ -257,35 +246,28 @@ tbl_cuminc <- function(x, ...) {
 #' @examples
 #' # Example 1 ----------------------------------
 #' add_cuminc_ex1 <-
-#'   cuminc(Surv(ttdeath, death_cr) ~ 1, trial) %>%
-#'   tbl_cuminc(times = c(12, 24), label_header = "**Month {time}**") %>%
-#'   add_nevent() %>%
+#'   cuminc(Surv(ttdeath, death_cr) ~ 1, trial) |>
+#'   tbl_cuminc(times = c(12, 24), label_header = "**Month {time}**") |>
+#'   add_nevent() |>
 #'   add_n()
+#' add_cuminc_ex1
 #'
 #' # Example 2 ----------------------------------
 #' add_cuminc_ex2 <-
-#'   cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
+#'   cuminc(Surv(ttdeath, death_cr) ~ trt, trial) |>
 #'   tbl_cuminc(times = c(12, 24),
 #'              outcomes = c("death from cancer", "death other causes"),
-#'              label_header = "**Month {time}**") %>%
-#'   add_p() %>%
-#'   add_nevent(location = c("label", "level")) %>%
+#'              label_header = "**Month {time}**") |>
+#'   add_p() |>
+#'   add_nevent(location = c("label", "level")) |>
 #'   add_n(location = c("label", "level"))
+#' add_cuminc_ex2
 #'
 #' # inline_text() ------------------------------
 #' inline_text(add_cuminc_ex2, time = 12, level = "Drug A")
 #' inline_text(add_cuminc_ex2, column = p.value)
 #'
 #' @inheritSection cuminc p-values
-#'
-#' @section Example Output:
-#' \if{html}{Example 1}
-#'
-#' \if{html}{\figure{add_cuminc_ex1.png}{options: width=50\%}}
-#'
-#' \if{html}{Example 2}
-#'
-#' \if{html}{\figure{add_cuminc_ex2.png}{options: width=60\%}}
 NULL
 
 #' @export

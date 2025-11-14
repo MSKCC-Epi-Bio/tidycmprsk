@@ -35,7 +35,7 @@ tbl_regression.tidycrr <- function(x, tidy_fun = tidycmprsk::tidy, ...) {
 #' @rdname gtsummary_s3_methods
 #' @export
 global_pvalue_fun.tidycrr <- function(x, type, ...) {
-  check_pkg_installed("cardx", reference_pkg = "tidycmprisk")
+  check_pkg_installed("cardx")
 
   cardx::ard_aod_wald_test(x, ...)
 }
