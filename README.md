@@ -5,9 +5,9 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MSKCC-Epi-Bio/tidycmprsk/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/branch/main/graph/badge.svg)](https://app.codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk?branch=main)
+coverage](https://codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk/graph/badge.svg)](https://app.codecov.io/gh/MSKCC-Epi-Bio/tidycmprsk)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/tidycmprsk)](https://cran.r-project.org/package=tidycmprsk)
 [![](https://cranlogs.r-pkg.org/badges/tidycmprsk)](https://cran.r-project.org/package=tidycmprsk)
