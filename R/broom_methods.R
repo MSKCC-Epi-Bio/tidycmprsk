@@ -256,7 +256,8 @@ first_cuminc_tidy <- function(x, conf.level) {
   df_tidy <- add_n_stats(df_tidy, x)
 
   # return tidied tibble of results --------------------------------------------
-  df_tidy
+  df_tidy |>
+    dplyr::arrange(dplyr::pick(any_of(c("time", "strata"))))
 }
 
 add_conf.int <- function(df_tidy, conf.level) {
