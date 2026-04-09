@@ -1,5 +1,7 @@
 # tidycmprsk (development version)
 
+* When the `tidy.tidycuminc()` method without specifying `times`, the returned data frame is now sorted by stratum, when present.
+
 # tidycmprsk 1.1.1
 
 * HTML5 documentation update to satisfy CRAN requirement.
