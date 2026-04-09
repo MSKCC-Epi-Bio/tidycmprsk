@@ -67,7 +67,7 @@ tbl <-
   add_n(location = "level")
 ```
 
-<img src="man/figures/README-gtsummary-crr.png" width="50%" />
+<img src="man/figures/README-gtsummary-crr.png" alt="" width="50%" />
 
 ``` r
 gtsummary::inline_text(tbl, variable = age)
@@ -108,7 +108,7 @@ cuminc(Surv(ttdeath, death_cr) ~ trt, trial) %>%
 #> Plotting outcome "death from cancer".
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" alt="" width="100%" />
 
 Summary table
 
@@ -120,7 +120,7 @@ tbl <-
   add_n()
 ```
 
-<img src="man/figures/README-gtsummary-cuminc.png" width="70%" />
+<img src="man/figures/README-gtsummary-cuminc.png" alt="" width="70%" />
 
 ## Contributing
 
@@ -133,6 +133,7 @@ you to all contributors!
 [@ABohynDOE](https://github.com/ABohynDOE),
 [@alxleroux](https://github.com/alxleroux),
 [@ddsjoberg](https://github.com/ddsjoberg),
+[@DrDataLx](https://github.com/DrDataLx),
 [@dublinQAQ](https://github.com/dublinQAQ),
 [@erikvona](https://github.com/erikvona),
 [@fdehrich](https://github.com/fdehrich),
@@ -141,6 +142,7 @@ you to all contributors!
 [@hadley](https://github.com/hadley),
 [@karissawhiting](https://github.com/karissawhiting),
 [@Lamenace23](https://github.com/Lamenace23),
+[@lbau7](https://github.com/lbau7),
 [@m-freitag](https://github.com/m-freitag),
 [@mjtjmjtj](https://github.com/mjtjmjtj),
 [@nettam](https://github.com/nettam),
