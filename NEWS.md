@@ -1,3 +1,5 @@
+# tidycmprsk (development version)
+
 # tidycmprsk 1.1.2
 
 * When the `tidy.tidycuminc()` method without specifying `times`, the returned data frame is now sorted by stratum, when present.
