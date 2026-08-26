@@ -26,7 +26,14 @@ predict.tidycrr <- function(object, times = NULL, probs = NULL, newdata = NULL, 
   }
 
   # getting predictions on the original model fit ------------------------------
-  processed <- crr_mold(object$formula, newdata %||% object$data)
+  processed <- hardhat::forge(
+                new_data = newdata %||% object$data,
+                blueprint = object$blueprint
+                )
+
+  processed$predictors <-
+    processed$predictors[, names(object$coefs), drop = FALSE]
+
   matrix_pred <-
     stats::predict(object$cmprsk, cov1 = as.matrix(processed$predictors))
 
