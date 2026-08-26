@@ -1,5 +1,7 @@
 # tidycmprsk (development version)
 
+* Updated `predict.tidycrr()` so that it no longer ignores the training factor levels, preventing incorrect predictions when `newdata` contains only a subset of factor levels (#127)
+
 # tidycmprsk 1.1.2
 
 * When the `tidy.tidycuminc()` method without specifying `times`, the returned data frame is now sorted by stratum, when present.
