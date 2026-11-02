@@ -54,14 +54,14 @@ test_that("predict() preserves fitted factor columns in newdata", {
   newdata <-
     trial |>
     dplyr::mutate(
-      trt = factor("Drug A", levels = levels(trt))
+      trt = factor("Drug A", levels = c("Drug A", "Drug B"))
     )
 
   padded_newdata <-
     dplyr::bind_rows(
       newdata,
       trial |>
-        dplyr::filter(trt == "Drug B") %>%
+        dplyr::filter(trt == "Drug B") |>
         dplyr::slice(1)
     )
 
@@ -104,7 +104,7 @@ test_that("predict() uses training levels for character predictors", {
     dplyr::bind_rows(
       newdata,
       data_chr |>
-        dplyr::filter(trt == "Drug B") %>%
+        dplyr::filter(trt == "Drug B") |>
         dplyr::slice(1)
     )
 
