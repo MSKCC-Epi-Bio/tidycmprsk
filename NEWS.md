@@ -1,6 +1,6 @@
 # tidycmprsk (development version)
 
-* Updated `predict.tidycrr()` so that it no longer ignores the training factor levels, preventing incorrect predictions when `newdata` contains only a subset of factor levels (#127)
+* Updated `predict.tidycrr()` so that it no longer ignores the training factor levels, preventing incorrect predictions when `newdata` contains only a subset of factor levels (#127 @thatoneguy006)
 
 # tidycmprsk 1.1.2
 
